@@ -15,6 +15,8 @@
 		845EB8F527B1AF8D004ACF55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845EB8F327B1AF8D004ACF55 /* LaunchScreen.storyboard */; };
 		845EB8FD27B1B40B004ACF55 /* ProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845EB8FC27B1B40B004ACF55 /* ProfileView.xib */; };
 		845EB90327B245DA004ACF55 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845EB90227B245DA004ACF55 /* ProfileView.swift */; };
+		845EB90527B24E74004ACF55 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845EB90427B24E74004ACF55 /* Profile.storyboard */; };
+		845EB90727B24EC6004ACF55 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845EB90627B24EC5004ACF55 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		845EB8F627B1AF8D004ACF55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		845EB8FC27B1B40B004ACF55 /* ProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileView.xib; sourceTree = "<group>"; };
 		845EB90227B245DA004ACF55 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		845EB90427B24E74004ACF55 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		845EB90627B24EC5004ACF55 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,8 @@
 				845EB8F627B1AF8D004ACF55 /* Info.plist */,
 				845EB8FC27B1B40B004ACF55 /* ProfileView.xib */,
 				845EB90227B245DA004ACF55 /* ProfileView.swift */,
+				845EB90427B24E74004ACF55 /* Profile.storyboard */,
+				845EB90627B24EC5004ACF55 /* ProfileViewController.swift */,
 			);
 			path = Netology_IB_Instruments;
 			sourceTree = "<group>";
@@ -133,6 +139,7 @@
 			files = (
 				845EB8FD27B1B40B004ACF55 /* ProfileView.xib in Resources */,
 				845EB8F527B1AF8D004ACF55 /* LaunchScreen.storyboard in Resources */,
+				845EB90527B24E74004ACF55 /* Profile.storyboard in Resources */,
 				845EB8F227B1AF8D004ACF55 /* Assets.xcassets in Resources */,
 				845EB8F027B1AF87004ACF55 /* Main.storyboard in Resources */,
 			);
@@ -147,6 +154,7 @@
 			files = (
 				845EB90327B245DA004ACF55 /* ProfileView.swift in Sources */,
 				845EB8ED27B1AF87004ACF55 /* ViewController.swift in Sources */,
+				845EB90727B24EC6004ACF55 /* ProfileViewController.swift in Sources */,
 				845EB8E927B1AF87004ACF55 /* AppDelegate.swift in Sources */,
 				845EB8EB27B1AF87004ACF55 /* SceneDelegate.swift in Sources */,
 			);
