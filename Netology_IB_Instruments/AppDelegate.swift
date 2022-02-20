@@ -14,32 +14,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow()
-        
+        window?.makeKeyAndVisible()
+
+        // create TabBarController
         let tabBarController = UITabBarController()
         
-        tabBarController.tabBar.backgroundColor = .purple
-        
-        let profileItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "star"), tag: 0)
-        let feedItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "airplane"), tag: 1)
-        
+        // create ViewContrillers with Title with color
         let profileVC = ProfileViewController()
-        profileVC.tabBarItem = profileItem
-        profileVC.view.backgroundColor = .green
-        
+        profileVC.title = "Profile"
+        profileVC.view.backgroundColor = .blue
         let feedVC = FeedViewController()
-        feedVC.tabBarItem = feedItem
-        
-        let profileNC = UINavigationController(rootViewController: profileVC)
-        let feedNC = UINavigationController(rootViewController: feedVC)
-        
-        
-        tabBarController.viewControllers = [feedNC, profileNC]
-        tabBarController.selectedIndex = 0
-        
-        
+        feedVC.title = "Feed"
+        feedVC.view.backgroundColor = .yellow
+        //create NavigationVIewController with root with tabBarItem
+        let profileNavigationVC = UINavigationController(rootViewController: profileVC)
+        profileNavigationVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "star"), tag: 0)
+        let feedNavigationVC = UINavigationController(rootViewController: feedVC)
+        feedNavigationVC.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "airplane"), tag: 0)
+        //add viewcontrollers to TabBarController
+        tabBarController.viewControllers = [profileNavigationVC, feedNavigationVC]
         
         window?.rootViewController = tabBarController
-        window?.makeKeyAndVisible()
+        
         
         return true
     }
