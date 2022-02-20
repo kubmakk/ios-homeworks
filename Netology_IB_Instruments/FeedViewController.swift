@@ -25,3 +25,7 @@ class FeedViewController: UIViewController {
     }
     
 }
+struct Post {
+    var title:String
+}
+var newPost = Post(title: "Post")
