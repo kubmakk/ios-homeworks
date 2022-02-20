@@ -13,6 +13,7 @@
 		845EB8F527B1AF8D004ACF55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845EB8F327B1AF8D004ACF55 /* LaunchScreen.storyboard */; };
 		845EB90727B24EC6004ACF55 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845EB90627B24EC5004ACF55 /* ProfileViewController.swift */; };
 		845FA1A627C2749A002BD653 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845FA1A527C2749A002BD653 /* PostViewController.swift */; };
+		845FA1A827C2813C002BD653 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845FA1A727C2813C002BD653 /* InfoViewController.swift */; };
 		84A4418127C1776500962836 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4418027C1776500962836 /* FeedViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		845EB8F627B1AF8D004ACF55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		845EB90627B24EC5004ACF55 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		845FA1A527C2749A002BD653 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		845FA1A727C2813C002BD653 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		84A4418027C1776500962836 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,6 +68,7 @@
 				845EB90627B24EC5004ACF55 /* ProfileViewController.swift */,
 				84A4418027C1776500962836 /* FeedViewController.swift */,
 				845FA1A527C2749A002BD653 /* PostViewController.swift */,
+				845FA1A727C2813C002BD653 /* InfoViewController.swift */,
 			);
 			path = Netology_IB_Instruments;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 				845EB90727B24EC6004ACF55 /* ProfileViewController.swift in Sources */,
 				845EB8E927B1AF87004ACF55 /* AppDelegate.swift in Sources */,
 				84A4418127C1776500962836 /* FeedViewController.swift in Sources */,
+				845FA1A827C2813C002BD653 /* InfoViewController.swift in Sources */,
 				845FA1A627C2749A002BD653 /* PostViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
