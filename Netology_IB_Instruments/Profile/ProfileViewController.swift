@@ -1,23 +1,18 @@
 //
-//  PostViewController.swift
+//  ProfileViewController.swift
 //  Netology_IB_Instruments
 //
-//  Created by Admin on 20.02.2022.
+//  Created by ALEKSANDR POZDNIKIN on 27.02.2022.
 //
 
 import UIKit
 
-class PostViewController: UIViewController {
+class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .orange
-        self.title = newPost.title
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style:.plain, target: self, action: #selector(tapButton))
-    }
-    @objc func tapButton(){
-        let vc = InfoViewController()
-        self.present(vc, animated: true, completion: nil)
+
+        // Do any additional setup after loading the view.
     }
     
 

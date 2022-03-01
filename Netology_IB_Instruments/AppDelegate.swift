@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // create ViewContrillers with Title with color
         let profileVC = ProfileViewController()
         profileVC.title = "Profile"
-        profileVC.view.backgroundColor = .blue
+        
         let feedVC = FeedViewController()
         feedVC.title = "Feed"
         feedVC.view.backgroundColor = .yellow

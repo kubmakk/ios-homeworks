@@ -21,7 +21,6 @@ class FeedViewController: UIViewController {
     @objc func tap(){
         let vc = PostViewController()
         navigationController?.pushViewController(vc, animated: true)
-        //self.present(vc, animated: true, completion: nil)
     }
     
 }
