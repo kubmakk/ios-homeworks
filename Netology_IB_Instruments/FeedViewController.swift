@@ -11,7 +11,7 @@ class FeedViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        additionalSafeAreaInsets.top = 500
         let button = UIButton(frame: CGRect(x: 50, y: 300, width: 200, height: 50))
         button.setTitle("press me", for: .normal)
         button.backgroundColor = .black
