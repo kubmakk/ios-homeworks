@@ -12,7 +12,7 @@ class ProfileHeaderView: UIView {
     let avatarImageView = UIImageView(image: UIImage(named: "elephant.jpg"))
     let fullNameLabel = UILabel()
     let statusLabel = UILabel()
-    @objc let statusTextField = UITextField()
+    let statusTextField = UITextField()
     let setStatusButton = UIButton()
     
     override init(frame: CGRect) {
