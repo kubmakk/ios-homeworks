@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // create ViewContrillers with Title with color
         let profileVC = ProfileViewController()
         profileVC.title = "Profile"
-        profileVC.additionalSafeAreaInsets.top = 150
         let feedVC = FeedViewController()
         feedVC.title = "Feed"
         feedVC.view.backgroundColor = .yellow
