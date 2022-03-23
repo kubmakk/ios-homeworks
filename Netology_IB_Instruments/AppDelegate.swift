@@ -20,25 +20,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = UITabBarController()
         
         // create ViewContrillers with Title with color
-        let profileVC = ProfileViewController()
-        profileVC.title = "Profile"
+        let loginVC = LogInViewController()
+        loginVC.title = "Profile"
         let feedVC = FeedViewController()
         feedVC.title = "Feed"
         feedVC.view.backgroundColor = .yellow
         
         //create NavigationVIewController with root with tabBarItem
-        let profileNavigationVC = UINavigationController(rootViewController: profileVC)
+        let profileNavigationVC = UINavigationController(rootViewController: loginVC)
         profileNavigationVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "star"), tag: 0)
         profileNavigationVC.navigationBar.backgroundColor = .white
-        //profileNavigationVC.additionalSafeAreaInsets.top = 150
+        profileNavigationVC.navigationBar.isHidden = true
+
         let feedNavigationVC = UINavigationController(rootViewController: feedVC)
         feedNavigationVC.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "airplane"), tag: 0)
-        
-        //add viewcontrollers to TabBarController
-        tabBarController.tabBar.barTintColor = .green
+
         tabBarController.viewControllers = [profileNavigationVC, feedNavigationVC]
-        //tabBarController.additionalSafeAreaInsets.top = 150
-        //tabBarController.additionalSafeAreaInsets.bottom = 150
         window?.rootViewController = tabBarController
         
         
