@@ -51,7 +51,7 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addButton()
-        addStackView()  
+        addStackView()
     }
     @objc func gotoPostViewcontroller(){
         let vc = PostViewController()
@@ -59,7 +59,7 @@ class FeedViewController: UIViewController {
     }
     
 }
-struct Post {
+struct PostTitle {
     var title:String
 }
-var newPost = Post(title: "Post")
+var newPost = PostTitle(title: "Post")

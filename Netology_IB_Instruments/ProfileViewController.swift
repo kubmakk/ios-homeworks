@@ -5,72 +5,69 @@
 //  Created by Admin on 08.02.2022.
 //
 
+
 import UIKit
 
 class ProfileViewController: UIViewController {
 
-    let profileHeaderView: ProfileHeaderView = {
-        let view = ProfileHeaderView()
+    let posts:[Post] = [postFirst, postSecond, postThird, postFourth]
+    let tableView: UITableView = {
+        let view = UITableView(frame: .zero, style: .grouped)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    func addProfileHeaderView(){
-        self.view.addSubview(profileHeaderView)
-        topConstraint = self.profileHeaderView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
+    func addTableView(){
+        self.view.addSubview(tableView)
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "idCell")
+        self.tableView.register(ProfileTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "Header")
         NSLayoutConstraint.activate([
-            topConstraint,
-            self.profileHeaderView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
             
-            self.profileHeaderView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             
-            self.profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
+            self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
+            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
     }
-    let newButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Жми", for: .normal)
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 4
-        button.layer.shadowOpacity = 0.7
-        button.layer.shadowOffset = CGSize(width: 4, height: 4)
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.cornerRadius = 4
-        return button
-    }()
-    func addNewButton(){
-        self.view.addSubview(newButton)
-        NSLayoutConstraint.activate([
-            self.newButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            
-            self.newButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            
-            self.newButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            
-            self.newButton.heightAnchor.constraint(equalToConstant: 50)
-        ])
-        self.newButton.addTarget(self, action: #selector( animateProfileHeaderView), for: .touchUpInside)
-    }
-    var topConstraint = NSLayoutConstraint()
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        addProfileHeaderView()
+        addTableView()
         self.view.backgroundColor = .lightGray
 
     }
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        addNewButton()
-
+}
+extension ProfileViewController: UITableViewDataSource {
+    
+   
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.posts.count
     }
-@objc
-    func animateProfileHeaderView (){
-        view.layoutIfNeeded()
-        UIView.animate(withDuration: 2){
-            self.topConstraint.constant = 100
-            self.view.layoutIfNeeded()
-        }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "idCell") as! PostTableViewCell
+        cell.authorLabel.text = self.posts[indexPath.row].author
+        cell.postImageView.image = UIImage(named: self.posts[indexPath.row].image)
+        cell.postTextView.text = self.posts[indexPath.row].description
+        cell.likesLabel.text = "Likes: " + ("\(self.posts[indexPath.row].likes)")
+        cell.viewsLabel.text = "Views: " + ("\(self.posts[indexPath.row].views)")
+        return cell
+    }
+    
+}
+
+extension ProfileViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 220
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(indexPath.row)")
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "Header")
+        return header
     }
 }
