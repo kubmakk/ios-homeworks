@@ -30,7 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let profileNavigationVC = UINavigationController(rootViewController: loginVC)
         profileNavigationVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "star"), tag: 0)
         profileNavigationVC.navigationBar.backgroundColor = .white
-        profileNavigationVC.navigationBar.isHidden = true
 
         let feedNavigationVC = UINavigationController(rootViewController: feedVC)
         feedNavigationVC.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "airplane"), tag: 0)
