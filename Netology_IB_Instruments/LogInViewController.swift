@@ -8,71 +8,22 @@
 import UIKit
 
 class LogInViewController: UIViewController {
-    
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .white
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
-    
-    func addScrollView(){
-        self.view.addSubview(scrollView)
-        NSLayoutConstraint.activate([
-            self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            
-            self.scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            
-            self.scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            
-            self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-        ])
-
-        self.scrollView.keyboardDismissMode = .onDrag
-    }
-    
     let contentView: UIView = {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         return contentView
     }()
-    
-    func addContentView(){
-        self.scrollView.addSubview(self.contentView)
-        NSLayoutConstraint.activate([
-            self.contentView.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
-            
-            self.contentView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor),
-            
-            self.contentView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor),
-            
-            self.contentView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor),
-            
-            self.contentView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor),
-            
-            self.contentView.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor)
-        ])
-    }
-    
     let logoImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "logo"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
-    func addLogoImageView(){
-        self.contentView.addSubview(logoImageView)
-        NSLayoutConstraint.activate([
-            self.logoImageView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
-            
-            self.logoImageView.topAnchor.constraint(equalTo: self.contentView.safeAreaLayoutGuide.topAnchor, constant: 120),
-            
-            self.logoImageView.widthAnchor.constraint(equalToConstant: 100),
-            
-            self.logoImageView.heightAnchor.constraint(equalToConstant: 100)
-        ])
-    }
-    
     let logInTextField: UITextField = {
         let textField = UITextField()
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
@@ -85,7 +36,6 @@ class LogInViewController: UIViewController {
         textField.placeholder = "Email of Phone"
         return textField
     }()
-
     let passwordTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
@@ -95,10 +45,8 @@ class LogInViewController: UIViewController {
         textField.leftViewMode = .always
         return textField
     }()
-
     let logInStackView: UIStackView = {
         let stackView = UIStackView()
-        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.layer.borderColor = UIColor.lightGray.cgColor
@@ -109,24 +57,6 @@ class LogInViewController: UIViewController {
         stackView.layer.masksToBounds = true
         return stackView
     }()
-    
-    func addLogInStackView(){
-        logInStackView.addArrangedSubview(logInTextField)
-        logInStackView.addArrangedSubview(passwordTextField)
-        self.contentView.addSubview(logInStackView)
-        NSLayoutConstraint.activate([
-            self.logInStackView.topAnchor.constraint(equalTo: self.logoImageView.bottomAnchor, constant: 120),
-            
-            self.logInStackView.heightAnchor.constraint(equalToConstant: 100),
-            
-            self.logInStackView.leadingAnchor.constraint(equalTo: self.contentView.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            
-            self.logInStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
-            
-            self.logInTextField.heightAnchor.constraint(equalTo: self.passwordTextField.heightAnchor)
-        ])
-    }
-    
     let logInButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -142,35 +72,65 @@ class LogInViewController: UIViewController {
         button.layer.masksToBounds = true
         return button
     }()
-    
-    func addLogInButton(){
-        self.contentView.addSubview(logInButton)
-        NSLayoutConstraint.activate([
-            self.logInButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 16),
-            
-            self.logInButton.topAnchor.constraint(equalTo: self.logInStackView.bottomAnchor,constant: 16),
-            
-            self.logInButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -16),
-            
-            self.logInButton.heightAnchor.constraint(equalToConstant: 50)
-        ])
-                
-        self.logInButton.addTarget(self, action: #selector(showLoginButtonPressed), for: .touchUpInside)
-    }
- 
     override func viewDidLoad() {
         super.viewDidLoad()
-        addScrollView()
-        addContentView()
-        addLogoImageView()
-        addLogInStackView()
-        addLogInButton()
+        addSubview()
+        constraints()
+        setupScrollView()
+        setupLogInButton()
+    }
+    func addSubview(){
+        self.view.addSubview(scrollView)
+        self.scrollView.addSubview(self.contentView)
+        self.contentView.addSubview(logoImageView)
+        logInStackView.addArrangedSubview(logInTextField)
+        logInStackView.addArrangedSubview(passwordTextField)
+        self.contentView.addSubview(logInStackView)
+        self.contentView.addSubview(logInButton)
+    }
+    func constraints(){
+        NSLayoutConstraint.activate([
+            self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            
+            self.contentView.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
+            self.contentView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor),
+            self.contentView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor),
+            self.contentView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor),
+            self.contentView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor),
+            self.contentView.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor),
+            
+            self.logoImageView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
+            self.logoImageView.topAnchor.constraint(equalTo: self.contentView.safeAreaLayoutGuide.topAnchor, constant: 120),
+            self.logoImageView.widthAnchor.constraint(equalToConstant: 100),
+            self.logoImageView.heightAnchor.constraint(equalToConstant: 100),
+            
+            self.logInStackView.topAnchor.constraint(equalTo: self.logoImageView.bottomAnchor, constant: 120),
+            self.logInStackView.heightAnchor.constraint(equalToConstant: 100),
+            self.logInStackView.leadingAnchor.constraint(equalTo: self.contentView.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            self.logInStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
+            
+            self.logInTextField.heightAnchor.constraint(equalTo: self.passwordTextField.heightAnchor),
+            
+            self.logInButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 16),
+            self.logInButton.topAnchor.constraint(equalTo: self.logInStackView.bottomAnchor,constant: 16),
+            self.logInButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -16),
+            self.logInButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    func setupScrollView(){
+        self.scrollView.keyboardDismissMode = .onDrag
+    }
+    func setupLogInButton(){
+        self.logInButton.addTarget(self, action: #selector(showLoginButtonPressed), for: .touchUpInside)
     }
     @objc
     func showLoginButtonPressed() {
         let vc = ProfileViewController()
-        navigationController?.pushViewController(vc, animated: true)    }
-    
+        navigationController?.pushViewController(vc, animated: true)
+    }
     @objc
     private func kbdShow(notification: NSNotification) {
         if let kbdSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -182,9 +142,7 @@ class LogInViewController: UIViewController {
     private func kbdHide(notification: NSNotification) {
         self.scrollView.contentInset.top = .zero
         self.scrollView.verticalScrollIndicatorInsets = .zero
-
-            }
-
+    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)    // подписаться на уведомления
         let nc = NotificationCenter.default
@@ -193,19 +151,17 @@ class LogInViewController: UIViewController {
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)    // отписаться от уведомлений
-
         let nc = NotificationCenter.default
         nc.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         nc.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-
     }
 }
 extension UIImage {
-            func image(alpha: CGFloat) -> UIImage? {
-                UIGraphicsBeginImageContextWithOptions(size, false, scale)
-                draw(at: .zero, blendMode: .normal, alpha: alpha)
-                let newImage = UIGraphicsGetImageFromCurrentImageContext()
-                UIGraphicsEndImageContext()
-                return newImage
-            }
-        }
+    func image(alpha: CGFloat) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(at: .zero, blendMode: .normal, alpha: alpha)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+}
