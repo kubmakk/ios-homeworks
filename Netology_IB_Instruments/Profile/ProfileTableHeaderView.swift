@@ -8,6 +8,7 @@
 import UIKit
 
 class ProfileTableHeaderView: UITableViewHeaderFooterView {
+
     let profileHeaderView: ProfileHeaderView = {
         let view = ProfileHeaderView()
         view.translatesAutoresizingMaskIntoConstraints = false

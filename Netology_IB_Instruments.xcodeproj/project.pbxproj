@@ -85,19 +85,9 @@
 				845FA1A727C2813C002BD653 /* InfoViewController.swift */,
 				9B45BFF42800AAC700FDCF64 /* PhotosViewController.swift */,
 				845EB90627B24EC5004ACF55 /* ProfileViewController.swift */,
-				9BEC1EBB2800B26300C72363 /* Photos */,
+				9BFA7FF9280ADF30001E44F2 /* Photo */,
 			);
 			path = Netology_IB_Instruments;
-			sourceTree = "<group>";
-		};
-		9BEC1EBB2800B26300C72363 /* Photos */ = {
-			isa = PBXGroup;
-			children = (
-				9BEC1EB72800B1ED00C72363 /* PhotosCollectionViewCell.swift */,
-				9BEC1EB92800B1FD00C72363 /* PhotosTableViewCell.swift */,
-			);
-			name = Photos;
-			path = ../Photos;
 			sourceTree = "<group>";
 		};
 		9BF2ED8F27CB91CE0064D648 /* Profile */ = {
@@ -109,6 +99,15 @@
 				9BF2ED9027CB925A0064D648 /* ProfileHeaderView.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		9BFA7FF9280ADF30001E44F2 /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				9BEC1EB92800B1FD00C72363 /* PhotosTableViewCell.swift */,
+				9BEC1EB72800B1ED00C72363 /* PhotosCollectionViewCell.swift */,
+			);
+			path = Photo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
