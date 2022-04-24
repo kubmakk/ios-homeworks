@@ -7,12 +7,12 @@
 
 import UIKit
 
-struct Post {
-    let author: String
-    let description: String
-    let image: String
-    let likes: Int
-    let views: Int
+public struct Post {
+    public let author: String
+    public let description: String
+    public let image: String
+    public let likes: Int
+    public let views: Int
 }
 let postFirst = Post(author: "Зоопарк", description: "Правила жизни большой панды: если хочется спать — спи, если хочется есть — ешь, а если в вольере висит шина, то ее надо обязательно оторвать, — говорит сотрудник зоопарка. — И Жуи всегда следует этим трем правилам.", image: "panda", likes: 50, views: 100)
 let postSecond = Post(author: "Hi-News.ru", description: "После появления SpaceX Илона Маска космос стал всё больше интересовать человечество. Все эти планы по межпланетным экспедициям, колонизация красной планеты — чудеса, да и только. Давайте предположим, что будущее наступило, а фантастические рассказы стали реальностью. Вы вышли из дома и решили полететь на время карантина на Марс. Открываете навигатор и прокладываете маршрут до Марса в колонию Илона Маска. Как вам кажется, сколько придется лететь, чтобы туда добраться? Давайте разберёмся.", image: "redPlanet", likes: 10, views: 200)
