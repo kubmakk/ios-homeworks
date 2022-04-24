@@ -9,7 +9,35 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+    var headerTable: ProfileTableHeaderView?
     let posts:[Post] = [postFirst, postSecond, postThird, postFourth]
+    private lazy var tap: UITapGestureRecognizer = {
+        let recognizer = UITapGestureRecognizer()
+        recognizer.numberOfTapsRequired = 1
+        recognizer.addTarget(self, action: #selector(processTap))
+        return recognizer
+    }()
+    let closeButton: UIButton = {
+        let button = UIButton(type: UIButton.ButtonType.close)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.textColor = .white
+        return button
+    }()
+    let imageView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    let avatarImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "elephant.jpg"))
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.layer.borderWidth = 3
+        imageView.layer.cornerRadius = 55
+        imageView.layer.masksToBounds = true
+        imageView.isUserInteractionEnabled = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     let tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .grouped)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -42,6 +70,68 @@ class ProfileViewController: UIViewController {
         self.tableView.register(ProfileTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "Header")
         self.tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "idCell2")
     }
+    @objc func processTap() {
+        print("TapOkPicture")
+        self.view.addSubview(imageView)
+        headerTable?.profileHeaderView.avatarImageView.isHidden = true
+        self.imageView.addSubview(avatarImageView)
+        self.imageView.addSubview(closeButton)
+        setupSetStatusButton()
+        self.closeButton.alpha = 0
+        NSLayoutConstraint.activate([
+            self.avatarImageView.centerXAnchor.constraint(equalTo: self.imageView.centerXAnchor),
+            self.avatarImageView.centerYAnchor.constraint(equalTo: self.imageView.centerYAnchor),
+            self.avatarImageView.widthAnchor.constraint(equalTo: self.imageView.safeAreaLayoutGuide.widthAnchor),
+            self.avatarImageView.heightAnchor.constraint(equalTo: self.avatarImageView.widthAnchor),
+            
+            self.closeButton.topAnchor.constraint(equalTo: self.avatarImageView.topAnchor),
+            self.closeButton.trailingAnchor.constraint(equalTo: self.avatarImageView.trailingAnchor)
+        ])
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear) {
+            self.avatarImageView.layer.cornerRadius = 0
+            NSLayoutConstraint.activate([
+                self.imageView.topAnchor.constraint(equalTo: self.view.topAnchor),
+                self.imageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                self.imageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                self.imageView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            ])
+            self.view.layoutIfNeeded()
+        } completion: { finished in
+            UIView.animate(
+                withDuration: 0.3) {
+                    self.closeButton.alpha = 1
+                    self.imageView.layoutIfNeeded()
+                }
+        }
+    }
+    func setupSetStatusButton(){
+        self.closeButton.addTarget(self, action: #selector(showStatusButtonPressed), for: .touchUpInside)
+    }
+    @objc
+        func showStatusButtonPressed() {
+            print(#function)
+            UIView.animate(withDuration: 1) {
+                self.closeButton.alpha = 0
+                self.imageView.layoutIfNeeded()
+            } completion: { finished in
+                self.closeButton.removeFromSuperview()
+                UIView.animate(
+                    withDuration: 0.5) {
+                        self.avatarImageView.layer.cornerRadius = 55
+                        NSLayoutConstraint.activate([
+                            self.avatarImageView.centerXAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: 71),
+                            self.avatarImageView.centerYAnchor.constraint(equalTo: self.imageView.topAnchor, constant: 95),
+                            self.avatarImageView.widthAnchor.constraint(equalTo: self.imageView.safeAreaLayoutGuide.widthAnchor, constant: -260),
+                            self.avatarImageView.heightAnchor.constraint(equalTo: self.avatarImageView.widthAnchor),
+                        ])
+                        self.view.layoutIfNeeded()
+                    } completion: { finished in
+                        self.avatarImageView.removeFromSuperview()
+                        self.imageView.removeFromSuperview()
+                        self.headerTable?.profileHeaderView.avatarImageView.isHidden = false
+                    }
+            }
+        }
 }
 extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -81,6 +171,7 @@ extension ProfileViewController: UITableViewDataSource {
     }
 }
 extension ProfileViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
@@ -105,7 +196,10 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 0:
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "Header")
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "Header") as! ProfileTableHeaderView
+            headerTable = header
+            headerTable?.profileHeaderView.avatarImageView.addGestureRecognizer(tap)
+            
             return header
         default:
             break

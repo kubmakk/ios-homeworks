@@ -6,14 +6,15 @@
 //
 
 import UIKit
-
 class ProfileHeaderView: UIView {
+
     let avatarImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "elephant.jpg"))
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.borderWidth = 3
         imageView.layer.cornerRadius = 55
         imageView.layer.masksToBounds = true
+        imageView.isUserInteractionEnabled = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
