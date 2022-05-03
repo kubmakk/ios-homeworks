@@ -19,12 +19,36 @@
 		9B4B577D27EBA4DB008C2F3A /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4B577C27EBA4DB008C2F3A /* LogInViewController.swift */; };
 		9B5108FB27F87B1200AC6162 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5108F827F87B1200AC6162 /* PostTableViewCell.swift */; };
 		9B5108FC27F87B1200AC6162 /* ProfileTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5108F927F87B1200AC6162 /* ProfileTableHeaderView.swift */; };
-		9B5108FD27F87B1200AC6162 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5108FA27F87B1200AC6162 /* Post.swift */; };
 		9BA2F17D2819C08D0006E8C4 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 9BA2F17C2819C08D0006E8C4 /* iOSIntPackage */; };
+		9BB7FCFB281577840030BECC /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB7FCFA281577840030BECC /* StorageService.swift */; };
+		9BB7FCFF281577B30030BECC /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5108FA27F87B1200AC6162 /* Post.swift */; };
+		9BB7FD00281577DE0030BECC /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5108FA27F87B1200AC6162 /* Post.swift */; };
 		9BEC1EB82800B1ED00C72363 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEC1EB72800B1ED00C72363 /* PhotosCollectionViewCell.swift */; };
 		9BEC1EBA2800B1FD00C72363 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEC1EB92800B1FD00C72363 /* PhotosTableViewCell.swift */; };
 		9BF2ED9127CB925A0064D648 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF2ED9027CB925A0064D648 /* ProfileHeaderView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9BB7FD01281578080030BECC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 845EB8DD27B1AF87004ACF55 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9BB7FCF7281577840030BECC;
+			remoteInfo = StorageService;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9BB7FCF6281577840030BECC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6075BDA91C85E02ADECB4658 /* Pods-Netology_IB_Instruments.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Netology_IB_Instruments.debug.xcconfig"; path = "Target Support Files/Pods-Netology_IB_Instruments/Pods-Netology_IB_Instruments.debug.xcconfig"; sourceTree = "<group>"; };
@@ -43,6 +67,8 @@
 		9B5108F827F87B1200AC6162 /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		9B5108F927F87B1200AC6162 /* ProfileTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableHeaderView.swift; sourceTree = "<group>"; };
 		9B5108FA27F87B1200AC6162 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		9BB7FCF8281577840030BECC /* libStorageService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libStorageService.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BB7FCFA281577840030BECC /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		9BEC1EB72800B1ED00C72363 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		9BEC1EB92800B1FD00C72363 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		9BF2ED9027CB925A0064D648 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
@@ -59,6 +85,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9BB7FCF5281577840030BECC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -66,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				845EB8E727B1AF87004ACF55 /* Netology_IB_Instruments */,
+				9BB7FCF9281577840030BECC /* StorageService */,
 				845EB8E627B1AF87004ACF55 /* Products */,
 				EFA8B36785FE02DB0B46A3A3 /* Pods */,
 				AFBC0BF14571E66B010C8743 /* Frameworks */,
@@ -76,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				845EB8E527B1AF87004ACF55 /* Netology_IB_Instruments.app */,
+				9BB7FCF8281577840030BECC /* libStorageService.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -99,10 +134,18 @@
 			path = Netology_IB_Instruments;
 			sourceTree = "<group>";
 		};
+		9BB7FCF9281577840030BECC /* StorageService */ = {
+			isa = PBXGroup;
+			children = (
+				9BB7FCFA281577840030BECC /* StorageService.swift */,
+				9B5108FA27F87B1200AC6162 /* Post.swift */,
+			);
+			path = StorageService;
+			sourceTree = "<group>";
+		};
 		9BF2ED8F27CB91CE0064D648 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				9B5108FA27F87B1200AC6162 /* Post.swift */,
 				9B5108F827F87B1200AC6162 /* PostTableViewCell.swift */,
 				9B5108F927F87B1200AC6162 /* ProfileTableHeaderView.swift */,
 				9BF2ED9027CB925A0064D648 /* ProfileHeaderView.swift */,
@@ -152,6 +195,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9BB7FD02281578080030BECC /* PBXTargetDependency */,
 			);
 			name = Netology_IB_Instruments;
 			packageProductDependencies = (
@@ -160,6 +204,23 @@
 			productName = Netology_IB_Instruments;
 			productReference = 845EB8E527B1AF87004ACF55 /* Netology_IB_Instruments.app */;
 			productType = "com.apple.product-type.application";
+		};
+		9BB7FCF7281577840030BECC /* StorageService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9BB7FCFE281577840030BECC /* Build configuration list for PBXNativeTarget "StorageService" */;
+			buildPhases = (
+				9BB7FCF4281577840030BECC /* Sources */,
+				9BB7FCF5281577840030BECC /* Frameworks */,
+				9BB7FCF6281577840030BECC /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StorageService;
+			productName = StorageService;
+			productReference = 9BB7FCF8281577840030BECC /* libStorageService.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -171,11 +232,14 @@
 				KnownAssetTags = (
 					cow,
 				);
-				LastSwiftUpdateCheck = 1310;
+				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1310;
 				TargetAttributes = {
 					845EB8E427B1AF87004ACF55 = {
 						CreatedOnToolsVersion = 13.1;
+					};
+					9BB7FCF7281577840030BECC = {
+						CreatedOnToolsVersion = 13.2.1;
 					};
 				};
 			};
@@ -196,6 +260,7 @@
 			projectRoot = "";
 			targets = (
 				845EB8E427B1AF87004ACF55 /* Netology_IB_Instruments */,
+				9BB7FCF7281577840030BECC /* StorageService */,
 			);
 		};
 /* End PBXProject section */
@@ -259,11 +324,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B5108FD27F87B1200AC6162 /* Post.swift in Sources */,
 				845EB90727B24EC6004ACF55 /* ProfileViewController.swift in Sources */,
 				845EB8E927B1AF87004ACF55 /* AppDelegate.swift in Sources */,
 				9BEC1EB82800B1ED00C72363 /* PhotosCollectionViewCell.swift in Sources */,
 				84A4418127C1776500962836 /* FeedViewController.swift in Sources */,
+				9BB7FD00281577DE0030BECC /* Post.swift in Sources */,
 				9B5108FC27F87B1200AC6162 /* ProfileTableHeaderView.swift in Sources */,
 				9B4B577D27EBA4DB008C2F3A /* LogInViewController.swift in Sources */,
 				9BEC1EBA2800B1FD00C72363 /* PhotosTableViewCell.swift in Sources */,
@@ -275,7 +340,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9BB7FCF4281577840030BECC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BB7FCFB281577840030BECC /* StorageService.swift in Sources */,
+				9BB7FCFF281577B30030BECC /* Post.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9BB7FD02281578080030BECC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9BB7FCF7281577840030BECC /* StorageService */;
+			targetProxy = 9BB7FD01281578080030BECC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		845EB8F327B1AF8D004ACF55 /* LaunchScreen.storyboard */ = {
@@ -463,6 +545,34 @@
 			};
 			name = Release;
 		};
+		9BB7FCFC281577840030BECC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QD6Z8FN896;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9BB7FCFD281577840030BECC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QD6Z8FN896;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -480,6 +590,15 @@
 			buildConfigurations = (
 				845EB8FA27B1AF8D004ACF55 /* Debug */,
 				845EB8FB27B1AF8D004ACF55 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9BB7FCFE281577840030BECC /* Build configuration list for PBXNativeTarget "StorageService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9BB7FCFC281577840030BECC /* Debug */,
+				9BB7FCFD281577840030BECC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
