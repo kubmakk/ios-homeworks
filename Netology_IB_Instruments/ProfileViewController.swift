@@ -5,7 +5,7 @@
 //  Created by Admin on 08.02.2022.
 //
 
-
+import StorageService
 import UIKit
 
 class ProfileViewController: UIViewController {
@@ -56,7 +56,10 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        self.view.backgroundColor = .lightGray
+        self.tableView.backgroundColor = .lightGray
+        #if DEBUG
+        self.tableView.backgroundColor = .red
+        #endif
         navigationController?.navigationBar.isHidden = true
     }
     override func viewWillAppear(_ animated: Bool) {
