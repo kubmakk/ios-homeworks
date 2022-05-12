@@ -6,8 +6,11 @@
 //
 
 import UIKit
-
+protocol LoginViewControllerDelegate: AnyObject {
+    func validation(login: String, pswd: String) -> Bool
+}
 class LogInViewController: UIViewController {
+    var delegate: LoginViewControllerDelegate?
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .white
@@ -128,15 +131,20 @@ class LogInViewController: UIViewController {
     }
     @objc
     func showLoginButtonPressed() {
-        let user = User(fullName: "Слон редкий", avatar: "elephant.jpg", status: "Люблю рыбий жир")
-        if let name = logInTextField.text, user.fullName == name {
-            let vc = ProfileViewController(userServise: CurrentUserService(user: user), name: name)
-            navigationController?.pushViewController(vc, animated: true)}
-        else {
+        print("логин \(logInTextField.text!) пароль:\(passwordTextField.text!)")
+        if let check = delegate?.validation(login: logInTextField.text!, pswd: passwordTextField.text!), check != false {
+            print(check)
+            print("Верификация пройдена логин \(logInTextField.text!) пароль:\(passwordTextField.text!)")
+            let user = User(fullName: "Слон редкий", avatar: "elephant.jpg", status: "Люблю рыбий жир")
+            if let name = logInTextField.text, user.fullName == name {
+                let vc = ProfileViewController(userServise: CurrentUserService(user: user), name: name)
+                navigationController?.pushViewController(vc, animated: true)}
+        } else {
 #if DEBUG
             let vc = ProfileViewController(userServise: TestUserService(), name: "name")
             navigationController?.pushViewController(vc, animated: true)
 #endif
+            print("Верификация не пройдена")
             let alertVC = UIAlertController(title: "Error", message: "Необходима регистрация", preferredStyle: .alert)
             let actionOk = UIAlertAction(title: "OK", style: .cancel) { actionOk in
                 print("Tap Ok")
