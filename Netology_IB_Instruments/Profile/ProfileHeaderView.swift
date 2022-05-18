@@ -10,7 +10,7 @@ import SnapKit
 
 class ProfileHeaderView: UIView {
     let avatarImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "elephant.jpg"))
+        let imageView = UIImageView()
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.borderWidth = 3
         imageView.layer.cornerRadius = 55
@@ -20,14 +20,12 @@ class ProfileHeaderView: UIView {
     }()
     let fullNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Слон редкий"
         label.textColor = .black
         label.font = .systemFont(ofSize: 18, weight: .bold)
         return label
     }()
     let statusLabel: UILabel = {
         let label = UILabel()
-        label.text = "Люблю рыбий жир"
         label.textColor = .gray
         label.font = .systemFont(ofSize: 14, weight: .regular)
         return label

@@ -128,8 +128,22 @@ class LogInViewController: UIViewController {
     }
     @objc
     func showLoginButtonPressed() {
-        let vc = ProfileViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        let user = User(fullName: "Слон редкий", avatar: "elephant.jpg", status: "Люблю рыбий жир")
+        if let name = logInTextField.text, user.fullName == name {
+            let vc = ProfileViewController(userServise: CurrentUserService(user: user), name: name)
+            navigationController?.pushViewController(vc, animated: true)}
+        else {
+#if DEBUG
+            let vc = ProfileViewController(userServise: TestUserService(), name: "name")
+            navigationController?.pushViewController(vc, animated: true)
+#endif
+            let alertVC = UIAlertController(title: "Error", message: "Необходима регистрация", preferredStyle: .alert)
+            let actionOk = UIAlertAction(title: "OK", style: .cancel) { actionOk in
+                print("Tap Ok")
+            }
+            alertVC.addAction(actionOk)
+            self.present(alertVC, animated: true, completion: nil)
+        }
     }
     @objc
     private func kbdShow(notification: NSNotification) {
