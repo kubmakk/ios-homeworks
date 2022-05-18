@@ -9,6 +9,8 @@ import StorageService
 import UIKit
 
 class ProfileViewController: UIViewController {
+    let user: User?
+    let userServise: UserService
     var headerTable: ProfileTableHeaderView?
     let posts:[Post] = [postFirst, postSecond, postThird, postFourth]
     private lazy var tap: UITapGestureRecognizer = {
@@ -29,7 +31,7 @@ class ProfileViewController: UIViewController {
         return view
     }()
     let avatarImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "elephant.jpg"))
+        let imageView = UIImageView()
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.borderWidth = 3
         imageView.layer.cornerRadius = 55
@@ -43,6 +45,14 @@ class ProfileViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    init (userServise: UserService, name: String){
+        self.userServise = userServise
+        user = userServise.getName(name: name)
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func loadView() {
         super.loadView()
         self.view.addSubview(tableView)
@@ -77,6 +87,7 @@ class ProfileViewController: UIViewController {
         print("TapOkPicture")
         self.view.addSubview(imageView)
         headerTable?.profileHeaderView.avatarImageView.isHidden = true
+        self.avatarImageView.image = UIImage(named: user!.avatar)
         self.imageView.addSubview(avatarImageView)
         self.imageView.addSubview(closeButton)
         setupSetStatusButton()
@@ -202,7 +213,9 @@ extension ProfileViewController: UITableViewDelegate {
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "Header") as! ProfileTableHeaderView
             headerTable = header
             headerTable?.profileHeaderView.avatarImageView.addGestureRecognizer(tap)
-            
+            headerTable?.profileHeaderView.statusLabel.text = user?.status
+            headerTable?.profileHeaderView.fullNameLabel.text = user?.fullName
+            headerTable?.profileHeaderView.avatarImageView.image = UIImage(named: user!.avatar)
             return header
         default:
             break
