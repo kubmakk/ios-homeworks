@@ -17,7 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = UITabBarController()
         // create ViewContrillers with Title with color
         let loginVC = LogInViewController()
-        //loginVC.title = "Profile"
+        let myLoginInspector = MyLogicFactory()
+        loginVC.delegate = myLoginInspector.inspector()
         let feedVC = FeedViewController()
         feedVC.title = "Feed"
         feedVC.view.backgroundColor = .yellow
