@@ -132,10 +132,10 @@ class LogInViewController: UIViewController {
     @objc
     func showLoginButtonPressed() {
         print("логин \(logInTextField.text!) пароль:\(passwordTextField.text!)")
-        if let check = delegate?.validation(login: logInTextField.text!, pswd: passwordTextField.text!), check != false {
+        if let check = self.delegate?.validation(login: logInTextField.text!, pswd: passwordTextField.text!), check != false {
             print(check)
             print("Верификация пройдена логин \(logInTextField.text!) пароль:\(passwordTextField.text!)")
-            let user = User(fullName: "Слон редкий", avatar: "elephant.jpg", status: "Люблю рыбий жир")
+            let user = User(fullName: "1", avatar: "elephant.jpg", status: "Люблю рыбий жир")
             if let name = logInTextField.text, user.fullName == name {
                 let vc = ProfileViewController(userServise: CurrentUserService(user: user), name: name)
                 navigationController?.pushViewController(vc, animated: true)}

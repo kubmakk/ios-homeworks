@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1320"
+   LastUpgradeVersion = "1240"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "845EB8E427B1AF87004ACF55"
-               BuildableName = "Netology_IB_Instruments.app"
-               BlueprintName = "Netology_IB_Instruments"
-               ReferencedContainer = "container:Netology_IB_Instruments.xcodeproj">
+               BlueprintIdentifier = "70CA38CB6019B5AFED49D6B7EDE899E3"
+               BuildableName = "Pods_StorageService.framework"
+               BlueprintName = "Pods-StorageService"
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -31,7 +31,7 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -40,16 +40,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "845EB8E427B1AF87004ACF55"
-            BuildableName = "Netology_IB_Instruments.app"
-            BlueprintName = "Netology_IB_Instruments"
-            ReferencedContainer = "container:Netology_IB_Instruments.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -57,16 +47,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "845EB8E427B1AF87004ACF55"
-            BuildableName = "Netology_IB_Instruments.app"
-            BlueprintName = "Netology_IB_Instruments"
-            ReferencedContainer = "container:Netology_IB_Instruments.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
