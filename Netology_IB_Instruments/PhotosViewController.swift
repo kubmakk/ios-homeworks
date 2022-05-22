@@ -6,9 +6,20 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
-    let array = Array.init(1...20)
+    var imagesArray: [UIImage] = []
+    let imageArray1: [UIImage] = {
+        var array: [UIImage] = []
+        for i in 1...20 {
+            if let newElement = UIImage(named: String(i)) {
+                array.append(newElement)
+            }
+        }
+        return array
+    }()
+    let imagePublisherFacade = ImagePublisherFacade()
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -23,8 +34,13 @@ class PhotosViewController: UIViewController {
         collection.register(PhotosCollectionViewCell.self,forCellWithReuseIdentifier: String(describing: PhotosCollectionViewCell.self))
         return collection
     }()
+    override func loadView() {
+        super.loadView()
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.addSubview(collectionView)
         NSLayoutConstraint.activate([
             self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -34,15 +50,24 @@ class PhotosViewController: UIViewController {
         ])
         self.title = "Photo Gallery"
         navigationController?.navigationBar.isHidden = false
+        imagePublisherFacade.subscribe(self)
+        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 20, userImages: imageArray1)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Clean", style:.plain, target: self, action: #selector(removeSubsribe))
+        
+    }
+    @objc func removeSubsribe(){
+        imagePublisherFacade.rechargeImageLibrary()
+        imagePublisherFacade.removeSubscription(for: self)
     }
 }
 extension PhotosViewController: UICollectionViewDataSource  {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return array.count
+        print(imagesArray.count)
+        return imagesArray.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotosCollectionViewCell.self), for: indexPath) as? PhotosCollectionViewCell else { return UICollectionViewCell() }
-        cell.photoImageView.image = UIImage(named: String(array[indexPath.item]))
+        cell.photoImageView.image = imagesArray[indexPath.item]
         return cell
     }
 }
@@ -51,5 +76,10 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: floor(collectionView.frame.width / 3) - 12, height: floor(collectionView.frame.width / 3) - 12)
     }
 }
-
-
+extension PhotosViewController: ImageLibrarySubscriber {
+    func receive(images: [UIImage]) {
+        imagesArray = images
+        self.collectionView.reloadData()
+        print(imagesArray)
+    }
+}
