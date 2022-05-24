@@ -19,9 +19,11 @@ class ProfileViewController: UIViewController {
         recognizer.addTarget(self, action: #selector(processTap))
         return recognizer
     }()
-    let closeButton: UIButton = {
-        let button = UIButton(type: UIButton.ButtonType.close)
-        button.translatesAutoresizingMaskIntoConstraints = false
+    let closeButton: CustomButton = {
+//    : UIButton = {
+        let button = CustomButton(title: "X", color: .clear)
+        //let button = UIButton(type: UIButton.ButtonType.close)
+        //button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.textColor = .white
         return button
     }()
@@ -90,7 +92,7 @@ class ProfileViewController: UIViewController {
         self.avatarImageView.image = UIImage(named: user!.avatar)
         self.imageView.addSubview(avatarImageView)
         self.imageView.addSubview(closeButton)
-        setupSetStatusButton()
+        showStatusButtonPressed()
         self.closeButton.alpha = 0
         NSLayoutConstraint.activate([
             self.avatarImageView.centerXAnchor.constraint(equalTo: self.imageView.centerXAnchor),
@@ -118,35 +120,36 @@ class ProfileViewController: UIViewController {
                 }
         }
     }
-    func setupSetStatusButton(){
-        self.closeButton.addTarget(self, action: #selector(showStatusButtonPressed), for: .touchUpInside)
-    }
     @objc
         func showStatusButtonPressed() {
-            print(#function)
-            UIView.animate(withDuration: 1) {
-                self.closeButton.alpha = 0
-                self.imageView.layoutIfNeeded()
-            } completion: { finished in
-                self.closeButton.removeFromSuperview()
-                UIView.animate(
-                    withDuration: 0.5) {
-                        self.avatarImageView.layer.cornerRadius = 55
-                        NSLayoutConstraint.activate([
-                            self.avatarImageView.centerXAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: 71),
-                            self.avatarImageView.centerYAnchor.constraint(equalTo: self.imageView.topAnchor, constant: 95),
-                            self.avatarImageView.widthAnchor.constraint(equalTo: self.imageView.safeAreaLayoutGuide.widthAnchor, constant: -260),
-                            self.avatarImageView.heightAnchor.constraint(equalTo: self.avatarImageView.widthAnchor),
-                        ])
-                        self.view.layoutIfNeeded()
-                    } completion: { finished in
-                        self.avatarImageView.removeFromSuperview()
-                        self.imageView.removeFromSuperview()
-                        self.headerTable?.profileHeaderView.avatarImageView.isHidden = false
-                    }
+            closeButton.tapAction = {
+                print(#function)
+                UIView.animate(withDuration: 1) {
+                    self.closeButton.alpha = 0
+                    self.imageView.layoutIfNeeded()
+                } completion: { finished in
+                    self.closeButton.removeFromSuperview()
+                    UIView.animate(
+                        withDuration: 0.5) {
+                            self.avatarImageView.layer.cornerRadius = 55
+                            NSLayoutConstraint.activate([
+                                self.avatarImageView.centerXAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: 71),
+                                self.avatarImageView.centerYAnchor.constraint(equalTo: self.imageView.topAnchor, constant: 95),
+                                self.avatarImageView.widthAnchor.constraint(equalTo: self.imageView.safeAreaLayoutGuide.widthAnchor, constant: -260),
+                                self.avatarImageView.heightAnchor.constraint(equalTo: self.avatarImageView.widthAnchor),
+                            ])
+                            self.view.layoutIfNeeded()
+                        } completion: { finished in
+                            self.avatarImageView.removeFromSuperview()
+                            self.imageView.removeFromSuperview()
+                            self.headerTable?.profileHeaderView.avatarImageView.isHidden = false
+                        }
+                }
             }
+
         }
 }
+// MARK: Extension
 extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
