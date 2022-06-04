@@ -9,8 +9,8 @@ import Foundation
 class Checker {
     static let shared = Checker()
     
-    private let login = "Слон редкий"
-    private let pswd = "пароль"
+    private let login = "1"
+    private let pswd = "1"
     
     private init(){}
     

@@ -41,11 +41,9 @@ class ProfileHeaderView: UIView {
         textField.textAlignment = .center
         return textField
     }()
-    let setStatusButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Показать статус", for: .normal)
+    let setStatusButton: CustomButton = {
+        let button = CustomButton(title: "show status", color: .systemBlue)
         button.titleLabel?.textColor = .white
-        button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 4
         button.layer.shadowOpacity = 0.7
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
@@ -58,7 +56,7 @@ class ProfileHeaderView: UIView {
         addSubview()
         constraints()
         setupStatusTextField()
-        setupSetStatusButton()
+        showStatusButtonPressed()
     }
     func addSubview(){
         self.addSubview(avatarImageView)
@@ -101,17 +99,16 @@ class ProfileHeaderView: UIView {
     func setupStatusTextField(){
         self.statusTextField.addTarget(self, action: #selector( statusTextChanged(_:)), for: .editingChanged)
     }
-    func setupSetStatusButton(){
-        self.setStatusButton.addTarget(self, action: #selector(showStatusButtonPressed), for: .touchUpInside)
-    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     private var statusText:String = ""
 @objc
     func showStatusButtonPressed() {
-        statusLabel.text = statusText
-        print(statusLabel.text ?? "nil")
+        setStatusButton.tapAction = { [weak self] in
+            self?.statusLabel.text = self?.statusText
+            print(self?.statusLabel.text ?? "nil")
+        }
     }
 @objc
     func statusTextChanged(_ textField: UITextField){

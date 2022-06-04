@@ -52,10 +52,9 @@ class PhotosViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
         imagePublisherFacade.subscribe(self)
         imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 20, userImages: imageArray1)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Clean", style:.plain, target: self, action: #selector(removeSubsribe))
-        
     }
-    @objc func removeSubsribe(){
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         imagePublisherFacade.rechargeImageLibrary()
         imagePublisherFacade.removeSubscription(for: self)
     }

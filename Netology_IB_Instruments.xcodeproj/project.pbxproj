@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3FA96D24D030F26007B91FD1 /* Pods_Netology_IB_Instruments.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5BBC893C7BC417BF3B7F418 /* Pods_Netology_IB_Instruments.framework */; };
 		845EB8E927B1AF87004ACF55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845EB8E827B1AF87004ACF55 /* AppDelegate.swift */; };
 		845EB8F227B1AF8D004ACF55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 845EB8F127B1AF8D004ACF55 /* Assets.xcassets */; };
 		845EB8F527B1AF8D004ACF55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845EB8F327B1AF8D004ACF55 /* LaunchScreen.storyboard */; };
@@ -21,14 +20,19 @@
 		9B5108FC27F87B1200AC6162 /* ProfileTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5108F927F87B1200AC6162 /* ProfileTableHeaderView.swift */; };
 		9B62D38128212A0A008E8E50 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B62D38028212A0A008E8E50 /* User.swift */; };
 		9BA2F17D2819C08D0006E8C4 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 9BA2F17C2819C08D0006E8C4 /* iOSIntPackage */; };
+		9BA6EAD4283A6BC700193A79 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA6EAD3283A6BC700193A79 /* LoginInspector.swift */; };
+		9BA6EAD6283A835D00193A79 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA6EAD5283A835D00193A79 /* CustomButton.swift */; };
 		9BAEF201282D8973008157AB /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEF200282D8973008157AB /* Checker.swift */; };
 		9BAEF203282D89B4008157AB /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEF202282D89B4008157AB /* LoginFactory.swift */; };
 		9BB7FCFB281577840030BECC /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB7FCFA281577840030BECC /* StorageService.swift */; };
 		9BB7FCFF281577B30030BECC /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5108FA27F87B1200AC6162 /* Post.swift */; };
 		9BB7FD00281577DE0030BECC /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5108FA27F87B1200AC6162 /* Post.swift */; };
+		9BDC589C6E22918C601E0E5E /* Pods_StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47B75666DF0F042631DCEA6A /* Pods_StorageService.framework */; };
 		9BEC1EB82800B1ED00C72363 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEC1EB72800B1ED00C72363 /* PhotosCollectionViewCell.swift */; };
 		9BEC1EBA2800B1FD00C72363 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEC1EB92800B1FD00C72363 /* PhotosTableViewCell.swift */; };
+		9BEF7D5F283C28730089C3F1 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEF7D5E283C28730089C3F1 /* Model.swift */; };
 		9BF2ED9127CB925A0064D648 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF2ED9027CB925A0064D648 /* ProfileHeaderView.swift */; };
+		D18B0E06A412049F543F232B /* Pods_Netology_IB_Instruments.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACB2F5CFE43496081E3DB9E /* Pods_Netology_IB_Instruments.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +58,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6075BDA91C85E02ADECB4658 /* Pods-Netology_IB_Instruments.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Netology_IB_Instruments.debug.xcconfig"; path = "Target Support Files/Pods-Netology_IB_Instruments/Pods-Netology_IB_Instruments.debug.xcconfig"; sourceTree = "<group>"; };
+		2DDB5462CA87E6C7E704D79B /* Pods-Netology_IB_Instruments.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Netology_IB_Instruments.release.xcconfig"; path = "Target Support Files/Pods-Netology_IB_Instruments/Pods-Netology_IB_Instruments.release.xcconfig"; sourceTree = "<group>"; };
+		47B75666DF0F042631DCEA6A /* Pods_StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BC5D8973EA7D53BF3A6F89D /* Pods-StorageService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageService.release.xcconfig"; path = "Target Support Files/Pods-StorageService/Pods-StorageService.release.xcconfig"; sourceTree = "<group>"; };
+		57287665E1149B17923B6517 /* Pods-Netology_IB_Instruments.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Netology_IB_Instruments.debug.xcconfig"; path = "Target Support Files/Pods-Netology_IB_Instruments/Pods-Netology_IB_Instruments.debug.xcconfig"; sourceTree = "<group>"; };
+		65E6F0837C5E80EFE5E011DB /* Pods-StorageService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageService.debug.xcconfig"; path = "Target Support Files/Pods-StorageService/Pods-StorageService.debug.xcconfig"; sourceTree = "<group>"; };
+		6ACB2F5CFE43496081E3DB9E /* Pods_Netology_IB_Instruments.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Netology_IB_Instruments.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		845EB8E527B1AF87004ACF55 /* Netology_IB_Instruments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Netology_IB_Instruments.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		845EB8E827B1AF87004ACF55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		845EB8F127B1AF8D004ACF55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -64,21 +73,22 @@
 		845FA1A527C2749A002BD653 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		845FA1A727C2813C002BD653 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		84A4418027C1776500962836 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
-		8C7DE558737B22AA2749195E /* Pods-Netology_IB_Instruments.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Netology_IB_Instruments.release.xcconfig"; path = "Target Support Files/Pods-Netology_IB_Instruments/Pods-Netology_IB_Instruments.release.xcconfig"; sourceTree = "<group>"; };
 		9B45BFF42800AAC700FDCF64 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		9B4B577C27EBA4DB008C2F3A /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		9B5108F827F87B1200AC6162 /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		9B5108F927F87B1200AC6162 /* ProfileTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableHeaderView.swift; sourceTree = "<group>"; };
 		9B5108FA27F87B1200AC6162 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		9B62D38028212A0A008E8E50 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		9BA6EAD3283A6BC700193A79 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
+		9BA6EAD5283A835D00193A79 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		9BAEF200282D8973008157AB /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		9BAEF202282D89B4008157AB /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 		9BB7FCF8281577840030BECC /* libStorageService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libStorageService.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB7FCFA281577840030BECC /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		9BEC1EB72800B1ED00C72363 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		9BEC1EB92800B1FD00C72363 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
+		9BEF7D5E283C28730089C3F1 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		9BF2ED9027CB925A0064D648 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
-		C5BBC893C7BC417BF3B7F418 /* Pods_Netology_IB_Instruments.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Netology_IB_Instruments.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,8 +96,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FA96D24D030F26007B91FD1 /* Pods_Netology_IB_Instruments.framework in Frameworks */,
 				9BA2F17D2819C08D0006E8C4 /* iOSIntPackage in Frameworks */,
+				D18B0E06A412049F543F232B /* Pods_Netology_IB_Instruments.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,12 +105,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BDC589C6E22918C601E0E5E /* Pods_StorageService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		526C4F08D9E8865AED986696 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6ACB2F5CFE43496081E3DB9E /* Pods_Netology_IB_Instruments.framework */,
+				47B75666DF0F042631DCEA6A /* Pods_StorageService.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		845EB8DC27B1AF87004ACF55 = {
 			isa = PBXGroup;
 			children = (
@@ -108,7 +128,7 @@
 				9BB7FCF9281577840030BECC /* StorageService */,
 				845EB8E627B1AF87004ACF55 /* Products */,
 				EFA8B36785FE02DB0B46A3A3 /* Pods */,
-				AFBC0BF14571E66B010C8743 /* Frameworks */,
+				526C4F08D9E8865AED986696 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -130,6 +150,7 @@
 				845EB8F327B1AF8D004ACF55 /* LaunchScreen.storyboard */,
 				845EB8F627B1AF8D004ACF55 /* Info.plist */,
 				9B4B577C27EBA4DB008C2F3A /* LogInViewController.swift */,
+				9BEF7D5D283C284B0089C3F1 /* Model */,
 				84A4418027C1776500962836 /* FeedViewController.swift */,
 				845FA1A527C2749A002BD653 /* PostViewController.swift */,
 				845FA1A727C2813C002BD653 /* InfoViewController.swift */,
@@ -139,6 +160,8 @@
 				9B62D38028212A0A008E8E50 /* User.swift */,
 				9BAEF200282D8973008157AB /* Checker.swift */,
 				9BAEF202282D89B4008157AB /* LoginFactory.swift */,
+				9BA6EAD3283A6BC700193A79 /* LoginInspector.swift */,
+				9BA6EAD5283A835D00193A79 /* CustomButton.swift */,
 			);
 			path = Netology_IB_Instruments;
 			sourceTree = "<group>";
@@ -150,6 +173,14 @@
 				9B5108FA27F87B1200AC6162 /* Post.swift */,
 			);
 			path = StorageService;
+			sourceTree = "<group>";
+		};
+		9BEF7D5D283C284B0089C3F1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9BEF7D5E283C28730089C3F1 /* Model.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		9BF2ED8F27CB91CE0064D648 /* Profile */ = {
@@ -171,19 +202,13 @@
 			path = Photo;
 			sourceTree = "<group>";
 		};
-		AFBC0BF14571E66B010C8743 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C5BBC893C7BC417BF3B7F418 /* Pods_Netology_IB_Instruments.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		EFA8B36785FE02DB0B46A3A3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6075BDA91C85E02ADECB4658 /* Pods-Netology_IB_Instruments.debug.xcconfig */,
-				8C7DE558737B22AA2749195E /* Pods-Netology_IB_Instruments.release.xcconfig */,
+				57287665E1149B17923B6517 /* Pods-Netology_IB_Instruments.debug.xcconfig */,
+				2DDB5462CA87E6C7E704D79B /* Pods-Netology_IB_Instruments.release.xcconfig */,
+				65E6F0837C5E80EFE5E011DB /* Pods-StorageService.debug.xcconfig */,
+				4BC5D8973EA7D53BF3A6F89D /* Pods-StorageService.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -195,11 +220,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 845EB8F927B1AF8D004ACF55 /* Build configuration list for PBXNativeTarget "Netology_IB_Instruments" */;
 			buildPhases = (
-				33BD229FD965B70CC7136952 /* [CP] Check Pods Manifest.lock */,
+				18A8C680AC0865B33A06278B /* [CP] Check Pods Manifest.lock */,
 				845EB8E127B1AF87004ACF55 /* Sources */,
 				845EB8E227B1AF87004ACF55 /* Frameworks */,
 				845EB8E327B1AF87004ACF55 /* Resources */,
-				34045F1896C03350472D7D5F /* [CP] Embed Pods Frameworks */,
+				7F7590150219D08FDBD63DF8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -218,6 +243,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9BB7FCFE281577840030BECC /* Build configuration list for PBXNativeTarget "StorageService" */;
 			buildPhases = (
+				8A2AC434B24292B856D60842 /* [CP] Check Pods Manifest.lock */,
 				9BB7FCF4281577840030BECC /* Sources */,
 				9BB7FCF5281577840030BECC /* Frameworks */,
 				9BB7FCF6281577840030BECC /* CopyFiles */,
@@ -287,7 +313,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		33BD229FD965B70CC7136952 /* [CP] Check Pods Manifest.lock */ = {
+		18A8C680AC0865B33A06278B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -309,7 +335,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		34045F1896C03350472D7D5F /* [CP] Embed Pods Frameworks */ = {
+		7F7590150219D08FDBD63DF8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -326,6 +352,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Netology_IB_Instruments/Pods-Netology_IB_Instruments-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8A2AC434B24292B856D60842 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-StorageService-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -335,10 +383,12 @@
 			files = (
 				845EB90727B24EC6004ACF55 /* ProfileViewController.swift in Sources */,
 				9BAEF201282D8973008157AB /* Checker.swift in Sources */,
+				9BA6EAD6283A835D00193A79 /* CustomButton.swift in Sources */,
 				845EB8E927B1AF87004ACF55 /* AppDelegate.swift in Sources */,
 				9BEC1EB82800B1ED00C72363 /* PhotosCollectionViewCell.swift in Sources */,
 				84A4418127C1776500962836 /* FeedViewController.swift in Sources */,
 				9BB7FD00281577DE0030BECC /* Post.swift in Sources */,
+				9BA6EAD4283A6BC700193A79 /* LoginInspector.swift in Sources */,
 				9B5108FC27F87B1200AC6162 /* ProfileTableHeaderView.swift in Sources */,
 				9B62D38128212A0A008E8E50 /* User.swift in Sources */,
 				9B4B577D27EBA4DB008C2F3A /* LogInViewController.swift in Sources */,
@@ -347,6 +397,7 @@
 				845FA1A827C2813C002BD653 /* InfoViewController.swift in Sources */,
 				9B45BFF52800AAC700FDCF64 /* PhotosViewController.swift in Sources */,
 				845FA1A627C2749A002BD653 /* PostViewController.swift in Sources */,
+				9BEF7D5F283C28730089C3F1 /* Model.swift in Sources */,
 				9BAEF203282D89B4008157AB /* LoginFactory.swift in Sources */,
 				9B5108FB27F87B1200AC6162 /* PostTableViewCell.swift in Sources */,
 			);
@@ -501,7 +552,7 @@
 		};
 		845EB8FA27B1AF8D004ACF55 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6075BDA91C85E02ADECB4658 /* Pods-Netology_IB_Instruments.debug.xcconfig */;
+			baseConfigurationReference = 57287665E1149B17923B6517 /* Pods-Netology_IB_Instruments.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -530,7 +581,7 @@
 		};
 		845EB8FB27B1AF8D004ACF55 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C7DE558737B22AA2749195E /* Pods-Netology_IB_Instruments.release.xcconfig */;
+			baseConfigurationReference = 2DDB5462CA87E6C7E704D79B /* Pods-Netology_IB_Instruments.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -559,6 +610,7 @@
 		};
 		9BB7FCFC281577840030BECC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65E6F0837C5E80EFE5E011DB /* Pods-StorageService.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QD6Z8FN896;
@@ -573,6 +625,7 @@
 		};
 		9BB7FCFD281577840030BECC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4BC5D8973EA7D53BF3A6F89D /* Pods-StorageService.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QD6Z8FN896;

@@ -6,5 +6,13 @@ target 'Netology_IB_Instruments' do
   use_frameworks!
 
   # Pods for Netology_IB_Instruments
-  pod 'SnapKit'
+pod 'SnapKit'
+end
+
+target 'StorageService' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for StorageService
+pod 'SnapKit'
 end

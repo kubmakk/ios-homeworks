@@ -60,10 +60,8 @@ class LogInViewController: UIViewController {
         stackView.layer.masksToBounds = true
         return stackView
     }()
-    let logInButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Log In", for: .normal)
+    let logInButton: CustomButton = {
+        let button = CustomButton(title: "Log In", color: nil)
         button.titleLabel?.textColor = .white
         let backgrounImageWithCustomAlpha = UIImage(named:"blue_pixel.png")
         let transparentImage = backgrounImageWithCustomAlpha?.image(alpha: 0.8)
@@ -80,7 +78,7 @@ class LogInViewController: UIViewController {
         addSubview()
         constraints()
         setupScrollView()
-        setupLogInButton()
+        showLoginButtonPressed()
     }
     func addSubview(){
         self.view.addSubview(scrollView)
@@ -126,31 +124,31 @@ class LogInViewController: UIViewController {
     func setupScrollView(){
         self.scrollView.keyboardDismissMode = .onDrag
     }
-    func setupLogInButton(){
-        self.logInButton.addTarget(self, action: #selector(showLoginButtonPressed), for: .touchUpInside)
-    }
     @objc
     func showLoginButtonPressed() {
-        print("логин \(logInTextField.text!) пароль:\(passwordTextField.text!)")
-        if let check = delegate?.validation(login: logInTextField.text!, pswd: passwordTextField.text!), check != false {
-            print(check)
-            print("Верификация пройдена логин \(logInTextField.text!) пароль:\(passwordTextField.text!)")
-            let user = User(fullName: "Слон редкий", avatar: "elephant.jpg", status: "Люблю рыбий жир")
-            if let name = logInTextField.text, user.fullName == name {
-                let vc = ProfileViewController(userServise: CurrentUserService(user: user), name: name)
-                navigationController?.pushViewController(vc, animated: true)}
-        } else {
+        logInButton.tapAction = { [weak self] in
+            guard let login = self?.logInTextField.text, let password = self?.passwordTextField.text else { return }
+            print("логин \(login) пароль:\(password)")
+            if let check = self?.delegate?.validation(login: login, pswd: password), check != false {
+                print(check)
+                print("Верификация пройдена логин \(login) пароль:\(password)")
+                let user = User(fullName: "1", avatar: "elephant.jpg", status: "Люблю рыбий жир")
+                if user.fullName == login {
+                    let vc = ProfileViewController(userServise: CurrentUserService(user: user), name: login)
+                    self?.navigationController?.pushViewController(vc, animated: true)}
+            } else {
 #if DEBUG
-            let vc = ProfileViewController(userServise: TestUserService(), name: "name")
-            navigationController?.pushViewController(vc, animated: true)
+                let vc = ProfileViewController(userServise: TestUserService(), name: "name")
+                self?.navigationController?.pushViewController(vc, animated: true)
 #endif
-            print("Верификация не пройдена")
-            let alertVC = UIAlertController(title: "Error", message: "Необходима регистрация", preferredStyle: .alert)
-            let actionOk = UIAlertAction(title: "OK", style: .cancel) { actionOk in
-                print("Tap Ok")
+                print("Верификация не пройдена")
+                let alertVC = UIAlertController(title: "Error", message: "Необходима регистрация", preferredStyle: .alert)
+                let actionOk = UIAlertAction(title: "OK", style: .cancel) { actionOk in
+                    print("Tap Ok")
+                }
+                alertVC.addAction(actionOk)
+                self?.present(alertVC, animated: true, completion: nil)
             }
-            alertVC.addAction(actionOk)
-            self.present(alertVC, animated: true, completion: nil)
         }
     }
     @objc
