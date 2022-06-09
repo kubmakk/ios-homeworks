@@ -10,7 +10,10 @@ protocol LoginViewControllerDelegate: AnyObject {
     func validation(login: String, pswd: String) -> Bool
 }
 class LogInViewController: UIViewController {
+    weak var coordinator: AuthCoordinator?
+    var viewModel: LoginViewModel!
     var delegate: LoginViewControllerDelegate?
+    let user = User(fullName: "1", avatar: "elephant.jpg", status: "Люблю рыбий жир")
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .white
@@ -124,22 +127,23 @@ class LogInViewController: UIViewController {
     func setupScrollView(){
         self.scrollView.keyboardDismissMode = .onDrag
     }
+   
     @objc
     func showLoginButtonPressed() {
         logInButton.tapAction = { [weak self] in
             guard let login = self?.logInTextField.text, let password = self?.passwordTextField.text else { return }
-            print("логин \(login) пароль:\(password)")
+            //print("логин \(login) пароль:\(password)")
             if let check = self?.delegate?.validation(login: login, pswd: password), check != false {
-                print(check)
-                print("Верификация пройдена логин \(login) пароль:\(password)")
-                let user = User(fullName: "1", avatar: "elephant.jpg", status: "Люблю рыбий жир")
-                if user.fullName == login {
+                //print(check)
+                //print("Верификация пройдена логин \(login) пароль:\(password)")
+                if let user = self?.user, user.fullName == login {
                     let vc = ProfileViewController(userServise: CurrentUserService(user: user), name: login)
-                    self?.navigationController?.pushViewController(vc, animated: true)}
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                    //self?.viewModel!.goToHome()
+                }
             } else {
 #if DEBUG
-                let vc = ProfileViewController(userServise: TestUserService(), name: "name")
-                self?.navigationController?.pushViewController(vc, animated: true)
+                self?.viewModel!.goToHome()
 #endif
                 print("Верификация не пройдена")
                 let alertVC = UIAlertController(title: "Error", message: "Необходима регистрация", preferredStyle: .alert)

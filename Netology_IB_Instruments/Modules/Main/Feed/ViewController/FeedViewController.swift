@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 class FeedViewController: UIViewController {
+    var coordinator: FeedCoordinator?
+    weak var viewModel: FeedViewModel?
     let model = Model()
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -33,6 +35,14 @@ class FeedViewController: UIViewController {
         textField.placeholder = "Give me Text and Tap check"
         return textField
     }()
+//    init(coordinator: FeedCoordinator){
+//        self.coordinator = coordinator
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()
@@ -60,10 +70,11 @@ class FeedViewController: UIViewController {
     }
     @objc func gotoPostViewcontroller(){
         buttonOne.tapAction = { [weak self] in
-            let vc = PostViewController()
-            self?.navigationController?.pushViewController(vc, animated: true)
+            self?.viewModel?.goToPost()
         }
-        buttonTwo.tapAction = buttonOne.tapAction
+        buttonTwo.tapAction = { [weak self] in
+            self?.coordinator?.pop()
+        }
     }
     @objc func tapCheckButton(){
         customButton.tapAction = { [weak self] in

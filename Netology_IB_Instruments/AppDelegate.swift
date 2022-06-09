@@ -9,27 +9,20 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
     var window: UIWindow?
+    var appCoordinator: AppCoordinator?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
         window = UIWindow()
-        window?.makeKeyAndVisible()
-        // create TabBarController
-        let tabBarController = UITabBarController()
-        // create ViewContrillers with Title with color
-        let loginVC = LogInViewController()
-        let myLoginInspector = MyLogicFactory()
-        loginVC.delegate = myLoginInspector.inspector()
-        let feedVC = FeedViewController()
-        feedVC.title = "Feed"
-        feedVC.view.backgroundColor = .yellow
-        //create NavigationVIewController with root with tabBarItem
-        let profileNavigationVC = UINavigationController(rootViewController: loginVC)
-        profileNavigationVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "star"), tag: 0)
-        profileNavigationVC.navigationBar.backgroundColor = .white
-        let feedNavigationVC = UINavigationController(rootViewController: feedVC)
-        feedNavigationVC.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "airplane"), tag: 0)
-        tabBarController.viewControllers = [profileNavigationVC, feedNavigationVC]
-        window?.rootViewController = tabBarController
+        
+        let navigationController = UINavigationController()
+        appCoordinator = AppCoordinator(navigationController: navigationController)
+        appCoordinator!.start()
+        
+        window!.rootViewController = navigationController
+        window!.makeKeyAndVisible()
         return true
     }
     func applicationWillResignActive(_ application: UIApplication) {

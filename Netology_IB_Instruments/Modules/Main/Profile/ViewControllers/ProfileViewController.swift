@@ -9,6 +9,8 @@ import StorageService
 import UIKit
 
 class ProfileViewController: UIViewController {
+    weak var coordinator: ProfileCoordinator?
+    var viewModel: ProfileViewModel!
     let user: User?
     let userServise: UserService
     var headerTable: ProfileTableHeaderView?
@@ -20,10 +22,7 @@ class ProfileViewController: UIViewController {
         return recognizer
     }()
     let closeButton: CustomButton = {
-//    : UIButton = {
         let button = CustomButton(title: "X", color: .clear)
-        //let button = UIButton(type: UIButton.ButtonType.close)
-        //button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.textColor = .white
         return button
     }()
@@ -121,33 +120,33 @@ class ProfileViewController: UIViewController {
         }
     }
     @objc
-        func showStatusButtonPressed() {
-            closeButton.tapAction = {
-                print(#function)
-                UIView.animate(withDuration: 1) {
-                    self.closeButton.alpha = 0
-                    self.imageView.layoutIfNeeded()
-                } completion: { finished in
-                    self.closeButton.removeFromSuperview()
-                    UIView.animate(
-                        withDuration: 0.5) {
-                            self.avatarImageView.layer.cornerRadius = 55
-                            NSLayoutConstraint.activate([
-                                self.avatarImageView.centerXAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: 71),
-                                self.avatarImageView.centerYAnchor.constraint(equalTo: self.imageView.topAnchor, constant: 95),
-                                self.avatarImageView.widthAnchor.constraint(equalTo: self.imageView.safeAreaLayoutGuide.widthAnchor, constant: -260),
-                                self.avatarImageView.heightAnchor.constraint(equalTo: self.avatarImageView.widthAnchor),
-                            ])
-                            self.view.layoutIfNeeded()
-                        } completion: { finished in
-                            self.avatarImageView.removeFromSuperview()
-                            self.imageView.removeFromSuperview()
-                            self.headerTable?.profileHeaderView.avatarImageView.isHidden = false
-                        }
-                }
+    func showStatusButtonPressed() {
+        closeButton.tapAction = {
+            print(#function)
+            UIView.animate(withDuration: 1) {
+                self.closeButton.alpha = 0
+                self.imageView.layoutIfNeeded()
+            } completion: { finished in
+                self.closeButton.removeFromSuperview()
+                UIView.animate(
+                    withDuration: 0.5) {
+                        self.avatarImageView.layer.cornerRadius = 55
+                        NSLayoutConstraint.activate([
+                            self.avatarImageView.centerXAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: 71),
+                            self.avatarImageView.centerYAnchor.constraint(equalTo: self.imageView.topAnchor, constant: 95),
+                            self.avatarImageView.widthAnchor.constraint(equalTo: self.imageView.safeAreaLayoutGuide.widthAnchor, constant: -260),
+                            self.avatarImageView.heightAnchor.constraint(equalTo: self.avatarImageView.widthAnchor),
+                        ])
+                        self.view.layoutIfNeeded()
+                    } completion: { finished in
+                        self.avatarImageView.removeFromSuperview()
+                        self.imageView.removeFromSuperview()
+                        self.headerTable?.profileHeaderView.avatarImageView.isHidden = false
+                    }
             }
-
         }
+        
+    }
 }
 // MARK: Extension
 extension ProfileViewController: UITableViewDataSource {
