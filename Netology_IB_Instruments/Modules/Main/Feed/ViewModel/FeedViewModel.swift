@@ -20,11 +20,11 @@ class FeedViewModel {
         self.navigation = nav
     }
     
-    func goToPost(){
+    func push(){
         navigation.push()
     }
     
-    func goHome(){
+    func pop(){
         navigation.pop()
     }
 }

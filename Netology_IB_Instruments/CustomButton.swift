@@ -12,22 +12,8 @@ class CustomButton: UIButton {
 
     var title: String?
     var color: UIColor?
-//    var type: UIButton.ButtonType?
     var tapAction: (() -> Void)?
-    
-    
-//    required init(type: UIButton.ButtonType?) {
-//        self.type = type
-//        super.init(frame: .zero)
-//        translatesAutoresizingMaskIntoConstraints = false
-//        addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-//    }
-    
-//    convenience init(type: UIButton.ButtonType?) {
-//        self.init(title: nil, color: .white)
-//        self.type = type
-//        translatesAutoresizingMaskIntoConstraints = false
-//    }
+
     required init(title: String?, color: UIColor?) {
         // set myValue before super.init is called
         self.title = title

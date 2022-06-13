@@ -10,6 +10,7 @@ protocol LoginViewControllerDelegate: AnyObject {
     func validation(login: String, pswd: String) -> Bool
 }
 class LogInViewController: UIViewController {
+    //MARK: Property
     weak var coordinator: AuthCoordinator?
     var viewModel: LoginViewModel!
     var delegate: LoginViewControllerDelegate?
@@ -76,13 +77,28 @@ class LogInViewController: UIViewController {
         button.layer.masksToBounds = true
         return button
     }()
+    //MARK: LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubview()
         constraints()
         setupScrollView()
         showLoginButtonPressed()
+        viewStateChange()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)    // подписаться на уведомления
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        nc.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)    // отписаться от уведомлений
+        let nc = NotificationCenter.default
+        nc.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        nc.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    //MARK: Methods
     func addSubview(){
         self.view.addSubview(scrollView)
         self.scrollView.addSubview(self.contentView)
@@ -128,31 +144,39 @@ class LogInViewController: UIViewController {
         self.scrollView.keyboardDismissMode = .onDrag
     }
    
-    @objc
-    func showLoginButtonPressed() {
-        logInButton.tapAction = { [weak self] in
-            guard let login = self?.logInTextField.text, let password = self?.passwordTextField.text else { return }
-            //print("логин \(login) пароль:\(password)")
-            if let check = self?.delegate?.validation(login: login, pswd: password), check != false {
-                //print(check)
-                //print("Верификация пройдена логин \(login) пароль:\(password)")
-                if let user = self?.user, user.fullName == login {
-                    let vc = ProfileViewController(userServise: CurrentUserService(user: user), name: login)
-                    self?.navigationController?.pushViewController(vc, animated: true)
-                    //self?.viewModel!.goToHome()
-                }
-            } else {
+    func viewStateChange () {
+        viewModel.stateChanged = { [weak self] state in
+            guard let self = self else { return }
+            switch state {
+            case .first:
+                print("first")
+            case .second:
+                    guard let login = self.logInTextField.text, let password = self.passwordTextField.text else { return }
+                    //print("логин \(login) пароль:\(password)")
+                    if let check = self.delegate?.validation(login: login, pswd: password), check != false {
+                        //print("Верификация пройдена логин \(login) пароль:\(password)")
+                        if self.user.fullName == login {
+                            self.viewModel!.goToHome()
+                        }
+                    } else {
 #if DEBUG
-                self?.viewModel!.goToHome()
+                        self.viewModel!.goToHome()
 #endif
-                print("Верификация не пройдена")
-                let alertVC = UIAlertController(title: "Error", message: "Необходима регистрация", preferredStyle: .alert)
-                let actionOk = UIAlertAction(title: "OK", style: .cancel) { actionOk in
-                    print("Tap Ok")
-                }
-                alertVC.addAction(actionOk)
-                self?.present(alertVC, animated: true, completion: nil)
+                        print("Верификация не пройдена")
+                        let alertVC = UIAlertController(title: "Error", message: "Необходима регистрация", preferredStyle: .alert)
+                        let actionOk = UIAlertAction(title: "OK", style: .cancel) { actionOk in
+                            print("Tap Ok")
+                        }
+                        alertVC.addAction(actionOk)
+                        self.present(alertVC, animated: true, completion: nil)
+                    }
+                print("second")
             }
+        }
+    }
+    func showLoginButtonPressed() {
+        logInButton.tapAction = { [self] in
+            self.viewModel?.changeState(.isReady)
         }
     }
     @objc
@@ -167,19 +191,9 @@ class LogInViewController: UIViewController {
         self.scrollView.contentInset.top = .zero
         self.scrollView.verticalScrollIndicatorInsets = .zero
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)    // подписаться на уведомления
-        let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        nc.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)    // отписаться от уведомлений
-        let nc = NotificationCenter.default
-        nc.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        nc.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
+
 }
+
 extension UIImage {
     func image(alpha: CGFloat) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(size, false, scale)

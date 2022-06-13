@@ -20,8 +20,9 @@ class FeedViewController: UIViewController {
         return stackView
     }()
     let label = UILabel()
-    let buttonOne = CustomButton(title: "press me", color: .red)
-    let buttonTwo = CustomButton(title: "press me too", color: .blue)
+    let buttonOne = CustomButton(title: "push", color: .red)
+    let buttonTwo = CustomButton(title: "pop", color: .blue)
+    let buttonThree = CustomButton(title: "goToPost", color: .systemMint)
     let customButton = CustomButton(title: "check", color: .systemIndigo)
     let customTextField: UITextField = {
         let textField = UITextField()
@@ -35,14 +36,6 @@ class FeedViewController: UIViewController {
         textField.placeholder = "Give me Text and Tap check"
         return textField
     }()
-//    init(coordinator: FeedCoordinator){
-//        self.coordinator = coordinator
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()
@@ -54,6 +47,7 @@ class FeedViewController: UIViewController {
     func addSubviews(){
         self.stackView.addArrangedSubview(buttonOne)
         self.stackView.addArrangedSubview(buttonTwo)
+        self.stackView.addArrangedSubview(buttonThree)
         self.stackView.insertArrangedSubview(customTextField, at: 0)
         self.stackView.insertArrangedSubview(customButton, at: 1)
         self.view.addSubview(stackView)
@@ -67,13 +61,19 @@ class FeedViewController: UIViewController {
         self.buttonOne.snp.makeConstraints { make in
             make.height.equalTo(self.buttonTwo.snp.height)
         }
+        self.buttonTwo.snp.makeConstraints { make in
+            make.height.equalTo(self.buttonThree.snp.height)
+        }
     }
-    @objc func gotoPostViewcontroller(){
+    func gotoPostViewcontroller(){
         buttonOne.tapAction = { [weak self] in
-            self?.viewModel?.goToPost()
+            self?.viewModel?.push()
         }
         buttonTwo.tapAction = { [weak self] in
             self?.coordinator?.pop()
+        }
+        buttonThree.tapAction = { [weak self] in
+            self?.coordinator?.goToPost()
         }
     }
     @objc func tapCheckButton(){

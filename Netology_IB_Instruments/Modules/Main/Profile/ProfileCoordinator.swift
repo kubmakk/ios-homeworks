@@ -11,7 +11,7 @@ import UIKit
 class ProfileCoordinator: Coordinator {
     
     var parentCoordinator: Coordinator?
-    
+    let user = User(fullName: "1", avatar: "elephant.jpg", status: "Люблю рыбий жир")
     var children: [Coordinator] = []
     
     var navigationController: UINavigationController
@@ -30,7 +30,10 @@ extension ProfileCoordinator: ProfileNavigation {
     func pop() {
     }
     func goToProfile() {
-        let profileVC = ProfileViewController(userServise: TestUserService(), name: "name")
+        var profileVC = ProfileViewController(userServise: CurrentUserService(user: self.user), name: self.user.fullName)
+#if DEBUG
+        profileVC = ProfileViewController(userServise: TestUserService(), name: "name")
+#endif
         profileVC.viewModel = ProfileViewModel(nav: self)
         profileVC.coordinator = self
         navigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 0)

@@ -8,7 +8,6 @@
 import UIKit
 
 class PostViewController: UIViewController {
-    weak var coordinator: PostCoordinator?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .orange

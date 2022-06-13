@@ -12,8 +12,22 @@ protocol LoginNavigation : AnyObject{
 }
 
 class LoginViewModel {
-    
+
     weak var navigation : LoginNavigation!
+    
+    enum Action {
+        case isReady
+    }
+    enum State {
+        case first
+        case second
+    }
+    private(set) var state: State = .first {
+        didSet {
+            stateChanged?(state)
+        }
+    }
+    var stateChanged: ((State) -> Void)?
     
     init(nav : LoginNavigation) {
         self.navigation = nav
@@ -27,6 +41,12 @@ class LoginViewModel {
         print("goToHome")
         navigation.goToHome()
     }
+    func changeState(_ action: Action) {
+        switch action {
+        case .isReady:
+            state = .second
+                }
+            }
     
     deinit {
         print("Deinit login")

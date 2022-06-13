@@ -35,11 +35,16 @@ class FeedCoordinator: Coordinator {
 }
 extension FeedCoordinator: FeedNavigation {
     func push() {
-        let coordinator = PostCoordinator(navigationController: navigationController)
-        coordinator.start()
+        print("Push")
+        let feedCoordiator = FeedCoordinator(navigationController: navigationController)
+        feedCoordiator.start()
     }
     func pop() {
-        let coordinator = PostCoordinator(navigationController: navigationController)
-        coordinator.start()
+        print("POP")
+        self.navigationController.popViewController(animated: true)
+    }
+    func goToPost(){
+        let postVC = PostViewController()
+        self.navigationController.pushViewController(postVC, animated: true)
     }
 }

@@ -37,7 +37,6 @@
 		9BEC1EB82800B1ED00C72363 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEC1EB72800B1ED00C72363 /* PhotosCollectionViewCell.swift */; };
 		9BEC1EBA2800B1FD00C72363 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEC1EB92800B1FD00C72363 /* PhotosTableViewCell.swift */; };
 		9BEF7D5F283C28730089C3F1 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEF7D5E283C28730089C3F1 /* Model.swift */; };
-		9BF049F028511CE8008F2AE8 /* PostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF049EF28511CE7008F2AE8 /* PostCoordinator.swift */; };
 		9BF2ED9127CB925A0064D648 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF2ED9027CB925A0064D648 /* ProfileHeaderView.swift */; };
 		9BF35AFA284BB48500AC894F /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF35AF9284BB48500AC894F /* AppCoordinator.swift */; };
 		9BF35B04284BB93400AC894F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF35B03284BB93400AC894F /* Coordinator.swift */; };
@@ -105,7 +104,6 @@
 		9BEC1EB72800B1ED00C72363 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		9BEC1EB92800B1FD00C72363 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		9BEF7D5E283C28730089C3F1 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		9BF049EF28511CE7008F2AE8 /* PostCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCoordinator.swift; sourceTree = "<group>"; };
 		9BF2ED9027CB925A0064D648 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		9BF35AF9284BB48500AC894F /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		9BF35B03284BB93400AC894F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -188,39 +186,6 @@
 			path = StorageService;
 			sourceTree = "<group>";
 		};
-		9BF049EB28511C61008F2AE8 /* Post */ = {
-			isa = PBXGroup;
-			children = (
-				9BF049EF28511CE7008F2AE8 /* PostCoordinator.swift */,
-				9BF049EC28511C83008F2AE8 /* View */,
-				9BF049ED28511C91008F2AE8 /* ViewModel */,
-				9BF049EE28511C9B008F2AE8 /* ViewController */,
-			);
-			path = Post;
-			sourceTree = "<group>";
-		};
-		9BF049EC28511C83008F2AE8 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		9BF049ED28511C91008F2AE8 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		9BF049EE28511C9B008F2AE8 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				845FA1A527C2749A002BD653 /* PostViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
 		9BF049F1285126FD008F2AE8 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,7 +193,6 @@
 				9BA37BA0284F118A00E4B41F /* Factory.swift */,
 				9BF35AF4284BB38D00AC894F /* Profile */,
 				9BF35AFF284BB5C600AC894F /* Feed */,
-				9BF049EB28511C61008F2AE8 /* Post */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -343,6 +307,7 @@
 			children = (
 				84A4418027C1776500962836 /* FeedViewController.swift */,
 				845FA1A727C2813C002BD653 /* InfoViewController.swift */,
+				845FA1A527C2749A002BD653 /* PostViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -560,7 +525,6 @@
 				9BEC1EB82800B1ED00C72363 /* PhotosCollectionViewCell.swift in Sources */,
 				84A4418127C1776500962836 /* FeedViewController.swift in Sources */,
 				9BB7FD00281577DE0030BECC /* Post.swift in Sources */,
-				9BF049F028511CE8008F2AE8 /* PostCoordinator.swift in Sources */,
 				9BA6EAD4283A6BC700193A79 /* LoginInspector.swift in Sources */,
 				9B5108FC27F87B1200AC6162 /* ProfileTableHeaderView.swift in Sources */,
 				9B62D38128212A0A008E8E50 /* User.swift in Sources */,
