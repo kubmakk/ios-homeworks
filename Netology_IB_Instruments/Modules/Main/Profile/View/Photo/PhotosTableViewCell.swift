@@ -30,7 +30,7 @@ class PhotosTableViewCell: UITableViewCell {
         label.font = .systemFont(ofSize: 24, weight: .bold)
         return label
     }()
-    let photoImageView:UIImageView = addPhotoImageView()
+    let photoImageView: UIImageView = addPhotoImageView()
     let photoImageView1: UIImageView = addPhotoImageView()
     let photoImageView2: UIImageView = addPhotoImageView()
     let photoImageView3: UIImageView = addPhotoImageView()

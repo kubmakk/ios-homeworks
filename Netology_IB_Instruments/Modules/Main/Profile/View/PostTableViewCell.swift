@@ -97,7 +97,7 @@ class PostTableViewCell: UITableViewCell {
         imageProcessor.processImage(sourceImage: inputImage, filter: filter) { outputImage in
             postImageView.image = outputImage
         }
-        }
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
