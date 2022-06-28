@@ -6,9 +6,11 @@
 //
 
 import UIKit
+//import iOSIntPackage
 
 class PhotosCollectionViewCell: UICollectionViewCell {
-    let photoImageView:UIImageView = {
+//    private lazy var imageProcessor = ImageProcessor()
+    let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
@@ -28,5 +30,13 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+//    func setupCell(image: String) {
+//        guard let filter = ColorFilter.allCases.randomElement() else {return}
+//        guard let inputImage = UIImage(named: image) else {return}
+//        imageProcessor.processImage(sourceImage: inputImage, filter: filter) { outputImage in
+//            photoImageView.image = outputImage
+//        }
+//        imageProcessor.processImagesOnThread(sourceImages: <#T##[UIImage]#>, filter: <#T##ColorFilter#>, qos: <#T##QualityOfService#>, completion: <#T##([CGImage?]) -> Void#>)
+//    }
 }
 
