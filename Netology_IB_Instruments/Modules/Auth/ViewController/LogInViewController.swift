@@ -12,6 +12,7 @@ protocol LoginViewControllerDelegate: AnyObject {
 class LogInViewController: UIViewController {
     //MARK: Property
     weak var coordinator: AuthCoordinator?
+    var passwordCracking = PasswordCracking()
     var viewModel: LoginViewModel!
     var delegate: LoginViewControllerDelegate?
     let user = User(fullName: "1", avatar: "elephant.jpg", status: "Люблю рыбий жир")
@@ -77,6 +78,26 @@ class LogInViewController: UIViewController {
         button.layer.masksToBounds = true
         return button
     }()
+    let bruteForceButton: CustomButton = {
+        let button = CustomButton(title: "Подобрать пароль", color: nil)
+        button.titleLabel?.textColor = .white
+        let backgrounImageWithCustomAlpha = UIImage(named:"blue_pixel.png")
+        let transparentImage = backgrounImageWithCustomAlpha?.image(alpha: 0.8)
+        button.setBackgroundImage(backgrounImageWithCustomAlpha, for: .normal)
+        button.setBackgroundImage(transparentImage, for: .selected)
+        button.setBackgroundImage(transparentImage, for: .highlighted)
+        button.setBackgroundImage(transparentImage, for: .disabled)
+        button.layer.cornerRadius = 10
+        button.layer.masksToBounds = true
+        return button
+    }()
+    let activityIndicator: UIActivityIndicatorView = {
+       let indicator = UIActivityIndicatorView()
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.hidesWhenStopped = true
+        indicator.color = .blue
+        return indicator
+    }()
     //MARK: LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,6 +106,7 @@ class LogInViewController: UIViewController {
         setupScrollView()
         showLoginButtonPressed()
         viewStateChange()
+        bruteForceButtonPressed()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)    // подписаться на уведомления
@@ -107,6 +129,8 @@ class LogInViewController: UIViewController {
         logInStackView.addArrangedSubview(passwordTextField)
         self.contentView.addSubview(logInStackView)
         self.contentView.addSubview(logInButton)
+        self.contentView.addSubview(bruteForceButton)
+        self.passwordTextField.addSubview(activityIndicator)
     }
     func constraints(){
         NSLayoutConstraint.activate([
@@ -134,10 +158,19 @@ class LogInViewController: UIViewController {
             
             self.logInTextField.heightAnchor.constraint(equalTo: self.passwordTextField.heightAnchor),
             
+            self.activityIndicator.trailingAnchor.constraint(equalTo: self.passwordTextField.trailingAnchor, constant: -16),
+            self.activityIndicator.centerYAnchor.constraint(equalTo: self.passwordTextField.centerYAnchor),
+
             self.logInButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 16),
             self.logInButton.topAnchor.constraint(equalTo: self.logInStackView.bottomAnchor,constant: 16),
             self.logInButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -16),
-            self.logInButton.heightAnchor.constraint(equalToConstant: 50)
+            self.logInButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            self.bruteForceButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 16),
+            self.bruteForceButton.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor,constant: 16),
+            self.bruteForceButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -16),
+            self.bruteForceButton.heightAnchor.constraint(equalToConstant: 50)
+            
         ])
     }
     func setupScrollView(){
@@ -177,6 +210,26 @@ class LogInViewController: UIViewController {
     func showLoginButtonPressed() {
         logInButton.tapAction = { [self] in
             self.viewModel?.changeState(.isReady)
+        }
+    }
+    func bruteForceButtonPressed() {
+        bruteForceButton.tapAction = {
+            self.bruteForceButton.isEnabled = false
+            let password = randomPassword()
+            print("Сгенерирован пароль: \(password)")
+            let queue = DispatchQueue.global(qos: .background)
+            queue.async {
+                self.passwordCracking.bruteForce(passwordToUnlock: password)
+                DispatchQueue.main.async {
+                    self.passwordTextField.isSecureTextEntry = false
+                    self.passwordTextField.text = password
+                    self.activityIndicator.stopAnimating()
+                    self.bruteForceButton.isEnabled = true
+                }
+            }
+            DispatchQueue.main.async {
+                self.activityIndicator.startAnimating()
+            }
         }
     }
     @objc

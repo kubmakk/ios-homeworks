@@ -14,6 +14,7 @@
 		845FA1A627C2749A002BD653 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845FA1A527C2749A002BD653 /* PostViewController.swift */; };
 		845FA1A827C2813C002BD653 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845FA1A727C2813C002BD653 /* InfoViewController.swift */; };
 		84A4418127C1776500962836 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4418027C1776500962836 /* FeedViewController.swift */; };
+		9B219403286CD5CD006050B5 /* PasswordCracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B219402286CD5CD006050B5 /* PasswordCracking.swift */; };
 		9B4352B528512DF200F6FD20 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4352B428512DF200F6FD20 /* LoginViewModel.swift */; };
 		9B4352B7285138D600F6FD20 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4352B6285138D600F6FD20 /* ProfileViewModel.swift */; };
 		9B45BFF52800AAC700FDCF64 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B45BFF42800AAC700FDCF64 /* PhotosViewController.swift */; };
@@ -83,6 +84,7 @@
 		845FA1A527C2749A002BD653 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		845FA1A727C2813C002BD653 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		84A4418027C1776500962836 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		9B219402286CD5CD006050B5 /* PasswordCracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCracking.swift; sourceTree = "<group>"; };
 		9B4352B428512DF200F6FD20 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		9B4352B6285138D600F6FD20 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		9B45BFF42800AAC700FDCF64 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				9B62D38028212A0A008E8E50 /* User.swift */,
 				9BA6EAD5283A835D00193A79 /* CustomButton.swift */,
 				9BF35B03284BB93400AC894F /* Coordinator.swift */,
+				9B219402286CD5CD006050B5 /* PasswordCracking.swift */,
 			);
 			path = Netology_IB_Instruments;
 			sourceTree = "<group>";
@@ -523,6 +526,7 @@
 				9BA6EAD6283A835D00193A79 /* CustomButton.swift in Sources */,
 				845EB8E927B1AF87004ACF55 /* AppDelegate.swift in Sources */,
 				9BEC1EB82800B1ED00C72363 /* PhotosCollectionViewCell.swift in Sources */,
+				9B219403286CD5CD006050B5 /* PasswordCracking.swift in Sources */,
 				84A4418127C1776500962836 /* FeedViewController.swift in Sources */,
 				9BB7FD00281577DE0030BECC /* Post.swift in Sources */,
 				9BA6EAD4283A6BC700193A79 /* LoginInspector.swift in Sources */,
