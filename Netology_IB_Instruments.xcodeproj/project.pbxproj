@@ -29,6 +29,7 @@
 		9BA37BA1284F118A00E4B41F /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA37BA0284F118A00E4B41F /* Factory.swift */; };
 		9BA6EAD4283A6BC700193A79 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA6EAD3283A6BC700193A79 /* LoginInspector.swift */; };
 		9BA6EAD6283A835D00193A79 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA6EAD5283A835D00193A79 /* CustomButton.swift */; };
+		9BA9BAB0287F3E4100C271CA /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9BAAF287F3E4100C271CA /* NetworkService.swift */; };
 		9BAEF201282D8973008157AB /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEF200282D8973008157AB /* Checker.swift */; };
 		9BAEF203282D89B4008157AB /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEF202282D89B4008157AB /* LoginFactory.swift */; };
 		9BB7FCFB281577840030BECC /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB7FCFA281577840030BECC /* StorageService.swift */; };
@@ -99,6 +100,7 @@
 		9BA37BA0284F118A00E4B41F /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		9BA6EAD3283A6BC700193A79 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		9BA6EAD5283A835D00193A79 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		9BA9BAAF287F3E4100C271CA /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		9BAEF200282D8973008157AB /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		9BAEF202282D89B4008157AB /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 		9BB7FCF8281577840030BECC /* libStorageService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libStorageService.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,6 +178,7 @@
 				9BA6EAD5283A835D00193A79 /* CustomButton.swift */,
 				9BF35B03284BB93400AC894F /* Coordinator.swift */,
 				9B219402286CD5CD006050B5 /* PasswordCracking.swift */,
+				9BA9BAAF287F3E4100C271CA /* NetworkService.swift */,
 			);
 			path = Netology_IB_Instruments;
 			sourceTree = "<group>";
@@ -546,6 +549,7 @@
 				845FA1A627C2749A002BD653 /* PostViewController.swift in Sources */,
 				9BEF7D5F283C28730089C3F1 /* Model.swift in Sources */,
 				9BAEF203282D89B4008157AB /* LoginFactory.swift in Sources */,
+				9BA9BAB0287F3E4100C271CA /* NetworkService.swift in Sources */,
 				9BA37B9D284E947600E4B41F /* AuthCoordinator.swift in Sources */,
 				9B5108FB27F87B1200AC6162 /* PostTableViewCell.swift in Sources */,
 			);

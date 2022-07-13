@@ -6,32 +6,42 @@
 //
 
 import UIKit
+
 protocol LoginViewControllerDelegate: AnyObject {
     func validation(login: String, pswd: String) -> Bool
 }
+
 class LogInViewController: UIViewController {
+    
     //MARK: Property
+    
     weak var coordinator: AuthCoordinator?
+    
     var passwordCracking = PasswordCracking()
     var viewModel: LoginViewModel!
     var delegate: LoginViewControllerDelegate?
+    
     let user = User(fullName: "1", avatar: "elephant.jpg", status: "Люблю рыбий жир")
+    
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .white
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
+    
     let contentView: UIView = {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         return contentView
     }()
+    
     let logoImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "logo"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    
     let logInTextField: UITextField = {
         let textField = UITextField()
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
@@ -44,6 +54,7 @@ class LogInViewController: UIViewController {
         textField.placeholder = "Email of Phone"
         return textField
     }()
+    
     let passwordTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
@@ -53,6 +64,7 @@ class LogInViewController: UIViewController {
         textField.leftViewMode = .always
         return textField
     }()
+    
     let logInStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -65,6 +77,7 @@ class LogInViewController: UIViewController {
         stackView.layer.masksToBounds = true
         return stackView
     }()
+    
     let logInButton: CustomButton = {
         let button = CustomButton(title: "Log In", color: nil)
         button.titleLabel?.textColor = .white
@@ -78,6 +91,7 @@ class LogInViewController: UIViewController {
         button.layer.masksToBounds = true
         return button
     }()
+    
     let bruteForceButton: CustomButton = {
         let button = CustomButton(title: "Подобрать пароль", color: nil)
         button.titleLabel?.textColor = .white
@@ -91,6 +105,7 @@ class LogInViewController: UIViewController {
         button.layer.masksToBounds = true
         return button
     }()
+    
     let activityIndicator: UIActivityIndicatorView = {
        let indicator = UIActivityIndicatorView()
         indicator.translatesAutoresizingMaskIntoConstraints = false
@@ -98,7 +113,9 @@ class LogInViewController: UIViewController {
         indicator.color = .blue
         return indicator
     }()
+    
     //MARK: LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubview()
@@ -108,19 +125,23 @@ class LogInViewController: UIViewController {
         viewStateChange()
         bruteForceButtonPressed()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)    // подписаться на уведомления
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         nc.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)    // отписаться от уведомлений
         let nc = NotificationCenter.default
         nc.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         nc.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
     //MARK: Methods
+    
     func addSubview(){
         self.view.addSubview(scrollView)
         self.scrollView.addSubview(self.contentView)
@@ -132,6 +153,7 @@ class LogInViewController: UIViewController {
         self.contentView.addSubview(bruteForceButton)
         self.passwordTextField.addSubview(activityIndicator)
     }
+    
     func constraints(){
         NSLayoutConstraint.activate([
             self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -173,6 +195,7 @@ class LogInViewController: UIViewController {
             
         ])
     }
+    
     func setupScrollView(){
         self.scrollView.keyboardDismissMode = .onDrag
     }
@@ -207,16 +230,22 @@ class LogInViewController: UIViewController {
             }
         }
     }
+    
     func showLoginButtonPressed() {
         logInButton.tapAction = { [self] in
             self.viewModel?.changeState(.isReady)
         }
     }
+    
     func bruteForceButtonPressed() {
         bruteForceButton.tapAction = {
             self.bruteForceButton.isEnabled = false
+            
+            self.activityIndicator.startAnimating()
+            
             let password = randomPassword()
             print("Сгенерирован пароль: \(password)")
+            
             let queue = DispatchQueue.global(qos: .background)
             queue.async {
                 self.passwordCracking.bruteForce(passwordToUnlock: password)
@@ -227,11 +256,9 @@ class LogInViewController: UIViewController {
                     self.bruteForceButton.isEnabled = true
                 }
             }
-            DispatchQueue.main.async {
-                self.activityIndicator.startAnimating()
-            }
         }
     }
+    
     @objc
     private func kbdShow(notification: NSNotification) {
         if let kbdSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -239,6 +266,7 @@ class LogInViewController: UIViewController {
             self.scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: kbdSize.height, right: 0)
         }
     }
+    
     @objc
     private func kbdHide(notification: NSNotification) {
         self.scrollView.contentInset.top = .zero
