@@ -13,9 +13,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var appCoordinator: AppCoordinator?
     
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow()
+        
+        var appConfiguration:AppConfiguration { return [.first(URL(string: "https://swapi.dev/api/people/8")!), .second(URL(string: "https://swapi.dev/api/starships/3")!), .third(URL(string: "https://swapi.dev/api/planets/5")!)].randomElement()! }
+        
+        NetworkService.request(for: appConfiguration)
         
         let navigationController = UINavigationController()
         appCoordinator = AppCoordinator(navigationController: navigationController)
