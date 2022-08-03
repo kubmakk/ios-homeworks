@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        FirebaseApp.configure()
         window = UIWindow()
         
         var appConfiguration:AppConfiguration { return [.first(URL(string: "https://swapi.dev/api/people/8")!), .second(URL(string: "https://swapi.dev/api/starships/3")!), .third(URL(string: "https://swapi.dev/api/planets/5")!)].randomElement()! }
