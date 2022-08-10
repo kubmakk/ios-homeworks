@@ -24,7 +24,7 @@ class CheckerService: CheckerServiceProtocol {
     func checkCredentials(email: String, password: String, completion callback: @escaping (AuthDataResult?, NSError?) -> Void) {
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             guard error == nil else {
-                print(error!)
+                print(error!.localizedDescription)
                 callback(nil, error as NSError?)
                 return
             }
@@ -35,6 +35,7 @@ class CheckerService: CheckerServiceProtocol {
     }
         
     func signUp(with email: String, password: String, completion: @escaping (AuthDataResult?, NSError?) -> Void) {
+        guard FirebaseAuth.Auth.auth().currentUser != nil else { return }
         FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { createResult, error in
             guard error == nil else {
                 print(error!)

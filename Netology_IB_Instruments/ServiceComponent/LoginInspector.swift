@@ -8,33 +8,33 @@
 import Foundation
 
 enum AuthModel {
-    case login
-    case signUp
+    case good
 }
 enum NetworkError: Error {
-    case noConnection
+    case error(NSError)
 }
 final class LoginInspector: LoginViewControllerDelegate {
     
 
     func checkCredentials(email: String, password: String, completion: @escaping (Result<AuthModel, NetworkError>) -> Void) {
+        
          
         CheckerService.shared.checkCredentials(email: email, password: password) { result, error in
             guard error == nil else {
-                completion(.failure(.noConnection))
+                completion(.failure(.error(error!)))
                 return
             }
-            completion(.success(.login))
+            completion(.success(.good))
         }
     }
     
     func signUp(with email: String, password: String, completion: @escaping (Result<AuthModel, NetworkError>) -> Void) {
         CheckerService.shared.signUp(with: email, password: password) { result, error in
             guard error == nil else {
-                completion(.failure(.noConnection))
+                completion(.failure(.error(error!)))
                 return
             }
-            completion(.success(.signUp))
+            completion(.success(.good))
         }
     }
     

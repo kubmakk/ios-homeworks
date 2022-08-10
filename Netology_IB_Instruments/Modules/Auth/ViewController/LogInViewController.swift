@@ -93,33 +93,6 @@ class LogInViewController: UIViewController {
         button.layer.masksToBounds = true
         return button
     }()
-//    let bruteForceButton: CustomButton = {
-//        let button = CustomButton(title: "Подобрать пароль", color: nil)
-//        button.titleLabel?.textColor = .white
-//        let backgrounImageWithCustomAlpha = UIImage(named:"blue_pixel.png")
-//        let transparentImage = backgrounImageWithCustomAlpha?.image(alpha: 0.8)
-//        button.setBackgroundImage(backgrounImageWithCustomAlpha, for: .normal)
-//        button.setBackgroundImage(transparentImage, for: .selected)
-//        button.setBackgroundImage(transparentImage, for: .highlighted)
-//        button.setBackgroundImage(transparentImage, for: .disabled)
-//        button.layer.cornerRadius = 10
-//        button.layer.masksToBounds = true
-//        return button
-//    }()
-    
-//    let signUpButton: CustomButton = {
-//        let button = CustomButton(title: "SignUp", color: nil)
-//        button.titleLabel?.textColor = .white
-//        let backgrounImageWithCustomAlpha = UIImage(named:"blue_pixel.png")
-//        let transparentImage = backgrounImageWithCustomAlpha?.image(alpha: 0.8)
-//        button.setBackgroundImage(backgrounImageWithCustomAlpha, for: .normal)
-//        button.setBackgroundImage(transparentImage, for: .selected)
-//        button.setBackgroundImage(transparentImage, for: .highlighted)
-//        button.setBackgroundImage(transparentImage, for: .disabled)
-//        button.layer.cornerRadius = 10
-//        button.layer.masksToBounds = true
-//        return button
-//    }()
     
     let activityIndicator: UIActivityIndicatorView = {
        let indicator = UIActivityIndicatorView()
@@ -148,9 +121,7 @@ class LogInViewController: UIViewController {
         constraints()
         setupScrollView()
         loginButtonTapped()
-        //signUpButtonTapped()
         viewStateChange()
-        //bruteForceButtonPressed()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -177,7 +148,6 @@ class LogInViewController: UIViewController {
         logInStackView.addArrangedSubview(passwordField)
         self.contentView.addSubview(logInStackView)
         self.contentView.addSubview(logInButton)
-//        self.contentView.addSubview(signUpButton)
         self.passwordField.addSubview(activityIndicator)
     }
     
@@ -214,12 +184,6 @@ class LogInViewController: UIViewController {
             self.logInButton.topAnchor.constraint(equalTo: self.logInStackView.bottomAnchor,constant: 16),
             self.logInButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -16),
             self.logInButton.heightAnchor.constraint(equalToConstant: 50)
-            
-//            self.signUpButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 16),
-//            self.signUpButton.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor,constant: 16),
-//            self.signUpButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -16),
-//            self.signUpButton.heightAnchor.constraint(equalToConstant: 50)
-            
         ])
     }
     
@@ -235,25 +199,25 @@ class LogInViewController: UIViewController {
                 guard let email = strongSelf.emailField.text, !email.isEmpty, email.isValidEmail,
                       let password = strongSelf.passwordField.text, !password.isEmpty, !password.contains(" ") else {
                           print("Missing field data")
-                          let alert = UIAlertController(title: "Error", message: "Не корректно заполнены поля", preferredStyle: .alert)
-                          let actionOk = UIAlertAction(title: "OK", style: .cancel) { actionOk in
-                              print("Tap Ok")
-                          }
-                          alert.addAction(actionOk)
+                          let alert = customAlert(message: "Не корректно заполнены поля")
                           strongSelf.present(alert, animated: true, completion: nil)
                           return
                       }
                 strongSelf.delegate?.checkCredentials(email: email, password: password) { [weak self] result in
                     guard let strongSelf = self else {return}
                     switch result {
-                    case .success(.login):
+                    case .success(.good):
                         print("Вы вошли в систему")
                         strongSelf.viewModel!.goToHome()
-                    case .failure(.noConnection):
-                        print("Error")
-                        strongSelf.showCreateAccount(email: email, password: password)
-                    case .success(.signUp):
-                        print("регистрация")
+                    case .failure(.error(let model)):
+                        switch model.code {
+                        case 17011:
+                            strongSelf.showCreateAccount(email: email, password: password)
+                        default:
+                            print("Ошибка \(model.localizedDescription)")
+                            let alert = customAlert(message: model.userInfo["FIRAuthErrorUserInfoNameKey"] as! String)
+                            strongSelf.present(alert, animated: true, completion: nil)
+                        }
                     }
                 }
                 print("second")
@@ -262,7 +226,7 @@ class LogInViewController: UIViewController {
             }
         }
     }
-    func showCreateAccount(email: String, password: String){
+    func showCreateAccount(email: String, password: String) {
         
         let alert = UIAlertController(title: "Создать Аккаунт",
                                       message: "Не хотели бы вы создать акккаунт?",
@@ -273,12 +237,11 @@ class LogInViewController: UIViewController {
             self.delegate?.signUp(with: email, password: password) { [weak self] result in
                 guard let strongSelf = self else {return}
                 switch result {
-                case .success(.login):
-                    print("Вы вошли в систему")
-                case .failure(.noConnection):
-                    //показать создание учетной записи
-                    print("Error")
-                case .success(.signUp):
+                case .failure(.error(let model)):
+                    print("Ошибка \(model.localizedDescription)")
+                    let alert = customAlert(message: model.userInfo["FIRAuthErrorUserInfoNameKey"] as! String)
+                    strongSelf.present(alert, animated: true, completion: nil)
+                case .success(.good):
                     print("регистрация пройдена")
                     strongSelf.viewModel!.goToHome()
                 }
@@ -298,36 +261,6 @@ class LogInViewController: UIViewController {
             strongSelf.viewModel?.changeState(.isReady)
         }
     }
-
-//    private func signUpButtonTapped() {
-//        signUpButton.tapAction = { [weak self] in
-//            guard let strongSelf = self else {return}
-//            strongSelf.viewModel?.changeState(.isSignUp)
-//
-//        }
-//    }
-    
-//    func bruteForceButtonPressed() {
-//        bruteForceButton.tapAction = {
-//            self.bruteForceButton.isEnabled = false
-//
-//            self.activityIndicator.startAnimating()
-//
-//            let password = randomPassword()
-//            print("Сгенерирован пароль: \(password)")
-//
-//            let queue = DispatchQueue.global(qos: .background)
-//            queue.async {
-//                self.passwordCracking.bruteForce(passwordToUnlock: password)
-//                DispatchQueue.main.async {
-//                    self.passwordTextField.isSecureTextEntry = false
-//                    self.passwordTextField.text = password
-//                    self.activityIndicator.stopAnimating()
-//                    self.bruteForceButton.isEnabled = true
-//                }
-//            }
-//        }
-//    }
     
     @objc
     private func kbdShow(notification: NSNotification) {
@@ -359,3 +292,4 @@ extension String {
         NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}").evaluate(with: self)
     }
 }
+
