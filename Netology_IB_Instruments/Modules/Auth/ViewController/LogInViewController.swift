@@ -82,7 +82,6 @@ class LogInViewController: UIViewController {
     
     let logInButton: CustomButton = {
         let button = CustomButton(title: "Log In", color: nil)
-        button.titleLabel?.textColor = .white
         let backgrounImageWithCustomAlpha = UIImage(named:"blue_pixel.png")
         let transparentImage = backgrounImageWithCustomAlpha?.image(alpha: 0.8)
         button.setBackgroundImage(backgrounImageWithCustomAlpha, for: .normal)
@@ -93,15 +92,16 @@ class LogInViewController: UIViewController {
         button.layer.masksToBounds = true
         return button
     }()
-    
-    let activityIndicator: UIActivityIndicatorView = {
-       let indicator = UIActivityIndicatorView()
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        indicator.hidesWhenStopped = true
-        indicator.color = .blue
-        return indicator
+    let signUpButton: CustomButton = {
+        let button = CustomButton(title: "Не зарегистрированы? Создайте аккаунт сейчас", color: nil)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.setTitleColor(.systemGray, for: .selected)
+        button.setTitleColor(.systemGray, for: .highlighted)
+        button.setTitleColor(.systemGray, for: .disabled)
+        button.titleLabel?.font = .systemFont(ofSize: 13.0)
+        return button
     }()
-    
+
     // MARK: Init
     
     init(with delegate: LoginViewControllerDelegate) {
@@ -121,6 +121,7 @@ class LogInViewController: UIViewController {
         constraints()
         setupScrollView()
         loginButtonTapped()
+        signUpButtonTapped()
         viewStateChange()
     }
     
@@ -148,7 +149,7 @@ class LogInViewController: UIViewController {
         logInStackView.addArrangedSubview(passwordField)
         self.contentView.addSubview(logInStackView)
         self.contentView.addSubview(logInButton)
-        self.passwordField.addSubview(activityIndicator)
+        self.contentView.addSubview(signUpButton)
     }
     
     func constraints(){
@@ -176,14 +177,16 @@ class LogInViewController: UIViewController {
             self.logInStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
             
             self.emailField.heightAnchor.constraint(equalTo: self.passwordField.heightAnchor),
-            
-            self.activityIndicator.trailingAnchor.constraint(equalTo: self.passwordField.trailingAnchor, constant: -16),
-            self.activityIndicator.centerYAnchor.constraint(equalTo: self.passwordField.centerYAnchor),
 
             self.logInButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 16),
             self.logInButton.topAnchor.constraint(equalTo: self.logInStackView.bottomAnchor,constant: 16),
             self.logInButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -16),
-            self.logInButton.heightAnchor.constraint(equalToConstant: 50)
+            self.logInButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            self.signUpButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 16),
+            self.signUpButton.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor,constant: 16),
+            self.signUpButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -16),
+            self.signUpButton.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
     
@@ -194,42 +197,43 @@ class LogInViewController: UIViewController {
     func viewStateChange () {
         viewModel.stateChanged = { [weak self] state in
             guard let strongSelf = self else { return }
+            guard let email = strongSelf.emailField.text, !email.isEmpty, email.isValidEmail,
+                  let password = strongSelf.passwordField.text, !password.isEmpty, !password.contains(" ") else {
+                      print("Missing field data")
+                      let alert = customAlert(message: "Не корректно заполнены поля")
+                      strongSelf.present(alert, animated: true, completion: nil)
+                      return
+                  }
             switch state {
+                
             case .second:
-                guard let email = strongSelf.emailField.text, !email.isEmpty, email.isValidEmail,
-                      let password = strongSelf.passwordField.text, !password.isEmpty, !password.contains(" ") else {
-                          print("Missing field data")
-                          let alert = customAlert(message: "Не корректно заполнены поля")
-                          strongSelf.present(alert, animated: true, completion: nil)
-                          return
-                      }
                 strongSelf.delegate?.checkCredentials(email: email, password: password) { [weak self] result in
+                    
                     guard let strongSelf = self else {return}
                     switch result {
+                        
                     case .success(.good):
                         print("Вы вошли в систему")
                         strongSelf.viewModel!.goToHome()
+                        
                     case .failure(.error(let model)):
-                        switch model.code {
-                        case 17011:
-                            strongSelf.showCreateAccount(email: email, password: password)
-                        default:
-                            print("Ошибка \(model.localizedDescription)")
-                            let alert = customAlert(message: model.userInfo["FIRAuthErrorUserInfoNameKey"] as! String)
-                            strongSelf.present(alert, animated: true, completion: nil)
-                        }
+                        
+                        print("Ошибка \(model.localizedDescription)")
+                        let alert = customAlert(message: model.userInfo["FIRAuthErrorUserInfoNameKey"] as! String)
+                        strongSelf.present(alert, animated: true, completion: nil)
                     }
                 }
                 print("second")
             case .first:
+                strongSelf.showCreateAccount(email: email, password: password)
                 print("first")
             }
         }
     }
-    func showCreateAccount(email: String, password: String) {
+ private func showCreateAccount(email: String, password: String) {
         
-        let alert = UIAlertController(title: "Создать Аккаунт",
-                                      message: "Не хотели бы вы создать акккаунт?",
+        let alert = UIAlertController(title: "Создать Аккаунт?",
+                                      message: "Один шаг и вы с нами",
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Создать",
                                       style: .default,
@@ -258,7 +262,14 @@ class LogInViewController: UIViewController {
     private func loginButtonTapped() {
         logInButton.tapAction = { [weak self] in
             guard let strongSelf = self else {return}
-            strongSelf.viewModel?.changeState(.isReady)
+            strongSelf.viewModel?.changeState(.isLogin)
+        }
+    }
+    
+    private func signUpButtonTapped() {
+        signUpButton.tapAction = { [weak self] in
+            guard let strongSelf = self else {return}
+            strongSelf.viewModel?.changeState(.isSignUp)
         }
     }
     
