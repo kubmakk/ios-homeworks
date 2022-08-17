@@ -16,7 +16,8 @@ class LoginViewModel {
     weak var navigation : LoginNavigation!
     
     enum Action {
-        case isReady
+        case isLogin
+        case isSignUp
     }
     enum State {
         case first
@@ -41,12 +42,15 @@ class LoginViewModel {
         print("goToHome")
         navigation.goToHome()
     }
+    
     func changeState(_ action: Action) {
         switch action {
-        case .isReady:
+        case .isLogin:
             state = .second
-                }
-            }
+        case .isSignUp:
+            state = .first
+        }
+    }
     
     deinit {
         print("Deinit login")

@@ -8,7 +8,9 @@
 import UIKit
 
 protocol LoginViewControllerDelegate: AnyObject {
-    func validation(login: String, pswd: String) -> Bool
+    
+    func checkCredentials(email: String, password: String, completion: @escaping (Result<AuthModel, NetworkError>) -> Void)
+    func signUp(with email: String, password: String, completion: @escaping (Result<AuthModel, NetworkError>) -> Void)
 }
 
 class LogInViewController: UIViewController {
@@ -42,7 +44,7 @@ class LogInViewController: UIViewController {
         return imageView
     }()
     
-    let logInTextField: UITextField = {
+    let emailField: UITextField = {
         let textField = UITextField()
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
         textField.leftViewMode = .always
@@ -51,11 +53,11 @@ class LogInViewController: UIViewController {
         textField.font = .systemFont(ofSize: 16, weight: .regular)
         textField.tintColor = UIColor(named: "AccentColor")
         textField.autocapitalizationType = .none
-        textField.placeholder = "Email of Phone"
+        textField.placeholder = "Email"
         return textField
     }()
     
-    let passwordTextField: UITextField = {
+    let passwordField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
         textField.isSecureTextEntry = true
@@ -80,7 +82,6 @@ class LogInViewController: UIViewController {
     
     let logInButton: CustomButton = {
         let button = CustomButton(title: "Log In", color: nil)
-        button.titleLabel?.textColor = .white
         let backgrounImageWithCustomAlpha = UIImage(named:"blue_pixel.png")
         let transparentImage = backgrounImageWithCustomAlpha?.image(alpha: 0.8)
         button.setBackgroundImage(backgrounImageWithCustomAlpha, for: .normal)
@@ -91,28 +92,26 @@ class LogInViewController: UIViewController {
         button.layer.masksToBounds = true
         return button
     }()
-    
-    let bruteForceButton: CustomButton = {
-        let button = CustomButton(title: "Подобрать пароль", color: nil)
-        button.titleLabel?.textColor = .white
-        let backgrounImageWithCustomAlpha = UIImage(named:"blue_pixel.png")
-        let transparentImage = backgrounImageWithCustomAlpha?.image(alpha: 0.8)
-        button.setBackgroundImage(backgrounImageWithCustomAlpha, for: .normal)
-        button.setBackgroundImage(transparentImage, for: .selected)
-        button.setBackgroundImage(transparentImage, for: .highlighted)
-        button.setBackgroundImage(transparentImage, for: .disabled)
-        button.layer.cornerRadius = 10
-        button.layer.masksToBounds = true
+    let signUpButton: CustomButton = {
+        let button = CustomButton(title: "Не зарегистрированы? Создайте аккаунт сейчас", color: nil)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.setTitleColor(.systemGray, for: .selected)
+        button.setTitleColor(.systemGray, for: .highlighted)
+        button.setTitleColor(.systemGray, for: .disabled)
+        button.titleLabel?.font = .systemFont(ofSize: 13.0)
         return button
     }()
+
+    // MARK: Init
     
-    let activityIndicator: UIActivityIndicatorView = {
-       let indicator = UIActivityIndicatorView()
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        indicator.hidesWhenStopped = true
-        indicator.color = .blue
-        return indicator
-    }()
+    init(with delegate: LoginViewControllerDelegate) {
+        self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     //MARK: LifeCycle
     
@@ -121,9 +120,9 @@ class LogInViewController: UIViewController {
         addSubview()
         constraints()
         setupScrollView()
-        showLoginButtonPressed()
+        loginButtonTapped()
+        signUpButtonTapped()
         viewStateChange()
-        bruteForceButtonPressed()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -146,12 +145,11 @@ class LogInViewController: UIViewController {
         self.view.addSubview(scrollView)
         self.scrollView.addSubview(self.contentView)
         self.contentView.addSubview(logoImageView)
-        logInStackView.addArrangedSubview(logInTextField)
-        logInStackView.addArrangedSubview(passwordTextField)
+        logInStackView.addArrangedSubview(emailField)
+        logInStackView.addArrangedSubview(passwordField)
         self.contentView.addSubview(logInStackView)
         self.contentView.addSubview(logInButton)
-        self.contentView.addSubview(bruteForceButton)
-        self.passwordTextField.addSubview(activityIndicator)
+        self.contentView.addSubview(signUpButton)
     }
     
     func constraints(){
@@ -178,21 +176,17 @@ class LogInViewController: UIViewController {
             self.logInStackView.leadingAnchor.constraint(equalTo: self.contentView.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             self.logInStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
             
-            self.logInTextField.heightAnchor.constraint(equalTo: self.passwordTextField.heightAnchor),
-            
-            self.activityIndicator.trailingAnchor.constraint(equalTo: self.passwordTextField.trailingAnchor, constant: -16),
-            self.activityIndicator.centerYAnchor.constraint(equalTo: self.passwordTextField.centerYAnchor),
+            self.emailField.heightAnchor.constraint(equalTo: self.passwordField.heightAnchor),
 
             self.logInButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 16),
             self.logInButton.topAnchor.constraint(equalTo: self.logInStackView.bottomAnchor,constant: 16),
             self.logInButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -16),
             self.logInButton.heightAnchor.constraint(equalToConstant: 50),
             
-            self.bruteForceButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 16),
-            self.bruteForceButton.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor,constant: 16),
-            self.bruteForceButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -16),
-            self.bruteForceButton.heightAnchor.constraint(equalToConstant: 50)
-            
+            self.signUpButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 16),
+            self.signUpButton.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor,constant: 16),
+            self.signUpButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -16),
+            self.signUpButton.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
     
@@ -202,60 +196,80 @@ class LogInViewController: UIViewController {
    
     func viewStateChange () {
         viewModel.stateChanged = { [weak self] state in
-            guard let self = self else { return }
+            guard let strongSelf = self else { return }
+            guard let email = strongSelf.emailField.text, !email.isEmpty, email.isValidEmail,
+                  let password = strongSelf.passwordField.text, !password.isEmpty, !password.contains(" ") else {
+                      print("Missing field data")
+                      let alert = customAlert(message: "Не корректно заполнены поля")
+                      strongSelf.present(alert, animated: true, completion: nil)
+                      return
+                  }
             switch state {
-            case .first:
-                print("first")
+                
             case .second:
-                    guard let login = self.logInTextField.text, let password = self.passwordTextField.text else { return }
-                    //print("логин \(login) пароль:\(password)")
-                    if let check = self.delegate?.validation(login: login, pswd: password), check != false {
-                        //print("Верификация пройдена логин \(login) пароль:\(password)")
-                        if self.user.fullName == login {
-                            self.viewModel!.goToHome()
-                        }
-                    } else {
-#if DEBUG
-                        self.viewModel!.goToHome()
-#endif
-                        print("Верификация не пройдена")
-                        let alertVC = UIAlertController(title: "Error", message: "Необходима регистрация", preferredStyle: .alert)
-                        let actionOk = UIAlertAction(title: "OK", style: .cancel) { actionOk in
-                            print("Tap Ok")
-                        }
-                        alertVC.addAction(actionOk)
-                        self.present(alertVC, animated: true, completion: nil)
+                strongSelf.delegate?.checkCredentials(email: email, password: password) { [weak self] result in
+                    
+                    guard let strongSelf = self else {return}
+                    switch result {
+                        
+                    case .success(.good):
+                        print("Вы вошли в систему")
+                        strongSelf.viewModel!.goToHome()
+                        
+                    case .failure(.error(let model)):
+                        
+                        print("Ошибка \(model.localizedDescription)")
+                        let alert = customAlert(message: model.userInfo["FIRAuthErrorUserInfoNameKey"] as! String)
+                        strongSelf.present(alert, animated: true, completion: nil)
                     }
+                }
                 print("second")
+            case .first:
+                strongSelf.showCreateAccount(email: email, password: password)
+                print("first")
             }
         }
     }
-    
-    func showLoginButtonPressed() {
-        logInButton.tapAction = { [self] in
-            self.viewModel?.changeState(.isReady)
-        }
-    }
-    
-    func bruteForceButtonPressed() {
-        bruteForceButton.tapAction = {
-            self.bruteForceButton.isEnabled = false
-            
-            self.activityIndicator.startAnimating()
-            
-            let password = randomPassword()
-            print("Сгенерирован пароль: \(password)")
-            
-            let queue = DispatchQueue.global(qos: .background)
-            queue.async {
-                self.passwordCracking.bruteForce(passwordToUnlock: password)
-                DispatchQueue.main.async {
-                    self.passwordTextField.isSecureTextEntry = false
-                    self.passwordTextField.text = password
-                    self.activityIndicator.stopAnimating()
-                    self.bruteForceButton.isEnabled = true
+ private func showCreateAccount(email: String, password: String) {
+        
+        let alert = UIAlertController(title: "Создать Аккаунт?",
+                                      message: "Один шаг и вы с нами",
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Создать",
+                                      style: .default,
+                                      handler: { _ in
+            self.delegate?.signUp(with: email, password: password) { [weak self] result in
+                guard let strongSelf = self else {return}
+                switch result {
+                case .failure(.error(let model)):
+                    print("Ошибка \(model.localizedDescription)")
+                    let alert = customAlert(message: model.userInfo["FIRAuthErrorUserInfoNameKey"] as! String)
+                    strongSelf.present(alert, animated: true, completion: nil)
+                case .success(.good):
+                    print("регистрация пройдена")
+                    strongSelf.viewModel!.goToHome()
                 }
             }
+        }))
+        alert.addAction(UIAlertAction(title: "Отмена",
+                                      style: .cancel,
+                                      handler: { _ in
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    private func loginButtonTapped() {
+        logInButton.tapAction = { [weak self] in
+            guard let strongSelf = self else {return}
+            strongSelf.viewModel?.changeState(.isLogin)
+        }
+    }
+    
+    private func signUpButtonTapped() {
+        signUpButton.tapAction = { [weak self] in
+            guard let strongSelf = self else {return}
+            strongSelf.viewModel?.changeState(.isSignUp)
         }
     }
     
@@ -284,3 +298,9 @@ extension UIImage {
         return newImage
     }
 }
+extension String {
+    var isValidEmail: Bool {
+        NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}").evaluate(with: self)
+    }
+}
+

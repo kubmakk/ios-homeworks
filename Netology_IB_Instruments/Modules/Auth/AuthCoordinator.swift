@@ -25,10 +25,10 @@ class AuthCoordinator: Coordinator {
         goToLoginPage()
     }
     func goToLoginPage(){
-        let loginVC = LogInViewController()
-        loginVC.viewModel = loginViewModel
         let myLoginInspector = MyLogicFactory()
-        loginVC.delegate = myLoginInspector.inspector()
+        let loginVC = LogInViewController(with: myLoginInspector.inspector())
+        loginVC.viewModel = loginViewModel
+        //loginVC.delegate = myLoginInspector.inspector()
         navigationController.pushViewController(loginVC, animated: true)
     }
 }
