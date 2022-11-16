@@ -173,7 +173,7 @@ extension ProfileViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "idCell") as! PostTableViewCell
             cell.authorLabel.text = self.posts[indexPath.row].author
             cell.setupCell(image: self.posts[indexPath.row].image)
-            cell.postTextView.text = self.posts[indexPath.row].description
+            cell.postTextView.text = self.posts[indexPath.row].descript
             cell.likesLabel.text = "Likes: " + ("\(self.posts[indexPath.row].likes)")
             cell.viewsLabel.text = "Views: " + ("\(self.posts[indexPath.row].views)")
             return cell
