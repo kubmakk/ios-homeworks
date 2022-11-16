@@ -57,7 +57,7 @@ public class ConstraintMakerEditable: ConstraintMakerPrioritizable {
     @discardableResult
     @available(iOS 11.0, tvOS 11.0, *)
     public func inset(_ amount: ConstraintDirectionalInsetTarget) -> ConstraintMakerEditable {
-        self.descriptions.constant = amount.constraintDirectionalInsetTargetValue
+        self.description.constant = amount.constraintDirectionalInsetTargetValue
         return self
     }
     #endif
