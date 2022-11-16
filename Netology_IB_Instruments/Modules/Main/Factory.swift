@@ -34,7 +34,8 @@ final class Factory {
             let feedCoordiator = FeedCoordinator(navigationController: navigationController)
             feedCoordiator.start()
         case .third:
-            ()
+            let favoriteCoordiator = FavoriteCoordinator(navigationController: navigationController)
+            favoriteCoordiator.start()
         case .fourth:
             let loginCoordinator = AuthCoordinator(navigationController: navigationController)
             loginCoordinator.start()

@@ -12,11 +12,11 @@ class TabBarCoordinator: Coordinator {
     weak var parentCoordinator: Coordinator?
     
     var children: [Coordinator] = []
-    
     var navigationController: UINavigationController
     
     private let firstModule = Factory(navigationController: UINavigationController(), state: .first)
     private let secondModule = Factory(navigationController: UINavigationController(), state: .second)
+    private let thirdModule = Factory(navigationController: UINavigationController(), state: .third)
     
     init(navigationController : UINavigationController) {
         self.navigationController = navigationController
@@ -28,8 +28,13 @@ class TabBarCoordinator: Coordinator {
     
     func initTabBar() {
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [firstModule.navigationController, secondModule.navigationController]
+        tabBarController.viewControllers = [
+            firstModule.navigationController,
+            secondModule.navigationController,
+            thirdModule.navigationController
+        ]
         navigationController.pushViewController(tabBarController, animated: true)
         navigationController.setNavigationBarHidden(true, animated: true)
     }
 }
+
