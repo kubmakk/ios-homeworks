@@ -11,7 +11,7 @@ import UIKit
 class FavoriteCoordinator: Coordinator {
     
     var parentCoordinator: Coordinator?
-    
+    let databaseCoordinator = CreateService.shared.coreDataCoordinator
     //let user = User(fullName: "1", avatar: "elephant.jpg", status: "Люблю рыбий жир")
     
     var children: [Coordinator] = []
@@ -30,9 +30,11 @@ class FavoriteCoordinator: Coordinator {
 //        profileVC.viewModel = ProfileViewModel(nav: self)
         //profileVC.coordinator = self
         
-        let favoriteVC = FavoriteViewController()
+        let favoriteVC = FavoriteViewController(databaseCoordinator: databaseCoordinator)
         favoriteVC.viewModel = favoriteViewModel
         favoriteVC.coordinator = self
+        favoriteVC.coordinator?.databaseCoordinator.deleteAll(PostCoreDataModel.self, completion: { _ in
+        })
         navigationController.tabBarItem = UITabBarItem(title: "Favorites",image: UIImage(systemName: "star"),selectedImage: UIImage(systemName: "star.fill"))
         navigationController.pushViewController(favoriteVC, animated: true)
     }

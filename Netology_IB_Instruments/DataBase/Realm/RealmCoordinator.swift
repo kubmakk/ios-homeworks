@@ -22,6 +22,22 @@ final class RealmCoordinator {
 
 extension RealmCoordinator: DatabaseCoordinatable {
     
+    func delete<T>(_ model: T.Type, predicate: NSPredicate?, completion: @escaping (Result<[T], DatabaseError>) -> Void) where T : Storable {
+    }
+    
+    func deleteAll<T>(_ model: T.Type, completion: @escaping (Result<[T], DatabaseError>) -> Void) where T : Storable {
+    }
+    
+    
+    func create<T>(_ model: T.Type, keyedValues: [[String : Any]], completion: @escaping (Result<[T], DatabaseError>) -> Void) where T : Storable {
+    }
+
+    func fetch<T>(_ model: T.Type, predicate: NSPredicate?, completion: @escaping (Result<[T], DatabaseError>) -> Void) where T : Storable {
+    }
+    
+    func fetchAll<T>(_ model: T.Type, completion: @escaping (Result<[T], DatabaseError>) -> Void) where T : Storable {
+    }
+    
     func checkIsAuthorised(completion: @escaping (Result<Success, DatabaseError>) -> Void) {
         do {
             let realm = try! Realm()

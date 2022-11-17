@@ -7,12 +7,38 @@
 
 import UIKit
 
-public struct Post {
+public struct Post: Equatable {
     public let author: String
     public let descript: String
     public let image: String
-    public let likes: Int
-    public let views: Int
+    public let likes: Int64
+    public let views: Int64
+    
+    var keyedValues: [String: Any] {
+        return [
+            "author": self.author,
+            "descript": self.descript,
+            "image": self.image,
+            "likes": self.likes,
+            "views": self.views
+            //"isFavorite": self.isFavorite
+        ]
+    }
+    init(author: String, descript: String, image: String, likes: Int64, views: Int64) {
+        self.author = author
+        self.descript = descript
+        self.image = image
+        self.likes = likes
+        self.views = views
+    }
+    init(postCoreDataModel: PostCoreDataModel) {
+        self.author = postCoreDataModel.author ?? ""
+        self.descript = postCoreDataModel.descript ?? ""
+        self.image = postCoreDataModel.image ?? ""
+        self.likes = postCoreDataModel.likes
+        self.views = postCoreDataModel.views
+        //self.isFavorite = postCoreDataModel.isFavorite
+    }
 }
 let postFirst = Post(author: "Зоопарк", descript: "Правила жизни большой панды: если хочется спать — спи, если хочется есть — ешь, а если в вольере висит шина, то ее надо обязательно оторвать, — говорит сотрудник зоопарка. — И Жуи всегда следует этим трем правилам.", image: "panda", likes: 50, views: 100)
 let postSecond = Post(author: "Hi-News.ru", descript: "После появления SpaceX Илона Маска космос стал всё больше интересовать человечество. Все эти планы по межпланетным экспедициям, колонизация красной планеты — чудеса, да и только. Давайте предположим, что будущее наступило, а фантастические рассказы стали реальностью. Вы вышли из дома и решили полететь на время карантина на Марс. Открываете навигатор и прокладываете маршрут до Марса в колонию Илона Маска. Как вам кажется, сколько придется лететь, чтобы туда добраться? Давайте разберёмся.", image: "redPlanet", likes: 10, views: 200)
