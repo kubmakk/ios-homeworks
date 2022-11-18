@@ -7,27 +7,15 @@
 
 import UIKit
 import SnapKit
-//import iOSIntPackage
+
 protocol PostTableViewCellDelegate: AnyObject {
     func wasLikedPost(authorLabel: UILabel?)
 }
 
 class PostTableViewCell: UITableViewCell {
 
-    enum State {
-        case isFavorite
-        case none
-    }
-    private(set) var state: State = .none
-//    {
-//        didSet {
-//            stateChanged?(state)
-//        }
-//    }
     weak var delegate: PostTableViewCellDelegate?
-    private let databaseCoordinator = CreateService.shared.coreDataCoordinator
 
-    //let post: Post?
     private lazy var doubleTap: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer()
         recognizer.numberOfTapsRequired = 2
@@ -115,45 +103,14 @@ class PostTableViewCell: UITableViewCell {
         self.contentView.addSubview(postTextView)
         self.contentView.addSubview(likesLabel)
     }
-//    func setupCell(image: String) {
-//        guard let filter = ColorFilter.allCases.randomElement() else {return}
-//        guard let inputImage = UIImage(named: image) else {return}
-//        imageProcessor.processImage(sourceImage: inputImage, filter: filter) { outputImage in
-//            postImageView.image = outputImage
-//        }
-//    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        //print(#function)
     }
     @objc func processDoubleTap() {
         print(#function)
-
-//        let post = Post(author: authorLabel.text!, descript: postTextView.text!, image: "panda", likes: 1, views: 1)
-//        self.savePostInDatabase(post)
-        //self.state = .isFavorite
         self.delegate?.wasLikedPost(authorLabel: authorLabel)
-    }
-}
-
-extension PostTableViewCell {
-        
-    func savePostInDatabase(_ filterPost: Post) {
-            //let filterPost: Post
-            self.databaseCoordinator.create(PostCoreDataModel.self, keyedValues: [filterPost.keyedValues]) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let post):
-                let userInfo = ["Post": filterPost]
-                NotificationCenter.default.post(name: .wasLikedArticle, object: nil, userInfo: userInfo)
-            case .failure(let error):
-                print("🍋 \(error)")
-
-            }
-        }
     }
 }
