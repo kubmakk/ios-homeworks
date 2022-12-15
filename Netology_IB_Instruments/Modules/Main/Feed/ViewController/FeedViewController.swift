@@ -9,8 +9,10 @@ import UIKit
 import SnapKit
 
 class FeedViewController: UIViewController {
+    
     var coordinator: FeedCoordinator?
     weak var viewModel: FeedViewModel?
+    
     let model = Model()
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -36,6 +38,7 @@ class FeedViewController: UIViewController {
         textField.placeholder = "Give me Text and Tap check"
         return textField
     }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()
@@ -65,6 +68,7 @@ class FeedViewController: UIViewController {
             make.height.equalTo(self.buttonThree.snp.height)
         }
     }
+    
     func gotoPostViewcontroller(){
         buttonOne.tapAction = { [weak self] in
             self?.viewModel?.push()

@@ -7,10 +7,21 @@
 
 import UIKit
 import SnapKit
-import iOSIntPackage
+
+protocol PostTableViewCellDelegate: AnyObject {
+    func wasLikedPost(authorLabel: UILabel?)
+}
 
 class PostTableViewCell: UITableViewCell {
-    private lazy var imageProcessor = ImageProcessor()
+
+    weak var delegate: PostTableViewCellDelegate?
+
+    private lazy var doubleTap: UITapGestureRecognizer = {
+        let recognizer = UITapGestureRecognizer()
+        recognizer.numberOfTapsRequired = 2
+        recognizer.addTarget(self, action: #selector(processDoubleTap))
+        return recognizer
+    }()
     let authorLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -49,6 +60,7 @@ class PostTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview()
         constraints()
+        self.addGestureRecognizer(doubleTap)
         self.separatorInset.right = 15
         self.separatorInset.left = 15
     }
@@ -91,17 +103,14 @@ class PostTableViewCell: UITableViewCell {
         self.contentView.addSubview(postTextView)
         self.contentView.addSubview(likesLabel)
     }
-    func setupCell(image: String) {
-        guard let filter = ColorFilter.allCases.randomElement() else {return}
-        guard let inputImage = UIImage(named: image) else {return}
-        imageProcessor.processImage(sourceImage: inputImage, filter: filter) { outputImage in
-            postImageView.image = outputImage
-        }
-    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    @objc func processDoubleTap() {
+        print(#function)
+        self.delegate?.wasLikedPost(authorLabel: authorLabel)
     }
 }

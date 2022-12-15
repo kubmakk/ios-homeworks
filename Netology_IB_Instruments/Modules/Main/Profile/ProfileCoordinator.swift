@@ -16,6 +16,7 @@ class ProfileCoordinator: Coordinator {
     
     var navigationController: UINavigationController
     lazy var profileViewModel = ProfileViewModel(nav: self)
+    let databaseCoordinator = CreateService.shared.coreDataCoordinator
     
     init(navigationController: UINavigationController){
         self.navigationController = navigationController
@@ -30,9 +31,9 @@ extension ProfileCoordinator: ProfileNavigation {
     func pop() {
     }
     func goToProfile() {
-        var profileVC = ProfileViewController(userServise: CurrentUserService(user: self.user), name: self.user.fullName)
+        var profileVC = ProfileViewController(userServise: CurrentUserService(user: self.user), name: self.user.fullName, databaseCoordinator: databaseCoordinator)
 #if DEBUG
-        profileVC = ProfileViewController(userServise: TestUserService(), name: "name")
+        profileVC = ProfileViewController(userServise: TestUserService(), name: "name", databaseCoordinator: databaseCoordinator)
 #endif
         profileVC.viewModel = ProfileViewModel(nav: self)
         profileVC.coordinator = self

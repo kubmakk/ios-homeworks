@@ -9,12 +9,15 @@ import StorageService
 import UIKit
 
 class ProfileViewController: UIViewController {
+    private let databaseCoordinator: DatabaseCoordinatable
     weak var coordinator: ProfileCoordinator?
     var viewModel: ProfileViewModel!
     let user: User?
     let userServise: UserService
     var headerTable: ProfileTableHeaderView?
+    
     let posts:[Post] = [postFirst, postSecond, postThird, postFourth]
+    
     private lazy var tap: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer()
         recognizer.numberOfTapsRequired = 1
@@ -46,8 +49,9 @@ class ProfileViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    init (userServise: UserService, name: String){
+    init (userServise: UserService, name: String, databaseCoordinator: DatabaseCoordinatable){
         self.userServise = userServise
+        self.databaseCoordinator = databaseCoordinator
         user = userServise.getName(name: name)
         super.init(nibName: nil, bundle: nil)
     }
@@ -72,6 +76,7 @@ class ProfileViewController: UIViewController {
         self.tableView.backgroundColor = .red
         #endif
         navigationController?.navigationBar.isHidden = true
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -119,8 +124,7 @@ class ProfileViewController: UIViewController {
                 }
         }
     }
-    @objc
-    func showStatusButtonPressed() {
+    @objc func showStatusButtonPressed() {
         closeButton.tapAction = {
             print(#function)
             UIView.animate(withDuration: 1) {
@@ -145,8 +149,22 @@ class ProfileViewController: UIViewController {
                     }
             }
         }
-        
     }
+    func savePostInDatabase(_ filterPost: Post) {
+            self.databaseCoordinator.create(PostCoreDataModel.self, keyedValues: [filterPost.keyedValues]) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let post):
+                
+                let userInfo = ["Post": filterPost]
+                NotificationCenter.default.post(name: .wasLikedArticle, object: nil, userInfo: userInfo)
+            case .failure(let error):
+                print("🍋 \(error)")
+            }
+        }
+    }
+
 }
 // MARK: Extension
 extension ProfileViewController: UITableViewDataSource {
@@ -172,10 +190,11 @@ extension ProfileViewController: UITableViewDataSource {
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "idCell") as! PostTableViewCell
             cell.authorLabel.text = self.posts[indexPath.row].author
-            cell.setupCell(image: self.posts[indexPath.row].image)
-            cell.postTextView.text = self.posts[indexPath.row].description
+            cell.postImageView.image = UIImage(named: self.posts[indexPath.row].image)
+            cell.postTextView.text = self.posts[indexPath.row].descript
             cell.likesLabel.text = "Likes: " + ("\(self.posts[indexPath.row].likes)")
             cell.viewsLabel.text = "Views: " + ("\(self.posts[indexPath.row].views)")
+            cell.delegate = self
             return cell
         default :
             break
@@ -223,5 +242,20 @@ extension ProfileViewController: UITableViewDelegate {
             break
         }
         return nil
+    }
+}
+extension ProfileViewController: PostTableViewCellDelegate {
+    func wasLikedPost(authorLabel: UILabel?) {
+        print(#function)
+        guard let authorLabel = authorLabel else {
+            return
+        }
+        for i in self.posts {
+            if i.author == authorLabel.text {
+                if let index = posts.firstIndex(of: i) {
+                    self.savePostInDatabase(posts[index])
+                }
+            }
+        }
     }
 }
