@@ -24,7 +24,7 @@ class LogInViewController: UIViewController {
     var delegate: LoginViewControllerDelegate?
     private let databaseCoordinator: DatabaseCoordinatable
 
-    let user = User(fullName: "1", avatar: "elephant.jpg", status: "Люблю рыбий жир")
+    let user = User(fullName: "Слон", avatar: "elephant.jpg", status: "Люблю рыбий жир")
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()

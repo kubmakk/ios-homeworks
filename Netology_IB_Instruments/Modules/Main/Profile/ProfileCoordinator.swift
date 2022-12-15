@@ -11,7 +11,8 @@ import UIKit
 class ProfileCoordinator: Coordinator {
     
     var parentCoordinator: Coordinator?
-    let user = User(fullName: "1", avatar: "elephant.jpg", status: "Люблю рыбий жир")
+    //let name = NSLocalizedString("Слон Балдахин", comment: "Имя")
+    let user = User(fullName: NSLocalizedString("Слон Балдахин", comment: "Имя"), avatar: "elephant.jpg", status: "Люблю рыбий жир")
     var children: [Coordinator] = []
     
     var navigationController: UINavigationController
