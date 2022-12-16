@@ -22,10 +22,10 @@ class FeedViewController: UIViewController {
         return stackView
     }()
     let label = UILabel()
-    let buttonOne = CustomButton(title: "push", color: .red)
-    let buttonTwo = CustomButton(title: "pop", color: .blue)
-    let buttonThree = CustomButton(title: "goToPost", color: .systemMint)
-    let customButton = CustomButton(title: "check", color: .systemIndigo)
+    let buttonOne = CustomButton(title: NSLocalizedString("Push", comment: "Name button"), color: .red)
+    let buttonTwo = CustomButton(title: NSLocalizedString("Pop", comment: "Name button"), color: .blue)
+    let buttonThree = CustomButton(title: NSLocalizedString("Goto Post", comment: "Name button"), color: .systemMint)
+    let customButton = CustomButton(title: NSLocalizedString("Check", comment: "Name button"), color: .systemIndigo)
     let customTextField: UITextField = {
         let textField = UITextField()
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
@@ -35,7 +35,7 @@ class FeedViewController: UIViewController {
         textField.font = .systemFont(ofSize: 16, weight: .regular)
         textField.tintColor = UIColor(named: "AccentColor")
         textField.autocapitalizationType = .none
-        textField.placeholder = "Give me Text and Tap check"
+        textField.placeholder = NSLocalizedString("Give me password and Tap check", comment: "Placeholder")
         return textField
     }()
     
@@ -89,12 +89,12 @@ class FeedViewController: UIViewController {
     @objc func someChange(){
         if self.model.check {
             print("Good")
-            label.text = "Good"
+            label.text = NSLocalizedString("Correct password", comment: "Answer")
             label.textColor = .green
             self.stackView.insertArrangedSubview(label, at: 0)
         } else {
             print("Bad")
-            label.text = "Bad"
+            label.text = NSLocalizedString("Wrong password", comment: "Answer")
             label.textColor = .red
             self.stackView.insertArrangedSubview(label, at: 0)
         }
@@ -103,4 +103,4 @@ class FeedViewController: UIViewController {
 struct PostTitle {
     var title:String
 }
-var newPost = PostTitle(title: "Post")
+var newPost = PostTitle(title: NSLocalizedString("Post", comment: "Name NavigationItem"))

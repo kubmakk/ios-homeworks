@@ -42,7 +42,7 @@ class ProfileHeaderView: UIView {
         return textField
     }()
     let setStatusButton: CustomButton = {
-        let button = CustomButton(title: "show status", color: .systemBlue)
+        let button = CustomButton(title: NSLocalizedString("Show status", comment: "Name button"), color: .systemBlue)
         button.titleLabel?.textColor = .white
         button.layer.cornerRadius = 4
         button.layer.shadowOpacity = 0.7

@@ -24,7 +24,7 @@ class LogInViewController: UIViewController {
     var delegate: LoginViewControllerDelegate?
     private let databaseCoordinator: DatabaseCoordinatable
 
-    let user = User(fullName: "Слон", avatar: "elephant.jpg", status: "Люблю рыбий жир")
+    //let user = User(fullName: "Слон", avatar: "elephant.jpg", status: "Люблю рыбий жир")
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -62,7 +62,7 @@ class LogInViewController: UIViewController {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
         textField.isSecureTextEntry = true
-        textField.placeholder = "Password"
+        textField.placeholder = NSLocalizedString("Password", comment: "User password")
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
         textField.leftViewMode = .always
         return textField
@@ -82,7 +82,7 @@ class LogInViewController: UIViewController {
     }()
     
     let logInButton: CustomButton = {
-        let button = CustomButton(title: "Log In", color: nil)
+        let button = CustomButton(title: NSLocalizedString("Log In", comment: "Name button"), color: nil)
         let backgrounImageWithCustomAlpha = UIImage(named:"blue_pixel.png")
         let transparentImage = backgrounImageWithCustomAlpha?.image(alpha: 0.8)
         button.setBackgroundImage(backgrounImageWithCustomAlpha, for: .normal)
@@ -94,7 +94,7 @@ class LogInViewController: UIViewController {
         return button
     }()
     let signUpButton: CustomButton = {
-        let button = CustomButton(title: "Не зарегистрированы? Создайте аккаунт сейчас", color: nil)
+        let button = CustomButton(title: NSLocalizedString("Not signed up? Create an account now", comment: "Name button"), color: nil)
         button.setTitleColor(.systemBlue, for: .normal)
         button.setTitleColor(.systemGray, for: .selected)
         button.setTitleColor(.systemGray, for: .highlighted)
@@ -205,7 +205,7 @@ class LogInViewController: UIViewController {
             guard let email = strongSelf.emailField.text, !email.isEmpty, email.isValidEmail,
                   let password = strongSelf.passwordField.text, !password.isEmpty, !password.contains(" ") else {
                       print("Missing field data")
-                      let alert = customAlert(message: "Не корректно заполнены поля")
+                      let alert = customAlert(message: NSLocalizedString("Incorrectly filled fields", comment: "Notification error"))
                       strongSelf.present(alert, animated: true, completion: nil)
                       return
                   }
@@ -239,10 +239,10 @@ class LogInViewController: UIViewController {
     
     private func createAccountInDatabase(email: String, password: String) {
         let model = AuthorizationModel(email: email, password: password)
-        let alert = UIAlertController(title: "Создать Аккаунт?",
-                                      message: "Один шаг и вы с нами",
+        let alert = UIAlertController(title: NSLocalizedString("Create Account?", comment: "Notification question"),
+                                      message: NSLocalizedString("One step and you will be with us", comment: "Call to action"),
                                       preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Создать",
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Yes!", comment: "Approval"),
                                       style: .default,
                                       handler: { _ in
             self.databaseCoordinator.create(AuthorizationModel.self, createModel: model) { [weak self] result in
@@ -258,7 +258,7 @@ class LogInViewController: UIViewController {
                 }
             }
         }))
-        alert.addAction(UIAlertAction(title: "Отмена",
+        alert.addAction(UIAlertAction(title: NSLocalizedString("No", comment: "Cancel"),
                                       style: .cancel,
                                       handler: { _ in
         }))

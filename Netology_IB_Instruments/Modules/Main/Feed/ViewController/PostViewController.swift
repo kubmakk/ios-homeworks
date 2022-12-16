@@ -12,7 +12,7 @@ class PostViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .orange
         self.title = newPost.title
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style:.plain, target: self, action: #selector(tapButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Info", comment: "Name NavigationItem"), style:.plain, target: self, action: #selector(tapButton))
     }
     @objc func tapButton(){
         let vc = InfoViewController()

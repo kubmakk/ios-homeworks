@@ -25,7 +25,7 @@ class FeedCoordinator: Coordinator {
         let feedVC = FeedViewController()
         feedVC.viewModel = feedViewModel
         feedVC.coordinator = self
-        navigationController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "atom"), tag: 0)
+        navigationController.tabBarItem = UITabBarItem(title: NSLocalizedString("Feed", comment: "Name TabBarItem"), image: UIImage(systemName: "atom"), selectedImage: UIImage(systemName: "atom.fill"))
         navigationController.view.backgroundColor = .yellow
         navigationController.pushViewController(feedVC, animated: true)
     }

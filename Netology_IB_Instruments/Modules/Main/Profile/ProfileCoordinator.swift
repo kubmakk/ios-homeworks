@@ -11,8 +11,8 @@ import UIKit
 class ProfileCoordinator: Coordinator {
     
     var parentCoordinator: Coordinator?
-    //let name = NSLocalizedString("Слон Балдахин", comment: "Имя")
-    let user = User(fullName: NSLocalizedString("Слон Балдахин", comment: "Имя"), avatar: "elephant.jpg", status: "Люблю рыбий жир")
+    
+    let user = User(fullName: NSLocalizedString("Elephant", comment: "Person name"), avatar: "elephant.jpg", status: NSLocalizedString("I love fish oil", comment: "Person status"))
     var children: [Coordinator] = []
     
     var navigationController: UINavigationController
@@ -38,7 +38,7 @@ extension ProfileCoordinator: ProfileNavigation {
 #endif
         profileVC.viewModel = ProfileViewModel(nav: self)
         profileVC.coordinator = self
-        navigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 0)
+        navigationController.tabBarItem = UITabBarItem(title: NSLocalizedString("Profile", comment: "Name TabBarItem"), image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
         navigationController.pushViewController(profileVC, animated: true)
     }
 }
