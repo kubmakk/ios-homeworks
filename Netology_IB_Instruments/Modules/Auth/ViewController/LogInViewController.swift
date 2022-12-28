@@ -28,7 +28,7 @@ class LogInViewController: UIViewController {
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.backgroundColor = .white
+        scrollView.backgroundColor = backgroundColor
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
@@ -49,8 +49,8 @@ class LogInViewController: UIViewController {
         let textField = UITextField()
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
         textField.leftViewMode = .always
-        textField.textColor = .black
-        textField.backgroundColor = .systemGray6
+        textField.textColor = textColor
+        textField.backgroundColor = backgroundColor
         textField.font = .systemFont(ofSize: 16, weight: .regular)
         textField.tintColor = UIColor(named: "AccentColor")
         textField.autocapitalizationType = .none
@@ -60,7 +60,8 @@ class LogInViewController: UIViewController {
     
     let passwordField: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = .systemGray6
+        textField.backgroundColor = backgroundColor
+        textField.textColor = textColor
         textField.isSecureTextEntry = true
         textField.placeholder = NSLocalizedString("Password", comment: "User password")
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
@@ -76,7 +77,7 @@ class LogInViewController: UIViewController {
         stackView.layer.borderWidth = 0.5
         stackView.layer.cornerRadius = 10
         stackView.spacing = 0.5
-        stackView.backgroundColor = UIColor.lightGray
+        stackView.backgroundColor = backgroundColor
         stackView.layer.masksToBounds = true
         return stackView
     }()
@@ -95,7 +96,7 @@ class LogInViewController: UIViewController {
     }()
     let signUpButton: CustomButton = {
         let button = CustomButton(title: NSLocalizedString("Not signed up? Create an account now", comment: "Name button"), color: nil)
-        button.setTitleColor(.systemBlue, for: .normal)
+        button.setTitleColor(textColor, for: .normal)
         button.setTitleColor(.systemGray, for: .selected)
         button.setTitleColor(.systemGray, for: .highlighted)
         button.setTitleColor(.systemGray, for: .disabled)

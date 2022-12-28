@@ -8,6 +8,7 @@
 import UIKit
 
 class PhotosTableViewCell: UITableViewCell {
+    
     var width:CGFloat = {
         if var widthH = UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.width {
             widthH = (widthH - 48)/4
@@ -18,7 +19,7 @@ class PhotosTableViewCell: UITableViewCell {
     let photoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
+        label.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         label.font = .systemFont(ofSize: 24, weight: .bold)
         return label
     }()
@@ -26,7 +27,7 @@ class PhotosTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = "→"
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
+        label.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         label.font = .systemFont(ofSize: 24, weight: .bold)
         return label
     }()
