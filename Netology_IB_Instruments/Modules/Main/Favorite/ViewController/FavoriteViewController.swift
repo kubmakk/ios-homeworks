@@ -9,12 +9,12 @@ import UIKit
 
 class FavoriteViewController: UIViewController {
     
-    private enum State {
+    enum State {
         case empty
         case hasModel(model: [Post])
     }
     
-    private var state: State = .empty
+    var state: State = .empty
     private let databaseCoordinator: DatabaseCoordinatable
     var coordinator: FavoriteCoordinator?
     weak var viewModel: FavoriteViewModel?
@@ -53,6 +53,7 @@ class FavoriteViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupNavigationBar()
         setupTableView()
         self.tableView.backgroundColor = .systemYellow
@@ -67,9 +68,29 @@ class FavoriteViewController: UIViewController {
     
     private func setupNavigationBar() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = "Favorites"
+        self.navigationItem.title = NSLocalizedString("Favorites", comment: "Name NavigationItem")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Delete", comment: "Name NavigationItem"), style:.plain, target: self, action: #selector(action))
+        //let height: CGFloat = 75
+        //let navbar = UINavigationBar(frame: CGRect(x: 0, y: 50, width: UIScreen.main.bounds.width, height: height))
+        //navbar.backgroundColor = UIColor.systemBlue
+        //navbar.delegate = self
+
+       // let navItem = UINavigationItem()
+       // navItem.title = ""
+        //navItem.leftBarButtonItem = UIBarButtonItem(title: "Left Button", style: .plain, target: self, action: nil)
+        //navItem.rightBarButtonItem = UIBarButtonItem(title: "Del", style: .plain, target: self, action: #selector(action))
+        //UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(action))
+        //UIBarButtonItem(title: "D", style: .plain, target: self, action: nil)
+
+       // navbar.items = [navItem]
+
+        //view.addSubview(navbar)
+
+//        collectionView?.frame = CGRect(x: 0, y: height, width: UIScreen.mainScreen().bounds.width, height: (UIScreen.mainScreen().bounds.height - height))
+//        guard let navItem = self.navigationController?.navigationItem else {return}
+//        navItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(action))
     }
-    private func fetchPostFromDatabase() {
+    func fetchPostFromDatabase() {
         self.databaseCoordinator.fetchAll(PostCoreDataModel.self) { result in
             switch result {
             case .success(let postCoreDataModels):
@@ -82,6 +103,9 @@ class FavoriteViewController: UIViewController {
                 self.state = .empty
             }
         }
+    }
+    @objc func action () {
+        coordinator?.action(view: self)
     }
     @objc private func wasLikedArticle(_ notification: NSNotification) {
         print("🍇")
@@ -114,8 +138,8 @@ extension FavoriteViewController: UITableViewDataSource {
             cell.authorLabel.text = model[indexPath.row].author
             cell.postImageView.image = UIImage(named: model[indexPath.row].image)
             cell.postTextView.text = model[indexPath.row].descript
-            cell.likesLabel.text = "Likes: " + ("\(model[indexPath.row].likes)")
-            cell.viewsLabel.text = "Views: " + ("\(model[indexPath.row].views)")
+            cell.likesLabel.text = NSLocalizedString("Likes: ", comment: "likes post") + ("\(model[indexPath.row].likes)")
+            cell.viewsLabel.text = NSLocalizedString("Views: ", comment: "views post") + ("\(model[indexPath.row].views)")
             return cell
         }
     }

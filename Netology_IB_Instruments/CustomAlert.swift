@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 func customAlert(message: String) -> UIAlertController {
-    let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-    let actionOk = UIAlertAction(title: "OK", style: .cancel) { actionOk in
+    let alert = UIAlertController(title: NSLocalizedString("Error", comment: "Alert Error"), message: message, preferredStyle: .alert)
+    let actionOk = UIAlertAction(title: NSLocalizedString("Ok", comment: "Alert Ok"), style: .cancel) { actionOk in
         print("Tap Ok")
     }
     alert.addAction(actionOk)

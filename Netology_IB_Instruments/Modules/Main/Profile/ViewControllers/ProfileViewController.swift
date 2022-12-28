@@ -181,7 +181,7 @@ extension ProfileViewController: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "idCell2") as! PhotosTableViewCell
-            cell.photoLabel.text = "Photos"
+            cell.photoLabel.text = NSLocalizedString("Photos", comment: "Subtitle")
             cell.photoImageView.image = UIImage(named: "1")
             cell.photoImageView1.image = UIImage(named: "2")
             cell.photoImageView2.image = UIImage(named: "3")
@@ -192,8 +192,8 @@ extension ProfileViewController: UITableViewDataSource {
             cell.authorLabel.text = self.posts[indexPath.row].author
             cell.postImageView.image = UIImage(named: self.posts[indexPath.row].image)
             cell.postTextView.text = self.posts[indexPath.row].descript
-            cell.likesLabel.text = "Likes: " + ("\(self.posts[indexPath.row].likes)")
-            cell.viewsLabel.text = "Views: " + ("\(self.posts[indexPath.row].views)")
+            cell.likesLabel.text = NSLocalizedString("Likes: ", comment: "likes post") + ("\(self.posts[indexPath.row].likes)")
+            cell.viewsLabel.text = NSLocalizedString("Views: ", comment: "views post") + ("\(self.posts[indexPath.row].views)")
             cell.delegate = self
             return cell
         default :

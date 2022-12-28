@@ -23,7 +23,7 @@ class InfoViewController: UIViewController {
         return label
     }()
     
-    let alertButton = CustomButton(title: "press me now", color: .black)
+    let alertButton = CustomButton(title: NSLocalizedString("Push", comment: "Name button"), color: .black)
     
     override func viewDidLoad() {
         super.viewDidLoad()
