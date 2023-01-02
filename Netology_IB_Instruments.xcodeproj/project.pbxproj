@@ -46,6 +46,7 @@
 		9BAEF203282D89B4008157AB /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEF202282D89B4008157AB /* LoginFactory.swift */; };
 		9BB7FCFB281577840030BECC /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB7FCFA281577840030BECC /* StorageService.swift */; };
 		9BB7FD00281577DE0030BECC /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5108FA27F87B1200AC6162 /* Post.swift */; };
+		9BC6446F295CC38E00E453A7 /* extensionDarkTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC6446E295CC38E00E453A7 /* extensionDarkTheme.swift */; };
 		9BC72252294BAE1F00595D68 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9BC72254294BAE1F00595D68 /* Localizable.strings */; };
 		9BDC589C6E22918C601E0E5E /* Pods_StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47B75666DF0F042631DCEA6A /* Pods_StorageService.framework */; };
 		9BE2796F292413E000BBF595 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE2796E292413E000BBF595 /* FavoriteViewController.swift */; };
@@ -131,6 +132,7 @@
 		9BAEF202282D89B4008157AB /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 		9BB7FCF8281577840030BECC /* libStorageService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libStorageService.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB7FCFA281577840030BECC /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		9BC6446E295CC38E00E453A7 /* extensionDarkTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionDarkTheme.swift; sourceTree = "<group>"; };
 		9BC72251294BADED00595D68 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		9BC72253294BAE1F00595D68 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9BC72255294BAE2400595D68 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				9BAC7DAE291ABD07001772B3 /* DataBase */,
 				9BAC7DB3291AC0C8001772B3 /* Models */,
 				9BAEF202282D89B4008157AB /* LoginFactory.swift */,
+				9BC6446E295CC38E00E453A7 /* extensionDarkTheme.swift */,
 				9B62D38028212A0A008E8E50 /* User.swift */,
 				9BA6EAD5283A835D00193A79 /* CustomButton.swift */,
 				9BF35B03284BB93400AC894F /* Coordinator.swift */,
@@ -685,6 +688,7 @@
 				9BAC7DB5291AC128001772B3 /* AuthorizationModel.swift in Sources */,
 				9BA6EAD6283A835D00193A79 /* CustomButton.swift in Sources */,
 				9BE2796F292413E000BBF595 /* FavoriteViewController.swift in Sources */,
+				9BC6446F295CC38E00E453A7 /* extensionDarkTheme.swift in Sources */,
 				845EB8E927B1AF87004ACF55 /* AppDelegate.swift in Sources */,
 				9BEC1EB82800B1ED00C72363 /* PhotosCollectionViewCell.swift in Sources */,
 				9B219403286CD5CD006050B5 /* PasswordCracking.swift in Sources */,

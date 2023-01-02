@@ -12,7 +12,7 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
     let profileHeaderView: ProfileHeaderView = {
         let view = ProfileHeaderView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .lightGray
+        view.backgroundColor = UIColor.createColor(lightMode: .systemGray6, darkMode: .systemGray2)
         return view
     }()
     override init(reuseIdentifier: String?) {
