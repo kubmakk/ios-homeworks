@@ -21,7 +21,7 @@ class LogInViewController: UIViewController {
     
     var passwordCracking = PasswordCracking()
     var viewModel: LoginViewModel!
-    var delegate: LoginViewControllerDelegate?
+    //var delegate: LoginViewControllerDelegate?
     private let databaseCoordinator: DatabaseCoordinatable
 
     //let user = User(fullName: "Слон", avatar: "elephant.jpg", status: "Люблю рыбий жир")
@@ -106,8 +106,9 @@ class LogInViewController: UIViewController {
 
     // MARK: Init
     
-    init(with delegate: LoginViewControllerDelegate, databaseCoordinator: DatabaseCoordinatable) {
-        self.delegate = delegate
+    //init(with delegate: LoginViewControllerDelegate, databaseCoordinator:
+    init(databaseCoordinator: DatabaseCoordinatable) {
+        //self.delegate = delegate
         self.databaseCoordinator = databaseCoordinator
         super.init(nibName: nil, bundle: nil)
     }
@@ -133,9 +134,9 @@ class LogInViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)    // подписаться на уведомления
-        let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        nc.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        let nc = NotificationCenter.default
+//        nc.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        nc.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -280,19 +281,19 @@ class LogInViewController: UIViewController {
         }
     }
     
-    @objc
-    private func kbdShow(notification: NSNotification) {
-        if let kbdSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            self.scrollView.contentInset.bottom = kbdSize.height
-            self.scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: kbdSize.height, right: 0)
-        }
-    }
-    
-    @objc
-    private func kbdHide(notification: NSNotification) {
-        self.scrollView.contentInset.top = .zero
-        self.scrollView.verticalScrollIndicatorInsets = .zero
-    }
+//    @objc
+//    private func kbdShow(notification: NSNotification) {
+//        if let kbdSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//            self.scrollView.contentInset.bottom = kbdSize.height
+//            self.scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: kbdSize.height, right: 0)
+//        }
+//    }
+//
+//    @objc
+//    private func kbdHide(notification: NSNotification) {
+//        self.scrollView.contentInset.top = .zero
+//        self.scrollView.verticalScrollIndicatorInsets = .zero
+//    }
 
 }
 

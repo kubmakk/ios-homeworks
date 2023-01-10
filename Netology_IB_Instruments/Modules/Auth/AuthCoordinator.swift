@@ -26,8 +26,9 @@ class AuthCoordinator: Coordinator {
     }
     func goToLoginPage(){
         let realmCoordinator = RealmCoordinator()
-        let myLoginInspector = MyLogicFactory()
-        let loginVC = LogInViewController(with: myLoginInspector.inspector(), databaseCoordinator: realmCoordinator)
+        //let myLoginInspector = MyLogicFactory()
+//        let loginVC = LogInViewController(with: myLoginInspector.inspector(), databaseCoordinator: realmCoordinator)
+        let loginVC = LogInViewController(databaseCoordinator: realmCoordinator)
         loginVC.viewModel = loginViewModel
         //loginVC.delegate = myLoginInspector.inspector()
         realmCoordinator.checkIsAuthorised { [weak self] result in

@@ -16,7 +16,6 @@ protocol CheckerServiceProtocol {
 
 class CheckerService: CheckerServiceProtocol {
 
-    
     static let shared = CheckerService()
     
     private init(){}

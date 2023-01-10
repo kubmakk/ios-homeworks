@@ -40,7 +40,7 @@ extension RealmCoordinator: DatabaseCoordinatable {
     
     func checkIsAuthorised(completion: @escaping (Result<Success, DatabaseError>) -> Void) {
         do {
-            let realm = try! Realm()
+            let realm = try Realm()
                 // Create realm pointing to default file
             print(Realm.Configuration.defaultConfiguration.fileURL!)
             let findTrue = realm.objects(AuthorizationModel.self).filter("isAuthorized == true")
@@ -56,7 +56,7 @@ extension RealmCoordinator: DatabaseCoordinatable {
     
     func check(checkModel: AuthorizationModel, completion: @escaping (Result<Success, DatabaseError>) -> Void) {
         do {
-            let realm = try! Realm()
+            let realm = try Realm()
                 // Create realm pointing to default file
             print(Realm.Configuration.defaultConfiguration.fileURL!)
             
@@ -81,17 +81,18 @@ extension RealmCoordinator: DatabaseCoordinatable {
     }
     func create<T>(_ model: T.Type, createModel: AuthorizationModel, completion: @escaping (Result<Success, DatabaseError>) -> Void) where T : Storable {
         do {
-            let realm = try! Realm()
+            let realm = try Realm()
             print(Realm.Configuration.defaultConfiguration.fileURL!)
             let findUser = realm.object(ofType: AuthorizationModel.self, forPrimaryKey: createModel.email)
             guard findUser != nil else {
+                createModel.isAuthorized.toggle()
                 try! realm.write {
                     realm.add(createModel, update: .all)
                 }
-                createModel.isAuthorized.toggle()
-                try! realm.write {
+                print(createModel.isAuthorized)
+                /*try! realm.write {
                     realm.add(createModel, update: .modified)
-                }
+                }*/
                 completion(.success(.save))
                 return
             }

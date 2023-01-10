@@ -18,7 +18,6 @@ final class LoginInspector: LoginViewControllerDelegate {
 
     func checkCredentials(email: String, password: String, completion: @escaping (Result<AuthModel, NetworkError>) -> Void) {
         
-         
         CheckerService.shared.checkCredentials(email: email, password: password) { result, error in
             guard error == nil else {
                 completion(.failure(.error(error!)))
