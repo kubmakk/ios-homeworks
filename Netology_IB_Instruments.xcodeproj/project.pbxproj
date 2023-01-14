@@ -22,23 +22,20 @@
 		9B5108FB27F87B1200AC6162 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5108F827F87B1200AC6162 /* PostTableViewCell.swift */; };
 		9B5108FC27F87B1200AC6162 /* ProfileTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5108F927F87B1200AC6162 /* ProfileTableHeaderView.swift */; };
 		9B62D38128212A0A008E8E50 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B62D38028212A0A008E8E50 /* User.swift */; };
-		9B6ED008296DE66800401029 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 9B6ED007296DE66800401029 /* Realm */; };
-		9B6ED00A296DE66800401029 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9B6ED009296DE66800401029 /* RealmSwift */; };
+		9B8315FA2972D0F900A254C1 /* NavigationTestProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8315F92972D0F900A254C1 /* NavigationTestProfileCoordinator.swift */; };
+		9B8315FC2972DAB300A254C1 /* NavigationTestFeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8315FB2972DAB300A254C1 /* NavigationTestFeedCoordinator.swift */; };
 		9B9D228028505BBA00010D6C /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9D227F28505BBA00010D6C /* FeedViewModel.swift */; };
 		9BA0679B2926AD2800C36C61 /* Notification.name+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA0679A2926AD2800C36C61 /* Notification.name+extension.swift */; };
 		9BA0FEAA28A43B4700E6EE44 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA0FEA928A43B4700E6EE44 /* CustomAlert.swift */; };
 		9BA2F17D2819C08D0006E8C4 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 9BA2F17C2819C08D0006E8C4 /* iOSIntPackage */; };
 		9BA3742428970FF0002845C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9BA3742328970FF0002845C4 /* GoogleService-Info.plist */; };
-		9BA3742728971452002845C4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9BA3742628971452002845C4 /* FirebaseAuth */; };
-		9BA3742928971452002845C4 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9BA3742828971452002845C4 /* FirebaseDatabase */; };
-		9BA3742B28971452002845C4 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9BA3742A28971452002845C4 /* FirebaseStorage */; };
 		9BA37B9D284E947600E4B41F /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA37B9C284E947600E4B41F /* AuthCoordinator.swift */; };
 		9BA37B9F284E991800E4B41F /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA37B9E284E991800E4B41F /* FeedCoordinator.swift */; };
 		9BA37BA1284F118A00E4B41F /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA37BA0284F118A00E4B41F /* Factory.swift */; };
 		9BA6EAD4283A6BC700193A79 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA6EAD3283A6BC700193A79 /* LoginInspector.swift */; };
 		9BA6EAD6283A835D00193A79 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA6EAD5283A835D00193A79 /* CustomButton.swift */; };
 		9BA9BAB0287F3E4100C271CA /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9BAAF287F3E4100C271CA /* NetworkService.swift */; };
-		9BAADCF229688B8000AFD0EF /* Netology_IB_InstrumentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAADCF129688B8000AFD0EF /* Netology_IB_InstrumentsTests.swift */; };
+		9BAADCF229688B8000AFD0EF /* NavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAADCF129688B8000AFD0EF /* NavigationTests.swift */; };
 		9BAC7DB0291ABD5F001772B3 /* DatabaseCoorinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAC7DAF291ABD5F001772B3 /* DatabaseCoorinatable.swift */; };
 		9BAC7DB2291ABDA4001772B3 /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAC7DB1291ABDA4001772B3 /* Storable.swift */; };
 		9BAC7DB5291AC128001772B3 /* AuthorizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAC7DB4291AC128001772B3 /* AuthorizationModel.swift */; };
@@ -121,6 +118,8 @@
 		9B5108F927F87B1200AC6162 /* ProfileTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableHeaderView.swift; sourceTree = "<group>"; };
 		9B5108FA27F87B1200AC6162 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		9B62D38028212A0A008E8E50 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		9B8315F92972D0F900A254C1 /* NavigationTestProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTestProfileCoordinator.swift; sourceTree = "<group>"; };
+		9B8315FB2972DAB300A254C1 /* NavigationTestFeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTestFeedCoordinator.swift; sourceTree = "<group>"; };
 		9B9D227F28505BBA00010D6C /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		9BA0679A2926AD2800C36C61 /* Notification.name+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.name+extension.swift"; sourceTree = "<group>"; };
 		9BA0FEA928A43B4700E6EE44 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
@@ -133,7 +132,7 @@
 		9BA6EAD5283A835D00193A79 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		9BA9BAAF287F3E4100C271CA /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		9BAADCEF29688B8000AFD0EF /* Netology_IB_InstrumentsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Netology_IB_InstrumentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9BAADCF129688B8000AFD0EF /* Netology_IB_InstrumentsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Netology_IB_InstrumentsTests.swift; sourceTree = "<group>"; };
+		9BAADCF129688B8000AFD0EF /* NavigationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTests.swift; sourceTree = "<group>"; };
 		9BAC7DAF291ABD5F001772B3 /* DatabaseCoorinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseCoorinatable.swift; sourceTree = "<group>"; };
 		9BAC7DB1291ABDA4001772B3 /* Storable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storable.swift; sourceTree = "<group>"; };
 		9BAC7DB4291AC128001772B3 /* AuthorizationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModel.swift; sourceTree = "<group>"; };
@@ -168,12 +167,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B6ED008296DE66800401029 /* Realm in Frameworks */,
 				9BA2F17D2819C08D0006E8C4 /* iOSIntPackage in Frameworks */,
-				9B6ED00A296DE66800401029 /* RealmSwift in Frameworks */,
-				9BA3742728971452002845C4 /* FirebaseAuth in Frameworks */,
-				9BA3742928971452002845C4 /* FirebaseDatabase in Frameworks */,
-				9BA3742B28971452002845C4 /* FirebaseStorage in Frameworks */,
 				D18B0E06A412049F543F232B /* Pods_Netology_IB_Instruments.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -254,7 +248,9 @@
 		9BAADCF029688B8000AFD0EF /* Netology_IB_InstrumentsTests */ = {
 			isa = PBXGroup;
 			children = (
-				9BAADCF129688B8000AFD0EF /* Netology_IB_InstrumentsTests.swift */,
+				9BAADCF129688B8000AFD0EF /* NavigationTests.swift */,
+				9B8315F92972D0F900A254C1 /* NavigationTestProfileCoordinator.swift */,
+				9B8315FB2972DAB300A254C1 /* NavigationTestFeedCoordinator.swift */,
 			);
 			path = Netology_IB_InstrumentsTests;
 			sourceTree = "<group>";
@@ -548,11 +544,6 @@
 			name = Netology_IB_Instruments;
 			packageProductDependencies = (
 				9BA2F17C2819C08D0006E8C4 /* iOSIntPackage */,
-				9BA3742628971452002845C4 /* FirebaseAuth */,
-				9BA3742828971452002845C4 /* FirebaseDatabase */,
-				9BA3742A28971452002845C4 /* FirebaseStorage */,
-				9B6ED007296DE66800401029 /* Realm */,
-				9B6ED009296DE66800401029 /* RealmSwift */,
 			);
 			productName = Netology_IB_Instruments;
 			productReference = 845EB8E527B1AF87004ACF55 /* Netology_IB_Instruments.app */;
@@ -787,7 +778,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BAADCF229688B8000AFD0EF /* Netology_IB_InstrumentsTests.swift in Sources */,
+				9B8315FC2972DAB300A254C1 /* NavigationTestFeedCoordinator.swift in Sources */,
+				9B8315FA2972D0F900A254C1 /* NavigationTestProfileCoordinator.swift in Sources */,
+				9BAADCF229688B8000AFD0EF /* NavigationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1159,35 +1152,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		9B6ED007296DE66800401029 /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9B6ED006296DE66800401029 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = Realm;
-		};
-		9B6ED009296DE66800401029 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9B6ED006296DE66800401029 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
-		};
 		9BA2F17C2819C08D0006E8C4 /* iOSIntPackage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9BA2F17B2819C08D0006E8C4 /* XCRemoteSwiftPackageReference "iOSIntPackage" */;
 			productName = iOSIntPackage;
-		};
-		9BA3742628971452002845C4 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9BA3742528971452002845C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		9BA3742828971452002845C4 /* FirebaseDatabase */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9BA3742528971452002845C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabase;
-		};
-		9BA3742A28971452002845C4 /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9BA3742528971452002845C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 

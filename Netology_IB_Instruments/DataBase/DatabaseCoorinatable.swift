@@ -33,9 +33,9 @@ enum Success {
 
 protocol DatabaseCoordinatable {
     /// Создание объекта заданного типа.
-    func create<T: Storable>(_ model: T.Type, createModel: AuthorizationModel, completion: @escaping (Result<Success, DatabaseError>) -> Void)
+//    func create<T: Storable>(_ model: T.Type, createModel: AuthorizationModel, completion: @escaping (Result<Success, DatabaseError>) -> Void)
     func create<T: Storable>(_ model: T.Type, keyedValues: [[String: Any]], completion: @escaping (Result<[T], DatabaseError>) -> Void)
-    func check(checkModel: AuthorizationModel, completion: @escaping (Result<Success, DatabaseError>) -> Void)
+//    func check(checkModel: AuthorizationModel, completion: @escaping (Result<Success, DatabaseError>) -> Void)
 //    /// Обновление объекта заданного типа с помощью предиката.
 //    func update<T: Storable>(_ model: T.Type, predicate: NSPredicate?, keyedValues: [String: Any], completion: @escaping (Result<[T], DatabaseError>) -> Void)
     /// Удаление объектов заданного типа с помощью предиката.

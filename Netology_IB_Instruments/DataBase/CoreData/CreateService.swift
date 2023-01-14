@@ -12,22 +12,16 @@ enum CreateError: Error {
 }
 
 protocol CreateServiceProtocol: AnyObject {
-    //var realmCoordinator: DatabaseCoordinatable { get }
     var coreDataCoordinator: DatabaseCoordinatable { get }
-    
-    /// Миграция объектов из Realm в CoreData.
-    //func migrateStorageModels(completion: @escaping (Result<Void, MigrationError>) -> Void)
 }
 
 final class CreateService: CreateServiceProtocol {
     
     static let shared: CreateServiceProtocol = CreateService()
     
-    //let realmCoordinator: DatabaseCoordinatable
     var coreDataCoordinator: DatabaseCoordinatable
     
     private init() {
-        //self.realmCoordinator = Self.createDatabaseCoordinator(for: .realm)
         self.coreDataCoordinator = Self.createDatabaseCoordinator()
     }
     
@@ -49,34 +43,3 @@ final class CreateService: CreateServiceProtocol {
             }
     }
 }
-
-/*extension MigrationService: MigrationServiceProtocol {
-    
-    func migrateStorageModels(completion: @escaping (Result<Void, MigrationError>) -> Void) {
-        self.realmCoordinator.fetchAll(ArticleRealmModel.self) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let articleObjects):
-                guard !articleObjects.isEmpty else {
-                    completion(.success(()))
-                    return
-                }
-                
-                let articles = articleObjects.map { News.Article(articleRealmModel: $0) }
-                let keyedValues = self.keyedValues(from: articles)
-                self.coreDataCoordinator.create(ArticleCoreDataModel.self, keyedValues: keyedValues) { result in
-                    switch result {
-                    case .success:
-                        completion(.success(()))
-                    case .failure(let error):
-                        completion(.failure(.error(description: error.localizedDescription)))
-                    }
-                }
-            case .failure(let error):
-                completion(.failure(.error(description: error.localizedDescription)))
-            }
-        }
-    }
-}
-*/

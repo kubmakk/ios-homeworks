@@ -6,9 +6,9 @@
 //
 
 import UIKit
-import FirebaseCore
-import FirebaseAuth
-import RealmSwift
+//import FirebaseCore
+//import FirebaseAuth
+//import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        FirebaseApp.configure()
-        self.checkRealmMigration()
+        //FirebaseApp.configure()
+        //self.checkRealmMigration()
         window = UIWindow()
         
 //        var appConfiguration:AppConfiguration { return [.first(URL(string: "https://swapi.dev/api/people/8")!), .second(URL(string: "https://swapi.dev/api/starships/3")!), .third(URL(string: "https://swapi.dev/api/planets/5")!)].randomElement()! }
@@ -68,12 +68,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     func applicationWillTerminate(_ application: UIApplication) {
         
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-        } catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError)
-        }
+//        let firebaseAuth = Auth.auth()
+//        do {
+//            try firebaseAuth.signOut()
+//        } catch let signOutError as NSError {
+//            print("Error signing out: %@", signOutError)
+//        }
 
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 
@@ -81,18 +81,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     }
     
-    private func checkRealmMigration() {
-        let config = Realm.Configuration(
-            // Set the new schema version. This must be greater than the previously used
-            // version (if you've never set a schema version before, the version is 0).
-            schemaVersion: 4,
-            migrationBlock: { migration, oldSchemaVersion in
-                if oldSchemaVersion < 4 {
-                    // on future migration
-                }
-        })
-
-        Realm.Configuration.defaultConfiguration = config
-    }
+//    private func checkRealmMigration() {
+//        let config = Realm.Configuration(
+//            // Set the new schema version. This must be greater than the previously used
+//            // version (if you've never set a schema version before, the version is 0).
+//            schemaVersion: 4,
+//            migrationBlock: { migration, oldSchemaVersion in
+//                if oldSchemaVersion < 4 {
+//                    // on future migration
+//                }
+//        })
+//
+//        Realm.Configuration.defaultConfiguration = config
+//    }
 }
 
