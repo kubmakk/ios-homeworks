@@ -46,6 +46,7 @@
 		9BB7FD00281577DE0030BECC /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5108FA27F87B1200AC6162 /* Post.swift */; };
 		9BC6446F295CC38E00E453A7 /* extensionDarkTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC6446E295CC38E00E453A7 /* extensionDarkTheme.swift */; };
 		9BC72252294BAE1F00595D68 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9BC72254294BAE1F00595D68 /* Localizable.strings */; };
+		9BC84F25297848E600B11A2C /* LocalAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC84F24297848E600B11A2C /* LocalAuthorizationService.swift */; };
 		9BDC589C6E22918C601E0E5E /* Pods_StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47B75666DF0F042631DCEA6A /* Pods_StorageService.framework */; };
 		9BE2796F292413E000BBF595 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE2796E292413E000BBF595 /* FavoriteViewController.swift */; };
 		9BE279732924157000BBF595 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE279722924157000BBF595 /* FavoriteViewModel.swift */; };
@@ -145,6 +146,7 @@
 		9BC72251294BADED00595D68 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		9BC72253294BAE1F00595D68 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9BC72255294BAE2400595D68 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9BC84F24297848E600B11A2C /* LocalAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthorizationService.swift; sourceTree = "<group>"; };
 		9BE2796E292413E000BBF595 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		9BE279722924157000BBF595 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
 		9BE27974292415C300BBF595 /* FavoriteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCoordinator.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				9BA0FEA928A43B4700E6EE44 /* CustomAlert.swift */,
 				9B5108FA27F87B1200AC6162 /* Post.swift */,
 				9BC72254294BAE1F00595D68 /* Localizable.strings */,
+				9BC84F24297848E600B11A2C /* LocalAuthorizationService.swift */,
 			);
 			path = Netology_IB_Instruments;
 			sourceTree = "<group>";
@@ -751,6 +754,7 @@
 				9BF35B08284BD01200AC894F /* ProfileCoordinator.swift in Sources */,
 				9BEC1EBA2800B1FD00C72363 /* PhotosTableViewCell.swift in Sources */,
 				9BF2ED9127CB925A0064D648 /* ProfileHeaderView.swift in Sources */,
+				9BC84F25297848E600B11A2C /* LocalAuthorizationService.swift in Sources */,
 				9B9D228028505BBA00010D6C /* FeedViewModel.swift in Sources */,
 				9BAC7DB7291AF4C7001772B3 /* RealmCoordinator.swift in Sources */,
 				845FA1A827C2813C002BD653 /* InfoViewController.swift in Sources */,
@@ -889,6 +893,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "This app wants to use your Face ID. Plaese Hit OK to activate Face ID.";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -945,6 +950,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "This app wants to use your Face ID. Plaese Hit OK to activate Face ID.";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
