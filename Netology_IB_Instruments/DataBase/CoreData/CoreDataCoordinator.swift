@@ -107,9 +107,9 @@ extension String {
 }
 
 extension CoreDataCoordinator: DatabaseCoordinatable {
-    func create<T>(_ model: T.Type, createModel: AuthorizationModel, completion: @escaping (Result<Success, DatabaseError>) -> Void) where T : Storable {
-        
-    }
+//    func create<T>(_ model: T.Type, createModel: AuthorizationModel, completion: @escaping (Result<Success, DatabaseError>) -> Void) where T : Storable {
+//
+//    }
     func create<T>(_ model: T.Type, keyedValues: [[String : Any]], completion: @escaping (Result<[T], DatabaseError>) -> Void) where T : Storable {
         self.mainContext.perform { [weak self] in
             guard let self = self else { return }
@@ -148,9 +148,9 @@ extension CoreDataCoordinator: DatabaseCoordinatable {
             }
         }
     }
-    func check(checkModel: AuthorizationModel, completion: @escaping (Result<Success, DatabaseError>) -> Void) {
-        
-    }
+//    func check(checkModel: AuthorizationModel, completion: @escaping (Result<Success, DatabaseError>) -> Void) {
+//
+//    }
     func fetch<T>(_ model: T.Type, predicate: NSPredicate?, completion: @escaping (Result<[T], DatabaseError>) -> Void) where T : Storable {
         guard let model = model as? NSManagedObject.Type else {
             completion(.failure(.wrongModel))

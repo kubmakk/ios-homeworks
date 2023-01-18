@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol LoginViewControllerDelegate: AnyObject {
-    
-    func checkCredentials(email: String, password: String, completion: @escaping (Result<AuthModel, NetworkError>) -> Void)
-    func signUp(with email: String, password: String, completion: @escaping (Result<AuthModel, NetworkError>) -> Void)
-}
+//protocol LoginViewControllerDelegate: AnyObject {
+//
+//    func checkCredentials(email: String, password: String, completion: @escaping (Result<AuthModel, NetworkError>) -> Void)
+//    func signUp(with email: String, password: String, completion: @escaping (Result<AuthModel, NetworkError>) -> Void)
+//}
 
 class LogInViewController: UIViewController {
     
@@ -21,7 +21,7 @@ class LogInViewController: UIViewController {
     
     var passwordCracking = PasswordCracking()
     var viewModel: LoginViewModel!
-    var delegate: LoginViewControllerDelegate?
+    //var delegate: LoginViewControllerDelegate?
     private let databaseCoordinator: DatabaseCoordinatable
 
     //let user = User(fullName: "Слон", avatar: "elephant.jpg", status: "Люблю рыбий жир")
@@ -106,8 +106,9 @@ class LogInViewController: UIViewController {
 
     // MARK: Init
     
-    init(with delegate: LoginViewControllerDelegate, databaseCoordinator: DatabaseCoordinatable) {
-        self.delegate = delegate
+    //init(with delegate: LoginViewControllerDelegate, databaseCoordinator:
+    init(databaseCoordinator: DatabaseCoordinatable) {
+        //self.delegate = delegate
         self.databaseCoordinator = databaseCoordinator
         super.init(nibName: nil, bundle: nil)
     }
@@ -133,9 +134,9 @@ class LogInViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)    // подписаться на уведомления
-        let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        nc.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        let nc = NotificationCenter.default
+//        nc.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        nc.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -223,41 +224,55 @@ class LogInViewController: UIViewController {
     }
     
     private func checkAccountInDatabase(email: String, password: String) {
-        let model = AuthorizationModel(email: email, password: password)
-        self.databaseCoordinator.check(checkModel: model) { [weak self] result in
-            guard let strongSelf = self else { return }
+        //let model = AuthorizationModel(email: email, password: password)
+        //let model = AuthorizationModel.self
+        self.databaseCoordinator.fetchAll(UserModel.self) { result in
+            //guard let strongSelf = self else { return }
             switch result {
-            case .success(.save):
-                print("🍋 Find model")
-                strongSelf.viewModel!.goToHome()
+            case .success(let userCoreDataModels):
+                print("🍇 \(dump(userCoreDataModels))")
+                //let posts = postCoreDataModels.map { Post(postCoreDataModel: $0) }
+
             case .failure(let error):
                 let alert = customAlert(message: "\(error)")
-                strongSelf.present(alert, animated: true, completion: nil)
-                print(error)
+                self.present(alert, animated: true, completion: nil)
+                print("🐞 \(error)")
             }
         }
+//        self.databaseCoordinator.check(checkModel: model) { [weak self] result in
+//            guard let strongSelf = self else { return }
+//            switch result {
+//            case .success(.save):
+//                print("🍋 Find model")
+//                strongSelf.viewModel!.goToHome()
+//            case .failure(let error):
+//                let alert = customAlert(message: "\(error)")
+//                strongSelf.present(alert, animated: true, completion: nil)
+//                print(error)
+//            }
+//        }
     }
     
     private func createAccountInDatabase(email: String, password: String) {
-        let model = AuthorizationModel(email: email, password: password)
+        //let model = AuthorizationModel(email: email, password: password)
         let alert = UIAlertController(title: NSLocalizedString("Create Account?", comment: "Notification question"),
                                       message: NSLocalizedString("One step and you will be with us", comment: "Call to action"),
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("Yes!", comment: "Approval"),
                                       style: .default,
                                       handler: { _ in
-            self.databaseCoordinator.create(AuthorizationModel.self, createModel: model) { [weak self] result in
-                guard let strongSelf = self else { return }
-                switch result {
-                case .success(.save):
-                    print("🍋 Save model")
-                    strongSelf.viewModel!.goToHome()
-                case .failure(let error):
-                    let alert = customAlert(message: "\(error)")
-                    strongSelf.present(alert, animated: true, completion: nil)
-                    print("🍋 \(error)")
-                }
-            }
+//            self.databaseCoordinator.create(AuthorizationModel.self, createModel: model) { [weak self] result in
+//                guard let strongSelf = self else { return }
+//                switch result {
+//                case .success(.save):
+//                    print("🍋 Save model")
+//                    strongSelf.viewModel!.goToHome()
+//                case .failure(let error):
+//                    let alert = customAlert(message: "\(error)")
+//                    strongSelf.present(alert, animated: true, completion: nil)
+//                    print("🍋 \(error)")
+//                }
+//            }
         }))
         alert.addAction(UIAlertAction(title: NSLocalizedString("No", comment: "Cancel"),
                                       style: .cancel,
@@ -280,19 +295,19 @@ class LogInViewController: UIViewController {
         }
     }
     
-    @objc
-    private func kbdShow(notification: NSNotification) {
-        if let kbdSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            self.scrollView.contentInset.bottom = kbdSize.height
-            self.scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: kbdSize.height, right: 0)
-        }
-    }
-    
-    @objc
-    private func kbdHide(notification: NSNotification) {
-        self.scrollView.contentInset.top = .zero
-        self.scrollView.verticalScrollIndicatorInsets = .zero
-    }
+//    @objc
+//    private func kbdShow(notification: NSNotification) {
+//        if let kbdSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//            self.scrollView.contentInset.bottom = kbdSize.height
+//            self.scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: kbdSize.height, right: 0)
+//        }
+//    }
+//
+//    @objc
+//    private func kbdHide(notification: NSNotification) {
+//        self.scrollView.contentInset.top = .zero
+//        self.scrollView.verticalScrollIndicatorInsets = .zero
+//    }
 
 }
 
