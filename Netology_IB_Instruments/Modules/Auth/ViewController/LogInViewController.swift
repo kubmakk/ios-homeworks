@@ -21,6 +21,7 @@ class LogInViewController: UIViewController {
     
     var passwordCracking = PasswordCracking()
     var viewModel: LoginViewModel!
+    private let localAuthorizationService = LocalAuthorizationService()
     //var delegate: LoginViewControllerDelegate?
     private let databaseCoordinator: DatabaseCoordinatable
 
@@ -103,6 +104,35 @@ class LogInViewController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 13.0)
         return button
     }()
+    let localAuthorizationButton: CustomButton = {
+        let localAuthorizationService = LocalAuthorizationService()
+        let biometricType = localAuthorizationService.checkBiometricType()
+        var title = "Title"
+        switch biometricType {
+        case 0:
+            print("none")
+            title = "None"
+        case 1:
+            print("TouchID")
+            title = "TouchID"
+        case 2:
+            print("FaceID")
+            title = "FaceID"
+        default:
+            print("none")
+            title = "None"
+        }
+        let button = CustomButton(title: NSLocalizedString(title, comment: "Name button"), color: nil)
+        let backgrounImageWithCustomAlpha = UIImage(named:"blue_pixel.png")
+        let transparentImage = backgrounImageWithCustomAlpha?.image(alpha: 0.8)
+        button.setBackgroundImage(backgrounImageWithCustomAlpha, for: .normal)
+        button.setBackgroundImage(transparentImage, for: .selected)
+        button.setBackgroundImage(transparentImage, for: .highlighted)
+        button.setBackgroundImage(transparentImage, for: .disabled)
+        button.layer.cornerRadius = 10
+        button.layer.masksToBounds = true
+        return button
+    }()
 
     // MARK: Init
     
@@ -120,7 +150,6 @@ class LogInViewController: UIViewController {
     //MARK: LifeCycle
 //    override func loadView() {
 //        super.loadView()
-//        self.viewModel!.goToHome()
 //    }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,11 +158,13 @@ class LogInViewController: UIViewController {
         setupScrollView()
         loginButtonTapped()
         signUpButtonTapped()
+        localAuthorizationButtonTapped()
         viewStateChange()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)    // подписаться на уведомления
+        super.viewWillAppear(animated)
+        // подписаться на уведомления
 //        let nc = NotificationCenter.default
 //        nc.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
 //        nc.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -156,6 +187,7 @@ class LogInViewController: UIViewController {
         logInStackView.addArrangedSubview(passwordField)
         self.contentView.addSubview(logInStackView)
         self.contentView.addSubview(logInButton)
+        self.contentView.addSubview(localAuthorizationButton)
         self.contentView.addSubview(signUpButton)
     }
     
@@ -193,7 +225,12 @@ class LogInViewController: UIViewController {
             self.signUpButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 16),
             self.signUpButton.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor,constant: 16),
             self.signUpButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -16),
-            self.signUpButton.heightAnchor.constraint(equalToConstant: 30)
+            self.signUpButton.heightAnchor.constraint(equalToConstant: 30),
+            
+            self.localAuthorizationButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 16),
+            self.localAuthorizationButton.topAnchor.constraint(equalTo: self.signUpButton.bottomAnchor,constant: 16),
+            self.localAuthorizationButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -16),
+            self.localAuthorizationButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
@@ -292,6 +329,26 @@ class LogInViewController: UIViewController {
         signUpButton.tapAction = { [weak self] in
             guard let strongSelf = self else {return}
             strongSelf.viewModel?.changeState(.isSignUp)
+        }
+    }
+    private func localAuthorizationButtonTapped() {
+        localAuthorizationButton.tapAction = { [weak self] in
+            
+            guard let strongSelf = self else {return}
+            strongSelf.localAuthorizationService.authorizeIfPossible { result in
+                switch result {
+                case .success(.success):
+                    DispatchQueue.main.async {
+                        strongSelf.viewModel!.goToHome()
+                    }
+                case .failure(.error(let error)):
+                    print(error.localizedDescription)
+                    let alert = customAlert(message: error.localizedDescription)
+                    DispatchQueue.main.async {
+                        strongSelf.present(alert, animated: true, completion: nil)
+                    }
+                }
+            }
         }
     }
     
