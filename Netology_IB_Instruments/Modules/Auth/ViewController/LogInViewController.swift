@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol LoginViewControllerDelegate: AnyObject {
-    
-    func checkCredentials(email: String, password: String, completion: @escaping (Result<AuthModel, NetworkError>) -> Void)
-    func signUp(with email: String, password: String, completion: @escaping (Result<AuthModel, NetworkError>) -> Void)
-}
+//protocol LoginViewControllerDelegate: AnyObject {
+//
+//    func checkCredentials(email: String, password: String, completion: @escaping (Result<AuthModel, NetworkError>) -> Void)
+//    func signUp(with email: String, password: String, completion: @escaping (Result<AuthModel, NetworkError>) -> Void)
+//}
 
 class LogInViewController: UIViewController {
     
@@ -21,14 +21,15 @@ class LogInViewController: UIViewController {
     
     var passwordCracking = PasswordCracking()
     var viewModel: LoginViewModel!
-    var delegate: LoginViewControllerDelegate?
+    private let localAuthorizationService = LocalAuthorizationService()
+    //var delegate: LoginViewControllerDelegate?
     private let databaseCoordinator: DatabaseCoordinatable
 
     //let user = User(fullName: "Слон", avatar: "elephant.jpg", status: "Люблю рыбий жир")
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.backgroundColor = .white
+        scrollView.backgroundColor = backgroundColor
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
@@ -49,8 +50,8 @@ class LogInViewController: UIViewController {
         let textField = UITextField()
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
         textField.leftViewMode = .always
-        textField.textColor = .black
-        textField.backgroundColor = .systemGray6
+        textField.textColor = textColor
+        textField.backgroundColor = backgroundColor
         textField.font = .systemFont(ofSize: 16, weight: .regular)
         textField.tintColor = UIColor(named: "AccentColor")
         textField.autocapitalizationType = .none
@@ -60,7 +61,8 @@ class LogInViewController: UIViewController {
     
     let passwordField: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = .systemGray6
+        textField.backgroundColor = backgroundColor
+        textField.textColor = textColor
         textField.isSecureTextEntry = true
         textField.placeholder = NSLocalizedString("Password", comment: "User password")
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
@@ -76,7 +78,7 @@ class LogInViewController: UIViewController {
         stackView.layer.borderWidth = 0.5
         stackView.layer.cornerRadius = 10
         stackView.spacing = 0.5
-        stackView.backgroundColor = UIColor.lightGray
+        stackView.backgroundColor = backgroundColor
         stackView.layer.masksToBounds = true
         return stackView
     }()
@@ -95,18 +97,48 @@ class LogInViewController: UIViewController {
     }()
     let signUpButton: CustomButton = {
         let button = CustomButton(title: NSLocalizedString("Not signed up? Create an account now", comment: "Name button"), color: nil)
-        button.setTitleColor(.systemBlue, for: .normal)
+        button.setTitleColor(textColor, for: .normal)
         button.setTitleColor(.systemGray, for: .selected)
         button.setTitleColor(.systemGray, for: .highlighted)
         button.setTitleColor(.systemGray, for: .disabled)
         button.titleLabel?.font = .systemFont(ofSize: 13.0)
         return button
     }()
+    let localAuthorizationButton: CustomButton = {
+        let localAuthorizationService = LocalAuthorizationService()
+        let biometricType = localAuthorizationService.checkBiometricType()
+        var title = "Title"
+        switch biometricType {
+        case 0:
+            print("none")
+            title = "None"
+        case 1:
+            print("TouchID")
+            title = "TouchID"
+        case 2:
+            print("FaceID")
+            title = "FaceID"
+        default:
+            print("none")
+            title = "None"
+        }
+        let button = CustomButton(title: NSLocalizedString(title, comment: "Name button"), color: nil)
+        let backgrounImageWithCustomAlpha = UIImage(named:"blue_pixel.png")
+        let transparentImage = backgrounImageWithCustomAlpha?.image(alpha: 0.8)
+        button.setBackgroundImage(backgrounImageWithCustomAlpha, for: .normal)
+        button.setBackgroundImage(transparentImage, for: .selected)
+        button.setBackgroundImage(transparentImage, for: .highlighted)
+        button.setBackgroundImage(transparentImage, for: .disabled)
+        button.layer.cornerRadius = 10
+        button.layer.masksToBounds = true
+        return button
+    }()
 
     // MARK: Init
     
-    init(with delegate: LoginViewControllerDelegate, databaseCoordinator: DatabaseCoordinatable) {
-        self.delegate = delegate
+    //init(with delegate: LoginViewControllerDelegate, databaseCoordinator:
+    init(databaseCoordinator: DatabaseCoordinatable) {
+        //self.delegate = delegate
         self.databaseCoordinator = databaseCoordinator
         super.init(nibName: nil, bundle: nil)
     }
@@ -118,7 +150,6 @@ class LogInViewController: UIViewController {
     //MARK: LifeCycle
 //    override func loadView() {
 //        super.loadView()
-//        self.viewModel!.goToHome()
 //    }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,14 +158,16 @@ class LogInViewController: UIViewController {
         setupScrollView()
         loginButtonTapped()
         signUpButtonTapped()
+        localAuthorizationButtonTapped()
         viewStateChange()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)    // подписаться на уведомления
-        let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        nc.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        super.viewWillAppear(animated)
+        // подписаться на уведомления
+//        let nc = NotificationCenter.default
+//        nc.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        nc.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -154,6 +187,7 @@ class LogInViewController: UIViewController {
         logInStackView.addArrangedSubview(passwordField)
         self.contentView.addSubview(logInStackView)
         self.contentView.addSubview(logInButton)
+        self.contentView.addSubview(localAuthorizationButton)
         self.contentView.addSubview(signUpButton)
     }
     
@@ -191,7 +225,12 @@ class LogInViewController: UIViewController {
             self.signUpButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 16),
             self.signUpButton.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor,constant: 16),
             self.signUpButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -16),
-            self.signUpButton.heightAnchor.constraint(equalToConstant: 30)
+            self.signUpButton.heightAnchor.constraint(equalToConstant: 30),
+            
+            self.localAuthorizationButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 16),
+            self.localAuthorizationButton.topAnchor.constraint(equalTo: self.signUpButton.bottomAnchor,constant: 16),
+            self.localAuthorizationButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -16),
+            self.localAuthorizationButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
@@ -222,41 +261,55 @@ class LogInViewController: UIViewController {
     }
     
     private func checkAccountInDatabase(email: String, password: String) {
-        let model = AuthorizationModel(email: email, password: password)
-        self.databaseCoordinator.check(checkModel: model) { [weak self] result in
-            guard let strongSelf = self else { return }
+        //let model = AuthorizationModel(email: email, password: password)
+        //let model = AuthorizationModel.self
+        self.databaseCoordinator.fetchAll(UserModel.self) { result in
+            //guard let strongSelf = self else { return }
             switch result {
-            case .success(.save):
-                print("🍋 Find model")
-                strongSelf.viewModel!.goToHome()
+            case .success(let userCoreDataModels):
+                print("🍇 \(dump(userCoreDataModels))")
+                //let posts = postCoreDataModels.map { Post(postCoreDataModel: $0) }
+
             case .failure(let error):
                 let alert = customAlert(message: "\(error)")
-                strongSelf.present(alert, animated: true, completion: nil)
-                print(error)
+                self.present(alert, animated: true, completion: nil)
+                print("🐞 \(error)")
             }
         }
+//        self.databaseCoordinator.check(checkModel: model) { [weak self] result in
+//            guard let strongSelf = self else { return }
+//            switch result {
+//            case .success(.save):
+//                print("🍋 Find model")
+//                strongSelf.viewModel!.goToHome()
+//            case .failure(let error):
+//                let alert = customAlert(message: "\(error)")
+//                strongSelf.present(alert, animated: true, completion: nil)
+//                print(error)
+//            }
+//        }
     }
     
     private func createAccountInDatabase(email: String, password: String) {
-        let model = AuthorizationModel(email: email, password: password)
+        //let model = AuthorizationModel(email: email, password: password)
         let alert = UIAlertController(title: NSLocalizedString("Create Account?", comment: "Notification question"),
                                       message: NSLocalizedString("One step and you will be with us", comment: "Call to action"),
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("Yes!", comment: "Approval"),
                                       style: .default,
                                       handler: { _ in
-            self.databaseCoordinator.create(AuthorizationModel.self, createModel: model) { [weak self] result in
-                guard let strongSelf = self else { return }
-                switch result {
-                case .success(.save):
-                    print("🍋 Save model")
-                    strongSelf.viewModel!.goToHome()
-                case .failure(let error):
-                    let alert = customAlert(message: "\(error)")
-                    strongSelf.present(alert, animated: true, completion: nil)
-                    print("🍋 \(error)")
-                }
-            }
+//            self.databaseCoordinator.create(AuthorizationModel.self, createModel: model) { [weak self] result in
+//                guard let strongSelf = self else { return }
+//                switch result {
+//                case .success(.save):
+//                    print("🍋 Save model")
+//                    strongSelf.viewModel!.goToHome()
+//                case .failure(let error):
+//                    let alert = customAlert(message: "\(error)")
+//                    strongSelf.present(alert, animated: true, completion: nil)
+//                    print("🍋 \(error)")
+//                }
+//            }
         }))
         alert.addAction(UIAlertAction(title: NSLocalizedString("No", comment: "Cancel"),
                                       style: .cancel,
@@ -278,20 +331,40 @@ class LogInViewController: UIViewController {
             strongSelf.viewModel?.changeState(.isSignUp)
         }
     }
-    
-    @objc
-    private func kbdShow(notification: NSNotification) {
-        if let kbdSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            self.scrollView.contentInset.bottom = kbdSize.height
-            self.scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: kbdSize.height, right: 0)
+    private func localAuthorizationButtonTapped() {
+        localAuthorizationButton.tapAction = { [weak self] in
+            
+            guard let strongSelf = self else {return}
+            strongSelf.localAuthorizationService.authorizeIfPossible { result in
+                switch result {
+                case .success(.success):
+                    DispatchQueue.main.async {
+                        strongSelf.viewModel!.goToHome()
+                    }
+                case .failure(.error(let error)):
+                    print(error.localizedDescription)
+                    let alert = customAlert(message: error.localizedDescription)
+                    DispatchQueue.main.async {
+                        strongSelf.present(alert, animated: true, completion: nil)
+                    }
+                }
+            }
         }
     }
     
-    @objc
-    private func kbdHide(notification: NSNotification) {
-        self.scrollView.contentInset.top = .zero
-        self.scrollView.verticalScrollIndicatorInsets = .zero
-    }
+//    @objc
+//    private func kbdShow(notification: NSNotification) {
+//        if let kbdSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//            self.scrollView.contentInset.bottom = kbdSize.height
+//            self.scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: kbdSize.height, right: 0)
+//        }
+//    }
+//
+//    @objc
+//    private func kbdHide(notification: NSNotification) {
+//        self.scrollView.contentInset.top = .zero
+//        self.scrollView.verticalScrollIndicatorInsets = .zero
+//    }
 
 }
 

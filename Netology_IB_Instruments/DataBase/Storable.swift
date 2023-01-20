@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import RealmSwift
+//import RealmSwift
 import CoreData
 
 protocol Storable {}
 
-extension Object: Storable {}
+//extension Object: Storable {}
 extension NSManagedObject: Storable {}

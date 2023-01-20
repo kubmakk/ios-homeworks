@@ -11,7 +11,6 @@ import SnapKit
 class ProfileHeaderView: UIView {
     let avatarImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.borderWidth = 3
         imageView.layer.cornerRadius = 55
         imageView.layer.masksToBounds = true
@@ -20,30 +19,31 @@ class ProfileHeaderView: UIView {
     }()
     let fullNameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = textColor
         label.font = .systemFont(ofSize: 18, weight: .bold)
         return label
     }()
     let statusLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .gray
+        label.textColor = textColor
         label.font = .systemFont(ofSize: 14, weight: .regular)
         return label
     }()
     let statusTextField: UITextField = {
         let textField = UITextField()
-        textField.layer.backgroundColor = UIColor.white.cgColor
+        textField.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .systemGray)
+        //textField.layer.backgroundColor = UIColor.white.cgColor
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.cornerRadius = 12
         textField.font = .systemFont(ofSize: 15, weight: .regular)
-        textField.textColor = .black
+        textField.textColor = textColor
         textField.textAlignment = .center
         return textField
     }()
     let setStatusButton: CustomButton = {
-        let button = CustomButton(title: NSLocalizedString("Show status", comment: "Name button"), color: .systemBlue)
-        button.titleLabel?.textColor = .white
+        let button = CustomButton(title: NSLocalizedString("Show status", comment: "Name button"), color: UIColor.createColor(lightMode: .systemBlue, darkMode: .black))
+        button.titleLabel?.textColor = textColor
         button.layer.cornerRadius = 4
         button.layer.shadowOpacity = 0.7
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
@@ -58,8 +58,16 @@ class ProfileHeaderView: UIView {
         setupStatusTextField()
         showStatusButtonPressed()
     }
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+       if #available(iOS 13.0, *) {
+           if (traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection)) {
+               avatarImageView.layer.borderColor = UIColor.createColor(lightMode: .white, darkMode: .systemGray).resolvedColor(with: self.traitCollection).cgColor
+           }
+       }
+    }
     func addSubview(){
         self.addSubview(avatarImageView)
+        avatarImageView.layer.borderColor = UIColor.createColor(lightMode: .white, darkMode: .systemGray).resolvedColor(with: self.traitCollection).cgColor
         self.addSubview(fullNameLabel)
         self.addSubview(statusLabel)
         self.addSubview(statusTextField)

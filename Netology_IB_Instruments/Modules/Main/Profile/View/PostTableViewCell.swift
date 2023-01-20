@@ -24,14 +24,14 @@ class PostTableViewCell: UITableViewCell {
     }()
     let authorLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         label.font = .systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     let postImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .black
+        imageView.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -42,17 +42,18 @@ class PostTableViewCell: UITableViewCell {
         textView.lineBreakStrategy = .hangulWordPriority
         textView.numberOfLines = 0
         textView.textAlignment = .left
+        textView.textColor = UIColor.createColor(lightMode: .systemGray2, darkMode: .white)
         return textView
     }()
     let likesLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         label.font = .systemFont(ofSize: 15, weight: .regular)
         return label
     }()
     let viewsLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         label.font = .systemFont(ofSize: 15, weight: .regular)
         return label
     }()
@@ -60,6 +61,7 @@ class PostTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview()
         constraints()
+        self.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         self.addGestureRecognizer(doubleTap)
         self.separatorInset.right = 15
         self.separatorInset.left = 15

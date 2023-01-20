@@ -71,7 +71,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        self.tableView.backgroundColor = .lightGray
+        self.tableView.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         #if DEBUG
         self.tableView.backgroundColor = .red
         #endif
