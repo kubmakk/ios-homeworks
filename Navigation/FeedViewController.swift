@@ -13,13 +13,18 @@ class FeedViewController: UIViewController {
         view.backgroundColor = .systemBackground
         title = "Feed"
         
-        //actionButton.addTarget(self, action: "", for: .touchUpInside)
+        actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
         actionButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(actionButton)
         
         NSLayoutConstraint.activate([
             actionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             actionButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-                ])
+            ])
+    }
+    
+    @objc func actionButtonTapped() {
+        let postViewController = PostViewController()
+        navigationController?.pushViewController(postViewController, animated: true)
     }
 }
