@@ -20,9 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarController = UITabBarController()
         
         let feedNavigationController = UINavigationController(rootViewController: FeedViewController())
-        feedNavigationController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "house"), tag: 0)
+        feedNavigationController.tabBarItem = UITabBarItem(title: "Новости", image: UIImage(systemName: "house"), tag: 0)
         let profileNavigationController = UINavigationController(rootViewController: ProfileViewController())
-        profileNavigationController.tabBarItem = UITabBarItem(title: "News", image: UIImage(systemName: "person"), tag: 1)
+        profileNavigationController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person"), tag: 1)
         
         tabBarController.viewControllers = [feedNavigationController, profileNavigationController]
         
