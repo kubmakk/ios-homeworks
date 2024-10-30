@@ -1,8 +1,13 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    
-    private let profileHeaderView = ProfileHeaderController()
+    // MARK: - Subview
+    private var profileHeaderView: ProfileHeaderController = {
+        let view = ProfileHeaderController()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemBlue
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -11,10 +16,17 @@ class ProfileViewController: UIViewController {
         title = "Profile"
         
         view.addSubview(profileHeaderView)
+        
+        setupConstraints()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        profileHeaderView.frame = view.bounds
+    private func setupConstraints() {
+        let safeAreaGuide = view.safeAreaLayoutGuide
+        
+        NSLayoutConstraint.activate([
+            profileHeaderView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor, constant: 16),
+            profileHeaderView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor, constant: -16),
+            profileHeaderView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor, constant: 0)
+        ])
     }
 }

@@ -6,7 +6,7 @@ class ProfileHeaderController: UIView {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "avatar")
         imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
+        imageView.clipsToBounds = false
         imageView.layer.cornerRadius = 50
         imageView.backgroundColor = .white
         return imageView
@@ -24,7 +24,7 @@ class ProfileHeaderController: UIView {
     }
     
     override func layoutSubviews() {
-        avatarImageView.frame = CGRect(x: 16, y: 16, width: 100, height: 100)
+        avatarImageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         
     }
     
