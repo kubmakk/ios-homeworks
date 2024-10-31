@@ -5,7 +5,6 @@ class ProfileViewController: UIViewController {
     private var profileHeaderView: ProfileHeaderController = {
         let view = ProfileHeaderController()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemBlue
         return view
     }()
     

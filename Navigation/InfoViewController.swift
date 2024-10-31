@@ -11,9 +11,9 @@ class InfoViewController: UIViewController {
         
         override func viewDidLoad() {
             super.viewDidLoad()
-            
             view.backgroundColor = .white
             title = "Info"
+            
             view.addSubview(alerButton)
             
             alerButton.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
@@ -26,8 +26,13 @@ class InfoViewController: UIViewController {
         }
     @objc func showAlert() {
         let alert = UIAlertController(title: "Сообщение", message: "Описание", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default){_ in
+            print("Нажата кнопка OK")
+        }
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel){_ in
+            print("Нажата кнопка Отмена")}
+        
         alert.addAction(okAction)
         alert.addAction(cancelAction)
         present(alert, animated: true)

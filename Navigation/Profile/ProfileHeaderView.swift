@@ -48,10 +48,10 @@ class ProfileHeaderController: UIView {
         addSubview(nameLabel)
         addSubview(statusLabel)
         addSubview(actionButton)
-        setupConstraints()
         
         actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
-
+        
+        setupConstraints()
 }
     @objc func actionButtonTapped() {
         print(statusLabel.text ?? "Status is empty")
@@ -72,17 +72,14 @@ class ProfileHeaderController: UIView {
             avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             avatarImageView.widthAnchor.constraint(equalToConstant: 100),
             avatarImageView.heightAnchor.constraint(equalToConstant: 100),
-
             // Name label constraints
             nameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
             nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
-            
             // Status label constraints
             statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
             statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             statusLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 27),
-            
             // Action button constraints
             actionButton.leadingAnchor.constraint(equalTo: leadingAnchor),
             actionButton.trailingAnchor.constraint(equalTo: trailingAnchor),
