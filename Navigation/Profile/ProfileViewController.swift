@@ -14,9 +14,7 @@ class ProfileViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         title = "Profile"
-        
         view.addSubview(profileHeaderView)
-        
         setupConstraints()
     }
     
@@ -26,6 +24,7 @@ class ProfileViewController: UIViewController {
         NSLayoutConstraint.activate([
             profileHeaderView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor, constant: 16),
             profileHeaderView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor, constant: -16),
+            profileHeaderView.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor, constant: -16),
             profileHeaderView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor, constant: 0)
         ])
     }

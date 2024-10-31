@@ -48,8 +48,14 @@ class ProfileHeaderController: UIView {
         addSubview(nameLabel)
         addSubview(statusLabel)
         addSubview(actionButton)
+        setupConstraints()
+        
+        actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
+
 }
-    
+    @objc func actionButtonTapped() {
+        print(statusLabel.text ?? "Status is empty")
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
