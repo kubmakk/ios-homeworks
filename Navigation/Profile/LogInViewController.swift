@@ -94,8 +94,6 @@ class LogInViewController: UIViewController {
         view.addSubview(stackView)
         view.addSubview(loginButton)
         
-        loginButton.addTarget(self, action: #selector(buttonStateChanged), for: .allEvents)
-        loginButton.addTarget(self, action: #selector(loginButtonTaped), for: .touchUpInside)
         setupConstraints()
     }
     
