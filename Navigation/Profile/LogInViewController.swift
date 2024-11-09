@@ -65,7 +65,7 @@ class LogInViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.layer.cornerRadius = 10
-
+        button.alpha = 1
         
         return button
     }()
@@ -80,8 +80,20 @@ class LogInViewController: UIViewController {
         view.addSubview(passField)
         view.addSubview(loginButton)
         
+        loginButton.addTarget(self, action: #selector(buttonStateChanged), for: .allEvents)
         loginButton.addTarget(self, action: #selector(loginButtonTaped), for: .touchUpInside)
         setupConstraints()
+    }
+    
+    @objc func buttonStateChanged() {
+        switch loginButton.state {
+        case .normal:
+            loginButton.alpha = 1
+        case .selected, .highlighted, .disabled:
+            loginButton.alpha = 0.8
+        default :
+            break
+        }
     }
     
     @objc func loginButtonTaped() {
