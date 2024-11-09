@@ -19,12 +19,9 @@ class LogInViewController: UIViewController {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
         textField.placeholder = "Email or phone"
-        textField.borderStyle = .roundedRect
+//        textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.layer.masksToBounds = true
-        textField.layer.borderColor = UIColor.lightGray.cgColor
-        textField.layer.borderWidth = 0.5
-        textField.layer.cornerRadius = 10
+        textField.layer.cornerRadius = 0
         //text
         textField.textColor = .black
         textField.font = UIFont.systemFont(ofSize: 16)
@@ -38,12 +35,8 @@ class LogInViewController: UIViewController {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
         textField.placeholder = "Password"
-        textField.borderStyle = .roundedRect
+//        textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.layer.masksToBounds = true
-        textField.layer.borderColor = UIColor.lightGray.cgColor
-        textField.layer.borderWidth = 0.5
-        textField.layer.cornerRadius = 10
         //text
         textField.textColor = .black
         textField.font = UIFont.systemFont(ofSize: 16)
@@ -70,14 +63,35 @@ class LogInViewController: UIViewController {
         return button
     }()
     
+    lazy private var stackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.layer.masksToBounds = true
+        
+        stackView.layer.cornerRadius = 10
+        stackView.layer.borderWidth = 0.5
+        stackView.layer.borderColor = UIColor.lightGray.cgColor
+        
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.spacing = 0
+        
+        stackView.addArrangedSubview(loginField)
+        stackView.addArrangedSubview(passField)
+    
+        return stackView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .white
         
         view.addSubview(logoIcon)
-        view.addSubview(loginField)
-        view.addSubview(passField)
+//        view.addSubview(loginField)
+//        view.addSubview(passField)
+        view.addSubview(stackView)
         view.addSubview(loginButton)
         
         loginButton.addTarget(self, action: #selector(buttonStateChanged), for: .allEvents)
@@ -112,28 +126,15 @@ class LogInViewController: UIViewController {
             logoIcon.heightAnchor.constraint(
                 equalToConstant: 100),
             logoIcon.centerXAnchor.constraint(equalTo: safeAreaGuide.centerXAnchor),
-            //Field login
-            loginField.topAnchor.constraint(
-                equalTo: logoIcon.bottomAnchor,
-                constant: 120),
-            loginField.leadingAnchor.constraint(
+            //stackView
+            stackView.leadingAnchor.constraint(
                 equalTo: safeAreaGuide.leadingAnchor,
                 constant: 16),
-            loginField.trailingAnchor.constraint(
+            stackView.trailingAnchor.constraint(
                 equalTo: safeAreaGuide.trailingAnchor,
                 constant: -16),
-            loginField.heightAnchor.constraint(equalToConstant: 50),
-            //Password Field
-            passField.heightAnchor.constraint(equalToConstant: 50),
-            passField.topAnchor.constraint(
-                equalTo: loginField.bottomAnchor,
-                constant: 0),
-            passField.leadingAnchor.constraint(
-                equalTo: safeAreaGuide.leadingAnchor,
-                constant: 16),
-            passField.trailingAnchor.constraint(
-                equalTo: safeAreaGuide.trailingAnchor,
-                constant: -16),
+            stackView.topAnchor.constraint(equalTo: logoIcon.bottomAnchor, constant: 120),
+            stackView.heightAnchor.constraint(equalToConstant: 100),
             //Action Button
             loginButton.leadingAnchor.constraint(
                 equalTo: safeAreaGuide.leadingAnchor,
@@ -145,7 +146,9 @@ class LogInViewController: UIViewController {
                 equalTo: passField.bottomAnchor,
                 constant: 16),
             loginButton.heightAnchor.constraint(equalToConstant: 50),
+            
         ])
 
     }
+    
 }
