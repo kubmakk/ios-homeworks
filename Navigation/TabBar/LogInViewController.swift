@@ -18,6 +18,7 @@ class LogInViewController: UIViewController {
     lazy private var loginField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
+        textField.borderStyle = .none
         textField.placeholder = "Email or Phone"
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textColor = .black
@@ -39,6 +40,7 @@ class LogInViewController: UIViewController {
     lazy private var passField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
+        textField.borderStyle = .none
         textField.placeholder = "Password"
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textColor = .black
