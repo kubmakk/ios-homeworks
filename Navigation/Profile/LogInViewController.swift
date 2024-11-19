@@ -18,26 +18,29 @@ class LogInViewController: UIViewController {
     lazy private var loginField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
-        textField.placeholder = "Email or phone"
-//        textField.borderStyle = .roundedRect
+        textField.placeholder = "Email or Phone"
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.layer.cornerRadius = 0
-        //text
         textField.textColor = .black
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.tintColor = UIColor(named: "Color")
         textField.autocapitalizationType = .none
-
+        
         return textField
+    }()
+    
+    lazy private var lineView: UIView = {
+        let line = UIView()
+        line.translatesAutoresizingMaskIntoConstraints = false
+        line.backgroundColor = .lightGray
+        
+        return line
     }()
     
     lazy private var passField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
         textField.placeholder = "Password"
-//        textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
-        //text
         textField.textColor = .black
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.tintColor = UIColor(named: "Color")
@@ -74,29 +77,38 @@ class LogInViewController: UIViewController {
         stackView.layer.borderColor = UIColor.lightGray.cgColor
         
         stackView.axis = .vertical
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fill
         stackView.spacing = 0
         
         stackView.addArrangedSubview(loginField)
+        stackView.addArrangedSubview(lineView)
         stackView.addArrangedSubview(passField)
     
         return stackView
     }()
+//MARK: Setup DidLoad
+    private func setupSubviews() {
+        view.addSubview(logoIcon)
+        view.addSubview(stackView)
+        view.addSubview(loginButton)
+    }
+
+    private func setupTargets() {
+        loginButton.addTarget(self, action: #selector(buttonStateChanged), for: .allEvents)
+        loginButton.addTarget(self, action: #selector(loginButtonTaped), for: .touchUpInside)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         
-        view.addSubview(logoIcon)
-//        view.addSubview(loginField)
-//        view.addSubview(passField)
-        view.addSubview(stackView)
-        view.addSubview(loginButton)
-        
-        loginButton.addTarget(self, action: #selector(buttonStateChanged), for: .allEvents)
-        loginButton.addTarget(self, action: #selector(loginButtonTaped), for: .touchUpInside)
+        setupSubviews()
+        setupTargets()
         setupConstraints()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,6 +137,10 @@ class LogInViewController: UIViewController {
         }
     }
 
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
     @objc func buttonStateChanged() {
         switch loginButton.state {
         case .normal:
@@ -144,6 +160,7 @@ class LogInViewController: UIViewController {
     private func setupConstraints() {
         let safeAreaGuide = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
+            lineView.heightAnchor.constraint(equalToConstant: 0.5),
             //logo
             logoIcon.topAnchor.constraint(
                 equalTo: safeAreaGuide.topAnchor, constant: 150),
@@ -169,12 +186,10 @@ class LogInViewController: UIViewController {
                 equalTo: safeAreaGuide.trailingAnchor,
                 constant: -16),
             loginButton.topAnchor.constraint(
-                equalTo: passField.bottomAnchor,
-                constant: 16),
+                equalTo: stackView.bottomAnchor, constant: 16),
             loginButton.heightAnchor.constraint(equalToConstant: 50),
-            
-        ])
 
+            loginField.heightAnchor.constraint(equalTo: passField.heightAnchor)
+        ])
     }
-    
 }
