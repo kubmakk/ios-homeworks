@@ -1,1 +1,0 @@
-navigationController?.navigationBar.isHidden = true
