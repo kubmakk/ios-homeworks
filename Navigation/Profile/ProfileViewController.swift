@@ -78,7 +78,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CallReuseID.custom.rawValue, for: indexPath) as! PostTableViewCell
         let post = data[indexPath.row]
-        cell.configure(with: post)
         return cell
     }
 }
