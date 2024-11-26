@@ -2,19 +2,11 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     // MARK: - Subview
-    private var profileHeaderView: ProfileHeaderController = {
-        let view = ProfileHeaderController()
+    
+    private var profileTableView: ProfileTableHeaderView = {
+        let view = ProfileTableHeaderView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
-    }()
-    
-    private lazy var actionButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Click Me", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .blue
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
     }()
     
     override func viewDidLoad() {
@@ -23,8 +15,7 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = .lightGray
         title = "Profile"
         
-        view.addSubview(profileHeaderView)
-        view.addSubview(actionButton)
+        view.addSubview(profileTableView)
         
         setupConstraints()
     }
@@ -33,36 +24,20 @@ class ProfileViewController: UIViewController {
         let safeAreaGuide = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            profileHeaderView.leadingAnchor.constraint(
+            profileTableView.leadingAnchor.constraint(
                 equalTo: safeAreaGuide.leadingAnchor,
                 constant: 0
             ),
-            profileHeaderView.trailingAnchor.constraint(
+            profileTableView.trailingAnchor.constraint(
                 equalTo: safeAreaGuide.trailingAnchor,
                 constant: 0
             ),
-            profileHeaderView.topAnchor.constraint(
+            profileTableView.topAnchor.constraint(
                 equalTo: safeAreaGuide.topAnchor,
                 constant: 0
             ),
-            profileHeaderView.heightAnchor.constraint(
+            profileTableView.heightAnchor.constraint(
                 equalToConstant: 220
-            ),
-            
-            actionButton.leadingAnchor.constraint(
-                equalTo: safeAreaGuide.leadingAnchor,
-                constant: 0
-            ),
-            actionButton.trailingAnchor.constraint(
-                equalTo: safeAreaGuide.trailingAnchor,
-                constant: 0
-            ),
-            actionButton.bottomAnchor.constraint(
-                equalTo: safeAreaGuide.bottomAnchor,
-                constant: 0
-            ),
-            actionButton.heightAnchor.constraint(
-                equalToConstant: 50
             )
             
         ])

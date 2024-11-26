@@ -2,15 +2,7 @@ import UIKit
 
 class PostViewController: UIViewController {
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    var post: Post
-    init(post: Post) {
-        self.post = post
-        super.init(nibName: nil, bundle: nil)
-    }
-    
+
     private lazy var actionButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Перейти", for: .normal)
@@ -22,7 +14,7 @@ class PostViewController: UIViewController {
         
         
         view.backgroundColor = .systemBackground
-        title = post.title
+        title = "OleeeOlaa"
         
         actionButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(actionButton)

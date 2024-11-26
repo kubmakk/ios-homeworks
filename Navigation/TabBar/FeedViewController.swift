@@ -45,8 +45,8 @@ class FeedViewController: UIViewController {
     }
     
     @objc func actionButtonTapped() {
-        let post = Post(title: "Второй Пост")
-        let postViewController = PostViewController(post: post)
+        let postViewController = PostViewController()
+        
         navigationController?.pushViewController(postViewController, animated: true)
     }
 }

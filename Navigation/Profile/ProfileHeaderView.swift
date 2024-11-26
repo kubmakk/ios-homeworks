@@ -1,6 +1,6 @@
 import UIKit
 
-class ProfileHeaderController: UIView {
+class ProfileTableHeaderView: UIView {
     
     private let avatarImageView: UIImageView = {
         let imageView = UIImageView()
