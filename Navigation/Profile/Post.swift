@@ -20,7 +20,7 @@ extension Post {
                 ),
             Post(author: "Александр",
                  description: "Попил вкусный Бабл тиа в мое любимом ресторане!",
-                 image: "bubble tea",
+                 image: "bubble_tea",
                  likes: 78,
                  views: 200
                 ),
