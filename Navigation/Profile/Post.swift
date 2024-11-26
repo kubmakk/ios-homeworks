@@ -18,8 +18,8 @@ extension Post {
                  likes: 45,
                  views: 120
                 ),
-            Post(author: "Александр",
-                 description: "Попил вкусный Бабл тиа в мое любимом ресторане!",
+            Post(author: "Варя супер стар",
+                 description: "Попили вкусный Бабл тиа в мое любимом ресторане!",
                  image: "bubble_tea",
                  likes: 78,
                  views: 200
