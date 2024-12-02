@@ -12,6 +12,17 @@ class ProfileViewController: UIViewController {
         return tableView
     }()
     
+    private lazy var collectionView: UICollectionView = {
+        let viewLayout = UICollectionViewFlowLayout()
+        
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: viewLayout
+        )
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    
     private var profileTableView: ProfileTableHeaderView = {
         let view = ProfileTableHeaderView()
         view.translatesAutoresizingMaskIntoConstraints = false
