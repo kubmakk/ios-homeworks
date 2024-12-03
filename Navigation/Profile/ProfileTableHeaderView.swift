@@ -2,6 +2,8 @@ import UIKit
 
 class ProfileTableHeaderView: UIView {
     
+    // MARK: - Subview
+
     private let avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "avatar")
@@ -48,19 +50,26 @@ class ProfileTableHeaderView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+    // MARK: - Lifecycle
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        addSubview(avatarImageView)
-        addSubview(nameLabel)
-        addSubview(statusLabel)
-        addSubview(actionButton)
+
+        setupViews()
         
         actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
         
         setupConstraints()
 }
+    // MARK: - Private
+
+    private func setupViews() {
+        addSubview(avatarImageView)
+        addSubview(nameLabel)
+        addSubview(statusLabel)
+        addSubview(actionButton)
+    }
+    
     @objc func actionButtonTapped() {
         print(statusLabel.text ?? "Status is empty")
     }

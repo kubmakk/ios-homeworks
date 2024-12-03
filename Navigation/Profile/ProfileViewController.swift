@@ -7,23 +7,17 @@ class ProfileViewController: UIViewController {
 
     // MARK: - Subview
     private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: CallReuseID.custom.rawValue)
         return tableView
     }()
     
-    private lazy var collectionView: UICollectionView = {
-        let viewLayout = UICollectionViewFlowLayout()
-        
-        let collectionView = UICollectionView(
-            frame: .zero,
-            collectionViewLayout: viewLayout
-        )
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        return collectionView
-    }()
-    
-    private var profileTableView: ProfileTableHeaderView = {
+    private var profileHeaderView: ProfileTableHeaderView = {
         let view = ProfileTableHeaderView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -38,9 +32,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        addSubviews()
         setupConstraints()
-        tuneTableView()
     }
 
     // MARK: - Private
@@ -49,38 +41,21 @@ class ProfileViewController: UIViewController {
         title = "Profile"
         navigationItem.title = "Table"
         navigationController?.navigationBar.prefersLargeTitles = false
-    }
-    
-    private func addSubviews() {
-        view.addSubview(profileTableView)
         view.addSubview(tableView)
     }
 
     private func setupConstraints() {
         let safeAreaGuide = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            profileTableView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor),
-            profileTableView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor),
-            profileTableView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor),
-            profileTableView.heightAnchor.constraint(equalToConstant: 220),
-            
             tableView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: profileTableView.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor)
         ])
     }
-
-    private func tuneTableView() {
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
-        
-        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: CallReuseID.custom.rawValue)
-        tableView.delegate = self
-        tableView.dataSource = self
-    }
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
@@ -91,5 +66,19 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         let post = data[indexPath.row]
         cell.configure(with: post)
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            return profileHeaderView
+        }
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 220
+        }
+        return 0
     }
 }
