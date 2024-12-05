@@ -17,12 +17,12 @@ class ProfileViewController: UIViewController {
         return tableView
     }()
     
-    private var profileHeaderView: ProfileTableHeaderView = {
-        let view = ProfileTableHeaderView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
+    private var profileHeaderView = ProfileTableHeaderView()
+    private var avatarInitialFrame: CGRect = .zero
+    private var avatarImageView: UIImageView? {
+        return profileHeaderView.avatarImageView
+    }
+    
     private enum CallReuseID: String {
         case base = "BaseTableViewCell_ReuseID"
         case custom = "CustomTableViewCell_ReuseID"
@@ -33,6 +33,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupConstraints()
+        addAvatarGesture()
     }
 
     // MARK: - Private
@@ -42,8 +43,15 @@ class ProfileViewController: UIViewController {
         navigationItem.title = "Table"
         navigationController?.navigationBar.prefersLargeTitles = false
         view.addSubview(tableView)
+        view.isUserInteractionEnabled = true
     }
-
+    
+    private func addAvatarGesture() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        avatarImageView?.addGestureRecognizer(tapGestureRecognizer)
+        avatarImageView?.isUserInteractionEnabled = true
+    }
+    
     private func setupConstraints() {
         let safeAreaGuide = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
@@ -52,6 +60,11 @@ class ProfileViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor)
         ])
+    }
+    //MARK: - Actions
+
+    @objc private func imageTapped() {
+        print("image tapped")
     }
 }
 

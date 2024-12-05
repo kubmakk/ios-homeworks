@@ -4,7 +4,7 @@ class ProfileTableHeaderView: UIView {
     
     // MARK: - Subview
 
-    private let avatarImageView: UIImageView = {
+    public let avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "avatar")
         imageView.contentMode = .scaleAspectFill
@@ -12,6 +12,12 @@ class ProfileTableHeaderView: UIView {
         imageView.layer.cornerRadius = 50
         imageView.layer.borderWidth = 3
         imageView.layer.borderColor = UIColor.black.cgColor
+        
+        let tapImage = UITapGestureRecognizer(
+            target: self,
+            action: nil
+        )
+        imageView.addGestureRecognizer(tapImage)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -56,10 +62,10 @@ class ProfileTableHeaderView: UIView {
         super.init(frame: frame)
 
         setupViews()
-        
+        setupConstraints()
+
         actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
         
-        setupConstraints()
 }
     // MARK: - Private
 
@@ -77,8 +83,7 @@ class ProfileTableHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupConstraints() {
-        
+    private func setupConstraints() {        
         NSLayoutConstraint.activate([
             // Avatar constraints
             avatarImageView.leadingAnchor.constraint(
@@ -129,7 +134,7 @@ class ProfileTableHeaderView: UIView {
                 equalTo: avatarImageView.bottomAnchor,
                 constant: 16),
             actionButton.heightAnchor.constraint(
-                equalToConstant: 50),
+                equalToConstant: 50)
         ])
     }
 }
