@@ -17,27 +17,29 @@ class ProfileViewController: UIViewController {
         return tableView
     }()
     
-    private var profileHeaderView = ProfileTableHeaderView()
+    private lazy var profileHeaderView = ProfileTableHeaderView()
     private var avatarInitialFrame: CGRect = .zero
-    private var avatarImageView: UIImageView? {
+    private var avatarImageView: UIImageView {
         return profileHeaderView.avatarImageView
     }
     
-    private var closeButton: UIButton? {
+    private let closeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("X", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 20)
         button.tintColor = .red
         button.alpha = 0
+        //button.addTarget(ProfileViewController.self, action: #selector(closeButtonTapped), for: .touchUpInside)
         return button
-    }
+    }()
     
-    private var overlayView: UIView? {
+    private let overlayView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         view.alpha = 0
         return view
-    }
+    }()
+    
     private enum CallReuseID: String {
         case base = "BaseTableViewCell_ReuseID"
         case custom = "CustomTableViewCell_ReuseID"
@@ -57,14 +59,20 @@ class ProfileViewController: UIViewController {
         title = "Profile"
         navigationItem.title = "Table"
         navigationController?.navigationBar.prefersLargeTitles = false
+        
         view.addSubview(tableView)
+        view.addSubview(overlayView)
+        view.addSubview(closeButton)
+        
+        overlayView.frame = view.bounds
+        
         view.isUserInteractionEnabled = true
     }
     
     private func addAvatarGesture() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
-        avatarImageView?.addGestureRecognizer(tapGestureRecognizer)
-        avatarImageView?.isUserInteractionEnabled = true
+        avatarImageView.addGestureRecognizer(tapGestureRecognizer)
+        avatarImageView.isUserInteractionEnabled = true
     }
     
     private func setupConstraints() {
@@ -79,6 +87,23 @@ class ProfileViewController: UIViewController {
     //MARK: - Actions
 
     @objc private func imageTapped() {
+        let centerOrigin = avatarImageView.center
+        
+        UIView.animate(
+            withDuration: 4.0,
+            delay: 2.0,
+            options: .curveEaseInOut
+        ) {
+            self.avatarImageView.frame = CGRect(
+                x: 0,
+                y: (self.view.bounds.height - self.view.bounds.width) / 2,
+                width: self.view.bounds.width,
+                height: self.view.bounds.width
+                )
+            
+        } completion: { _ in
+            print("Compleated")
+        }
         
     }
 }
@@ -110,3 +135,5 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         return 0
     }
 }
+
+

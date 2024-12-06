@@ -3,25 +3,6 @@ import UIKit
 class ProfileTableHeaderView: UIView {
     
     // MARK: - Subview
-
-    public let avatarImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "avatar")
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 50
-        imageView.layer.borderWidth = 3
-        imageView.layer.borderColor = UIColor.black.cgColor
-        
-        let tapImage = UITapGestureRecognizer(
-            target: self,
-            action: nil
-        )
-        imageView.addGestureRecognizer(tapImage)
-        
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
     
     private let nameLabel: UILabel = {
         let label = UILabel()
@@ -56,6 +37,25 @@ class ProfileTableHeaderView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    public let avatarImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "avatar")
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 50
+        imageView.layer.borderWidth = 3
+        imageView.layer.borderColor = UIColor.black.cgColor
+        
+        let tapImage = UITapGestureRecognizer(
+            target: ProfileTableHeaderView.self,
+            action: nil
+        )
+        imageView.addGestureRecognizer(tapImage)
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     // MARK: - Lifecycle
 
     override init(frame: CGRect) {
@@ -70,10 +70,10 @@ class ProfileTableHeaderView: UIView {
     // MARK: - Private
 
     private func setupViews() {
-        addSubview(avatarImageView)
         addSubview(nameLabel)
         addSubview(statusLabel)
         addSubview(actionButton)
+        addSubview(avatarImageView)
     }
     
     @objc func actionButtonTapped() {
