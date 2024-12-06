@@ -23,6 +23,21 @@ class ProfileViewController: UIViewController {
         return profileHeaderView.avatarImageView
     }
     
+    private var closeButton: UIButton? {
+        let button = UIButton(type: .system)
+        button.setTitle("X", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 20)
+        button.tintColor = .red
+        button.alpha = 0
+        return button
+    }
+    
+    private var overlayView: UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        view.alpha = 0
+        return view
+    }
     private enum CallReuseID: String {
         case base = "BaseTableViewCell_ReuseID"
         case custom = "CustomTableViewCell_ReuseID"
@@ -64,7 +79,7 @@ class ProfileViewController: UIViewController {
     //MARK: - Actions
 
     @objc private func imageTapped() {
-        print("image tapped")
+        
     }
 }
 
