@@ -17,6 +17,13 @@ class ProfileViewController: UIViewController {
         return tableView
     }()
     
+    private let overlayView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        view.alpha = 0
+        return view
+    }()
+    
     private lazy var profileHeaderView = ProfileTableHeaderView()
     private var avatarInitialFrame: CGRect = .zero
     private var avatarImageView: UIImageView {
@@ -27,18 +34,17 @@ class ProfileViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("X", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 20)
-        button.tintColor = .red
+        button.tintColor = .white
+        button.backgroundColor = .red
         button.alpha = 0
-        //button.addTarget(ProfileViewController.self, action: #selector(closeButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+        button.layer.cornerRadius = 20
+
+        button.translatesAutoresizingMaskIntoConstraints = false // Это обязательно
+
         return button
     }()
-    
-    private let overlayView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        view.alpha = 0
-        return view
-    }()
+
     
     private enum CallReuseID: String {
         case base = "BaseTableViewCell_ReuseID"
@@ -81,31 +87,55 @@ class ProfileViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor),
+            
+            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            closeButton.heightAnchor.constraint(equalToConstant: 40),
+            closeButton.widthAnchor.constraint(equalToConstant: 40),
         ])
     }
     //MARK: - Actions
 
     @objc private func imageTapped() {
-        let centerOrigin = avatarImageView.center
-        
-        UIView.animate(
-            withDuration: 4.0,
-            delay: 2.0,
-            options: .curveEaseInOut
-        ) {
-            self.avatarImageView.frame = CGRect(
-                x: 0,
-                y: (self.view.bounds.height - self.view.bounds.width) / 2,
-                width: self.view.bounds.width,
-                height: self.view.bounds.width
-                )
+
+        avatarInitialFrame = avatarImageView.frame
+
+        UIView.animate(withDuration: 0.5, animations: {
             
-        } completion: { _ in
-            print("Compleated")
+            self.avatarImageView.center = self.view.center
+            
+            self.avatarImageView.transform = CGAffineTransform(
+                scaleX: self.view.bounds.width / self.avatarImageView.bounds.width,
+                y: self.view.bounds.height / self.avatarImageView.bounds.height)
+
+            self.overlayView.alpha = 1.0
+        }) { _ in
+
+            UIView.animate(withDuration: 0.3) {
+                self.closeButton.alpha = 1.0
+            }
         }
-        
     }
+    
+    @objc private func closeButtonTapped() {
+        UIView.animate(withDuration: 0.3, animations: {
+
+            self.closeButton.alpha = 0.0
+        }) { _ in
+            UIView.animate(withDuration: 0.5, animations: {
+
+                self.avatarImageView.transform = .identity
+                self.avatarImageView.frame = self.avatarInitialFrame
+
+                self.overlayView.alpha = 0.0
+            })
+        }
+    }
+    
+    
+
+
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
