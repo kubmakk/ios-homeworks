@@ -98,16 +98,20 @@ class ProfileViewController: UIViewController {
     //MARK: - Actions
 
     @objc private func imageTapped() {
-
+    
         avatarInitialFrame = avatarImageView.frame
 
+
+        let scaleFactor = min(self.view.bounds.width / self.avatarImageView.bounds.width,
+                              self.view.bounds.height / self.avatarImageView.bounds.height)
+
         UIView.animate(withDuration: 0.5, animations: {
-            
+
             self.avatarImageView.center = self.view.center
-            
-            self.avatarImageView.transform = CGAffineTransform(
-                scaleX: self.view.bounds.width / self.avatarImageView.bounds.width,
-                y: self.view.bounds.height / self.avatarImageView.bounds.height)
+
+
+            self.avatarImageView.transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
+
 
             self.overlayView.alpha = 1.0
         }) { _ in
