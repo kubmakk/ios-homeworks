@@ -17,6 +17,11 @@ final class ProfileViewController: UIViewController {
         table.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: headerIdent)
         table.register(PhotosTableViewCell.self, forCellReuseIdentifier: photoIdent)
         table.register(PostTableViewCell.self, forCellReuseIdentifier: postIdent)
+        #if DEBUG
+        table.backgroundColor = .red
+        #else
+        table.backgroundColor = .gray
+        #endif
         return table
     }()
     
