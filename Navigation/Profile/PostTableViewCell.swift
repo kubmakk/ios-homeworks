@@ -2,111 +2,109 @@
 //  PostTableViewCell.swift
 //  Navigation
 //
-//  Created by kubmakk on 26.11.2024.
-//
 
 import UIKit
 
-class PostTableViewCell : UITableViewCell {
+class PostTableViewCell: UITableViewCell {
     
-    // MARK: - Subview
-    private let authorLabel: UILabel = {
+    private var viewCounter = 0
+
+    // MARK: Visual objects
+    
+    var postAuthor: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.textColor = .black
         label.numberOfLines = 2
-        label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
-    private let descriptionLabel: UILabel = {
+    var postImage: UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.backgroundColor = .black
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+
+    var postDescription: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
-        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .systemGray
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
         return label
     }()
 
-    private let postImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.backgroundColor = .black
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-
-    private let likesLabel: UILabel = {
+    var postLikes: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 16)
         label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
-    private let viewsLabel: UILabel = {
+
+    var postViews: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 16)
         label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+
+    // MARK: - Init section
     
-    // MARK: - Lifecycle
-
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
-        super .init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        setupViews()
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.addSubviews(postAuthor, postImage, postDescription, postLikes, postViews)
         setupConstraints()
+        self.selectionStyle = .default
     }
-    
+
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    // MARK: - Private
-    
-    private func setupViews(){
-        contentView.addSubview(authorLabel)
-        contentView.addSubview(descriptionLabel)
-        contentView.addSubview(postImageView)
-        contentView.addSubview(likesLabel)
-        contentView.addSubview(viewsLabel)
+        fatalError("lol")
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            // author
-            authorLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            authorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            // image
-            postImageView.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 12),
-            postImageView.heightAnchor.constraint(equalTo: postImageView.widthAnchor),
-            postImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            postImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            // description
-            descriptionLabel.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 16),
-            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            descriptionLabel.bottomAnchor.constraint(equalTo: likesLabel.topAnchor, constant: -16),
-            // likes
-            likesLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
-            likesLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            // views
-            viewsLabel.topAnchor.constraint(equalTo: likesLabel.topAnchor), 
-            viewsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            viewsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+            postAuthor.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstants.indent),
+            postAuthor.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstants.leadingMargin),
+            postAuthor.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: LayoutConstants.trailingMargin),
+
+            postImage.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            postImage.heightAnchor.constraint(equalTo: postImage.widthAnchor, multiplier: 0.56),
+            postImage.topAnchor.constraint(equalTo: postAuthor.bottomAnchor, constant: LayoutConstants.indent),
+
+            postDescription.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: LayoutConstants.indent),
+            postDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstants.leadingMargin),
+            postDescription.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: LayoutConstants.trailingMargin),
+
+            postLikes.topAnchor.constraint(equalTo: postDescription.bottomAnchor, constant: LayoutConstants.indent),
+            postLikes.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstants.leadingMargin),
+            postLikes.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstants.indent),
+
+            postViews.topAnchor.constraint(equalTo: postDescription.bottomAnchor, constant: LayoutConstants.indent),
+            postViews.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: LayoutConstants.trailingMargin),
+            postViews.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstants.indent)
         ])
     }
 
-
-    func configure(with post: Post) {
-        authorLabel.text = post.author
-        descriptionLabel.text = post.description
-        postImageView.image = UIImage(named: post.image)
-        likesLabel.text = "Likes: \(post.likes)"
-        viewsLabel.text = "Views: \(post.views)"
+    // MARK: - Run loop
+    
+    func configPostArray(post: Post) {
+        postAuthor.text = post.author
+        postDescription.text = post.description
+        postImage.image = UIImage(named: post.image)
+        postLikes.text = "Likes: \(post.likes)"
+        viewCounter = post.views
+        postViews.text = "Views: \(viewCounter)"
+    }
+    
+    func incrementPostViewsCounter() {
+        viewCounter += 1
+        postViews.text = "Views: \(viewCounter)"
     }
 }
+

@@ -1,173 +1,114 @@
+//
+//  ProfileViewController.swift
+//  Navigation
+//
+
 import UIKit
 
-class ProfileViewController: UIViewController {
-
-    // MARK: - Data
-    fileprivate let data = Post.make()
-
-    // MARK: - Subview
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
-        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: CallReuseID.custom.rawValue)
-        return tableView
+final class ProfileViewController: UIViewController {
+    
+    static let headerIdent = "header"
+    static let photoIdent = "photo"
+    static let postIdent = "post"
+    
+    static var postTableView: UITableView = {
+        let table = UITableView(frame: .zero, style: .grouped)
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: headerIdent)
+        table.register(PhotosTableViewCell.self, forCellReuseIdentifier: photoIdent)
+        table.register(PostTableViewCell.self, forCellReuseIdentifier: postIdent)
+        return table
     }()
     
-    private let overlayView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        view.alpha = 0
-        return view
-    }()
+    // MARK: - Setup section
     
-    private lazy var profileHeaderView = ProfileTableHeaderView()
-    private var avatarInitialFrame: CGRect = .zero
-    private var avatarImageView: UIImageView {
-        return profileHeaderView.avatarImageView
-    }
-    
-    private let closeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("X", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20)
-        button.tintColor = .white
-        button.backgroundColor = .red
-        button.alpha = 0
-        button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
-        button.layer.cornerRadius = 20
-
-        button.translatesAutoresizingMaskIntoConstraints = false // Это обязательно
-
-        return button
-    }()
-
-    
-    private enum CallReuseID: String {
-        case base = "BaseTableViewCell_ReuseID"
-        case custom = "CustomTableViewCell_ReuseID"
-    }
-
-    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
-        setupConstraints()
-        addAvatarGesture()
-    }
 
-    // MARK: - Private
-    private func setupView() {
-        view.backgroundColor = .lightGray
-        title = "Profile"
-        navigationItem.title = "Table"
-        navigationController?.navigationBar.prefersLargeTitles = false
+        view.backgroundColor = .systemBackground
         
-        view.addSubview(tableView)
-        view.addSubview(overlayView)
-        view.addSubview(closeButton)
-        
-        overlayView.frame = view.bounds
-        
-        view.isUserInteractionEnabled = true
-    }
-    
-    private func addAvatarGesture() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
-        avatarImageView.addGestureRecognizer(tapGestureRecognizer)
-        avatarImageView.isUserInteractionEnabled = true
+        view.addSubview(Self.postTableView)
+        setupConstraints()
+        Self.postTableView.dataSource = self
+        Self.postTableView.delegate = self
+        Self.postTableView.refreshControl = UIRefreshControl()
+        Self.postTableView.refreshControl?.addTarget(self, action: #selector(reloadTableView), for: .valueChanged)
     }
     
     private func setupConstraints() {
-        let safeAreaGuide = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor),
-            
-            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            closeButton.heightAnchor.constraint(equalToConstant: 40),
-            closeButton.widthAnchor.constraint(equalToConstant: 40),
+            Self.postTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            Self.postTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            Self.postTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            Self.postTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    //MARK: - Actions
 
-    @objc private func imageTapped() {
-    
-        avatarInitialFrame = avatarImageView.frame
-
-
-        let scaleFactor = min(self.view.bounds.width / self.avatarImageView.bounds.width,
-                              self.view.bounds.height / self.avatarImageView.bounds.height)
-
-        UIView.animate(withDuration: 0.5, animations: {
-
-            self.avatarImageView.center = self.view.center
-
-
-            self.avatarImageView.transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
-
-
-            self.overlayView.alpha = 1.0
-        }) { _ in
-
-            UIView.animate(withDuration: 0.3) {
-                self.closeButton.alpha = 1.0
-            }
-        }
+    @objc func reloadTableView() {
+        Self.postTableView.reloadData()
+        Self.postTableView.refreshControl?.endRefreshing()
     }
-    
-    @objc private func closeButtonTapped() {
-        UIView.animate(withDuration: 0.3, animations: {
-
-            self.closeButton.alpha = 0.0
-        }) { _ in
-            UIView.animate(withDuration: 0.5, animations: {
-
-                self.avatarImageView.transform = .identity
-                self.avatarImageView.frame = self.avatarInitialFrame
-
-                self.overlayView.alpha = 0.0
-            })
-        }
-    }
-    
-    
-
-
 }
 
-// MARK: - UITableViewDelegate, UITableViewDataSource
-extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+// MARK: - Extensions
+
+extension ProfileViewController: UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        switch section {
+        case 0: return 1
+        case 1: return postExamples.count
+        default:
+            assertionFailure("no registered section")
+            return 1
+        }
     }
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+}
+
+extension ProfileViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CallReuseID.custom.rawValue, for: indexPath) as! PostTableViewCell
-        let post = data[indexPath.row]
-        cell.configure(with: post)
-        return cell
+        switch indexPath.section {
+        case 0:
+            let cell = Self.postTableView.dequeueReusableCell(withIdentifier: Self.photoIdent, for: indexPath) as! PhotosTableViewCell
+            return cell
+        case 1:
+            let cell = Self.postTableView.dequeueReusableCell(withIdentifier: Self.postIdent, for: indexPath) as! PostTableViewCell
+            cell.configPostArray(post: postExamples[indexPath.row])
+            return cell
+        default:
+            assertionFailure("no registered section")
+            return UITableViewCell()
+        }
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0 {
-            return profileHeaderView
-        }
-        return nil
+        guard section == 0 else { return nil }
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Self.headerIdent) as! ProfileHeaderView
+        return headerView
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 220
+        return section == 0 ? 220 : 0
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            tableView.deselectRow(at: indexPath, animated: false)
+            navigationController?.pushViewController(PhotosViewController(), animated: true)
+        case 1:
+            guard let cell = tableView.cellForRow(at: indexPath) else { return }
+            if let post = cell as? PostTableViewCell {
+                post.incrementPostViewsCounter()
+            }
+        default:
+            assertionFailure("no registered section")
         }
-        return 0
     }
 }
-
 

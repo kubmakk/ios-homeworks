@@ -1,40 +1,54 @@
+//
+//  InfoViewController.swift
+//  Navigation
+//
 
 import UIKit
 
-class InfoViewController: UIViewController {
+final class InfoViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.backgroundColor = .systemGray6
+        
+        createAlertButton()
+    }
     
-    lazy var alerButton: UIButton = {
-        let button = UIButton(type: .system)
+    private func createAlertButton() {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Alert", for: .normal)
-        return button
-    }()
+        button.backgroundColor = .systemPink
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = LayoutConstants.cornerRadius
+        button.addTarget(self, action: #selector(tapAlertButton), for: .touchUpInside)
+                
+        view.addSubview(button)
         
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            view.backgroundColor = .white
-            title = "Info"
-            
-            view.addSubview(alerButton)
-            
-            alerButton.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
-            alerButton.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint.activate([
-                alerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                alerButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-            ])
-        }
-    @objc func showAlert() {
-        let alert = UIAlertController(title: "Сообщение", message: "Описание", preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "OK", style: .default){_ in
-            print("Нажата кнопка OK")
-        }
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel){_ in
-            print("Нажата кнопка Отмена")}
-        
-        alert.addAction(okAction)
-        alert.addAction(cancelAction)
-        present(alert, animated: true)
+        NSLayoutConstraint.activate([
+            button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            button.heightAnchor.constraint(equalToConstant: 50),
+            button.widthAnchor.constraint(equalToConstant: 100)
+        ])
     }
+    
+    @objc func tapAlertButton() {
+        let alert = UIAlertController(title: "Attention",
+                                      message: "How are you feeling?",
+                                      preferredStyle: .alert)
+        // add two buttons
+        let fine = UIAlertAction(title: "Fine", style: .default) { _ in
+            print("Fine")
+        }
+        alert.addAction(fine)
+        
+        let so = UIAlertAction(title: "So-so", style: .destructive) { _ in
+            print("So-so")
+        }
+        alert.addAction(so)
+
+        self.present(alert, animated: true, completion: nil)
     }
+}
