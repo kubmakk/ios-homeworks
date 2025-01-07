@@ -10,6 +10,7 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
     
     // MARK: Visual objects
     
+    var user: User?
     var fullNameLabel = UILabel()
     var avatarImageView = UIImageView()
     var statusLabel = UILabel()
@@ -40,7 +41,7 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
     
     private func setupNameLabel() {
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        fullNameLabel.text = "Teo West"
+        fullNameLabel.text = user?.fullName
         fullNameLabel.font = .boldSystemFont(ofSize: 18)
         fullNameLabel.textColor = .black
         addSubview(fullNameLabel)
@@ -53,7 +54,7 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
     }
     
     private func setupStatusLabel() {
-        statusLabel.text = statusText
+        statusLabel.text = user?.status
         statusLabel.font = .systemFont(ofSize: 17)
         statusLabel.textColor = .black
         addSubview(statusLabel)
@@ -109,7 +110,7 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
     
     private func setupAvatarImage() {
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        avatarImageView.image = UIImage(named: "teo")
+        avatarImageView.image = user?.avatar
         avatarImageView.layer.cornerRadius = 64
         avatarImageView.layer.borderWidth = 3
         avatarImageView.layer.borderColor = UIColor.white.cgColor

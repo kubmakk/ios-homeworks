@@ -9,6 +9,8 @@ final class LoginViewController: UIViewController {
     
     // MARK: Visual content
     
+    var currentUserService: UserService?
+    
     var loginScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -94,6 +96,8 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Setup section
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -101,8 +105,14 @@ final class LoginViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         
         setupViews()
+        userInfo()
+        
     }
-    
+    func userInfo() {
+        let avatar = UIImage(named: "teo")!
+        let user = User(login: "testUser", fullName: "John Doe", avatar: avatar, status: "Active")
+        currentUserService = CurrentUserService(user: user)
+    }
     private func setupViews() {
         view.addSubview(loginScrollView)
         loginScrollView.addSubview(contentView)
@@ -169,8 +179,15 @@ final class LoginViewController: UIViewController {
     // MARK: - Event handlers
 
     @objc private func touchLoginButton() {
-        let profileVC = ProfileViewController()
-        navigationController?.setViewControllers([profileVC], animated: true)
+        guard let login = loginField.text, !login.isEmpty else {
+            // Показать ошибку, если логин не введен
+            let alert = UIAlertController(title: "Ошибка", message: "Пожалуйста, введите логин", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+            return
+        }
+//        let profileVC = ProfileViewController()
+//        navigationController?.setViewControllers([profileVC], animated: true)
     }
 
     @objc private func keyboardShow(notification: NSNotification) {
@@ -183,6 +200,7 @@ final class LoginViewController: UIViewController {
     @objc private func keyboardHide(notification: NSNotification) {
         loginScrollView.contentOffset = CGPoint(x: 0, y: 0)
     }
+    
 }
 
 // MARK: - Extension
@@ -194,4 +212,5 @@ extension LoginViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
 }
