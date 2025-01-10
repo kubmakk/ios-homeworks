@@ -9,6 +9,8 @@ final class LoginViewController: UIViewController {
     
     // MARK: Visual content
     
+    var currentUserService: UserService?
+    
     var loginScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -94,6 +96,8 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Setup section
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -101,8 +105,18 @@ final class LoginViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         
         setupViews()
+        userInfo()
+        
     }
-    
+    func userInfo() {
+        #if DEBUG
+        currentUserService = TestUserService()
+        #else
+        let avatar = UIImage(named: "teo")!
+        let user = User(login: "testUser", fullName: "John Doe", avatar: avatar, status: "Active")
+        currentUserService = CurrentUserService(user: user)
+        #endif
+    }
     private func setupViews() {
         view.addSubview(loginScrollView)
         loginScrollView.addSubview(contentView)
@@ -169,8 +183,27 @@ final class LoginViewController: UIViewController {
     // MARK: - Event handlers
 
     @objc private func touchLoginButton() {
-        let profileVC = ProfileViewController()
-        navigationController?.setViewControllers([profileVC], animated: true)
+        guard let login = loginField.text, !login.isEmpty else {
+            let alert = UIAlertController(title: "Ошибка", message: "Надо логин", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "ОК", style: .default)
+            alert.addAction(ok)
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        if let user = currentUserService?.getUser(by: login) {
+            print(user.fullName)
+            let profileVC = ProfileViewController()
+            profileVC.user = user
+            navigationController?.setViewControllers([profileVC], animated: true)
+        } else {
+            let alert = UIAlertController(title: "Ошибка", message: "Введены не верные данные", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "ОК", style: .default)
+            alert.addAction(ok)
+            self.present(alert, animated: true, completion: nil)
+        }
+//        let profileVC = ProfileViewController()
+//        navigationController?.setViewControllers([profileVC], animated: true)
     }
 
     @objc private func keyboardShow(notification: NSNotification) {
@@ -183,6 +216,7 @@ final class LoginViewController: UIViewController {
     @objc private func keyboardHide(notification: NSNotification) {
         loginScrollView.contentOffset = CGPoint(x: 0, y: 0)
     }
+    
 }
 
 // MARK: - Extension
@@ -194,4 +228,5 @@ extension LoginViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
 }
