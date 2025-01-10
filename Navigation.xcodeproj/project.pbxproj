@@ -25,6 +25,8 @@
 		36C5F0612850B723005EFC6C /* PhotosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C5F0602850B723005EFC6C /* PhotosVC.swift */; };
 		36C5F0632850B7B6005EFC6C /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C5F0622850B7B6005EFC6C /* PhotosCollectionViewCell.swift */; };
 		36C5F0652850C9D1005EFC6C /* PostExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C5F0642850C9D1005EFC6C /* PostExamples.swift */; };
+		4C84BF8C2D31D8010017E2B4 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C84BF8B2D31D7FE0017E2B4 /* TestUserService.swift */; };
+		4C84BF8D2D31D8010017E2B4 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C84BF8B2D31D7FE0017E2B4 /* TestUserService.swift */; };
 		4CB61E4B2D1B70100059C457 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36528E3E284FDF9100965BA4 /* PostTableViewCell.swift */; };
 		4CB61E4C2D1B70100059C457 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3601A2BB28494D5D000D261A /* FeedVC.swift */; };
 		4CB61E4D2D1B70100059C457 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3601A2BD28494E4F000D261A /* ProfileVC.swift */; };
@@ -118,6 +120,7 @@
 		36C5F0602850B723005EFC6C /* PhotosVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosVC.swift; sourceTree = "<group>"; };
 		36C5F0622850B7B6005EFC6C /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		36C5F0642850C9D1005EFC6C /* PostExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostExamples.swift; sourceTree = "<group>"; };
+		4C84BF8B2D31D7FE0017E2B4 /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		4CB61E302D1B6BA30059C457 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB61E652D1B70100059C457 /* Release.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Release.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB61E662D1B70100059C457 /* Navigation copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Navigation copy-Info.plist"; path = "/Users/kubmakkk/Desktop/Coding/iOS/вебинар iOS/домашка/iosint/Navigation/iosui_project/Navigation copy-Info.plist"; sourceTree = "<absolute>"; };
@@ -213,6 +216,7 @@
 		3601A2C5284A771D000D261A /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				4C84BF8B2D31D7FE0017E2B4 /* TestUserService.swift */,
 				4CD2AE1E2D2DA65100B79E10 /* CurrentUserService.swift */,
 				4CD2AE1B2D2D9FC200B79E10 /* User.swift */,
 				36528E36284F5E3800965BA4 /* LoginVC.swift */,
@@ -397,6 +401,7 @@
 				36C5F05E2850B4A6005EFC6C /* PhotoExamples.swift in Sources */,
 				3601A2C7284A776A000D261A /* ProfileHeaderView.swift in Sources */,
 				4CD2AE1F2D2DA65600B79E10 /* CurrentUserService.swift in Sources */,
+				4C84BF8D2D31D8010017E2B4 /* TestUserService.swift in Sources */,
 				36C5F0652850C9D1005EFC6C /* PostExamples.swift in Sources */,
 				36C5F0612850B723005EFC6C /* PhotosVC.swift in Sources */,
 				36528E39284F700900965BA4 /* ExtensionUIImage.swift in Sources */,
@@ -429,6 +434,7 @@
 				4CB61E522D1B70100059C457 /* PhotoExamples.swift in Sources */,
 				4CB61E532D1B70100059C457 /* ProfileHeaderView.swift in Sources */,
 				4CD2AE202D2DA65600B79E10 /* CurrentUserService.swift in Sources */,
+				4C84BF8C2D31D8010017E2B4 /* TestUserService.swift in Sources */,
 				4CB61E542D1B70100059C457 /* PostExamples.swift in Sources */,
 				4CB61E552D1B70100059C457 /* PhotosVC.swift in Sources */,
 				4CB61E562D1B70100059C457 /* ExtensionUIImage.swift in Sources */,

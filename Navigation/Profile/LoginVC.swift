@@ -109,9 +109,13 @@ final class LoginViewController: UIViewController {
         
     }
     func userInfo() {
+        #if DEBUG
+        currentUserService = TestUserService()
+        #else
         let avatar = UIImage(named: "teo")!
         let user = User(login: "testUser", fullName: "John Doe", avatar: avatar, status: "Active")
         currentUserService = CurrentUserService(user: user)
+        #endif
     }
     private func setupViews() {
         view.addSubview(loginScrollView)
@@ -180,11 +184,23 @@ final class LoginViewController: UIViewController {
 
     @objc private func touchLoginButton() {
         guard let login = loginField.text, !login.isEmpty else {
-            // Показать ошибку, если логин не введен
-            let alert = UIAlertController(title: "Ошибка", message: "Пожалуйста, введите логин", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true)
+            let alert = UIAlertController(title: "Ошибка", message: "Надо логин", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "ОК", style: .default)
+            alert.addAction(ok)
+            self.present(alert, animated: true, completion: nil)
             return
+        }
+        
+        if let user = currentUserService?.getUser(by: login) {
+            print(user.fullName)
+            let profileVC = ProfileViewController()
+            profileVC.user = user
+            navigationController?.setViewControllers([profileVC], animated: true)
+        } else {
+            let alert = UIAlertController(title: "Ошибка", message: "Введены не верные данные", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "ОК", style: .default)
+            alert.addAction(ok)
+            self.present(alert, animated: true, completion: nil)
         }
 //        let profileVC = ProfileViewController()
 //        navigationController?.setViewControllers([profileVC], animated: true)
