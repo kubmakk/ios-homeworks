@@ -7,11 +7,11 @@
 
 import UIKit
 
-final class Checker {
-    static let checker = Checker()
+class Checker {
+    static let shared = Checker()
     
-    private let login = "Kubmakk"
-    private let password = "123"
+    private let login = "111"
+    private let password = "111"
     
     private init() {}
     

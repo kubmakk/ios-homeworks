@@ -5,10 +5,14 @@
 
 import UIKit
 
+protocol LoginViewControllerDelegate{
+    func check(login: String, password: String) -> Bool
+}
+
 final class LoginViewController: UIViewController {
     
     // MARK: Visual content
-    
+    var loginDelegate: LoginViewControllerDelegate?
     var currentUserService: UserService?
     
     var loginScrollView: UIScrollView = {
@@ -108,6 +112,14 @@ final class LoginViewController: UIViewController {
         userInfo()
         
     }
+    
+    struct LoginInspector: LoginViewControllerDelegate{
+        func check(login: String, password: String) -> Bool{
+            return Checker.shared.check(login: login, password: password)
+        }
+
+    }
+    
     func userInfo() {
         #if DEBUG
         currentUserService = TestUserService()
@@ -181,30 +193,45 @@ final class LoginViewController: UIViewController {
     }
     
     // MARK: - Event handlers
-
     @objc private func touchLoginButton() {
-        guard let login = loginField.text, !login.isEmpty else {
-            let alert = UIAlertController(title: "Ошибка", message: "Надо логин", preferredStyle: .alert)
-            let ok = UIAlertAction(title: "ОК", style: .default)
-            alert.addAction(ok)
-            self.present(alert, animated: true, completion: nil)
-            return
-        }
+        guard let login = loginField.text,
+                let password = passwordField.text else {return}
         
-        if let user = currentUserService?.getUser(by: login) {
-            print(user.fullName)
+        if loginDelegate?.check(login: login, password: password) == true {
             let profileVC = ProfileViewController()
-            profileVC.user = user
             navigationController?.setViewControllers([profileVC], animated: true)
-        } else {
+        } else{
             let alert = UIAlertController(title: "Ошибка", message: "Введены не верные данные", preferredStyle: .alert)
             let ok = UIAlertAction(title: "ОК", style: .default)
             alert.addAction(ok)
             self.present(alert, animated: true, completion: nil)
         }
-//        let profileVC = ProfileViewController()
-//        navigationController?.setViewControllers([profileVC], animated: true)
     }
+    
+    
+//    @objc private func touchLoginButton() {
+//        guard let login = loginField.text, !login.isEmpty else {
+//            let alert = UIAlertController(title: "Ошибка", message: "Надо логин", preferredStyle: .alert)
+//            let ok = UIAlertAction(title: "ОК", style: .default)
+//            alert.addAction(ok)
+//            self.present(alert, animated: true, completion: nil)
+//            return
+//        }
+//        
+//        if let user = currentUserService?.getUser(by: login) {
+//            print(user.fullName)
+//            let profileVC = ProfileViewController()
+//            profileVC.user = user
+//            navigationController?.setViewControllers([profileVC], animated: true)
+//        } else {
+//            let alert = UIAlertController(title: "Ошибка", message: "Введены не верные данные", preferredStyle: .alert)
+//            let ok = UIAlertAction(title: "ОК", style: .default)
+//            alert.addAction(ok)
+//            self.present(alert, animated: true, completion: nil)
+//        }
+////        let profileVC = ProfileViewController()
+////        navigationController?.setViewControllers([profileVC], animated: true)
+//    }
 
     @objc private func keyboardShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
