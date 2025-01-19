@@ -95,8 +95,7 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section == 0 else { return nil }
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Self.headerIdent) as! ProfileHeaderView
-        let model = User(login: user!.login, fullName: user!.fullName, avatar: user!.avatar, status: user!.status)
-        headerView.configure(with: user!)
+
         return headerView
     }
 

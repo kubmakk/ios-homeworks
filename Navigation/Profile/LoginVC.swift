@@ -5,10 +5,6 @@
 
 import UIKit
 
-protocol LoginViewControllerDelegate{
-    func check(login: String, password: String) -> Bool
-}
-
 final class LoginViewController: UIViewController {
     
     // MARK: Visual content
@@ -112,13 +108,7 @@ final class LoginViewController: UIViewController {
         userInfo()
         
     }
-    
-    struct LoginInspector: LoginViewControllerDelegate{
-        func check(login: String, password: String) -> Bool{
-            return Checker.shared.check(login: login, password: password)
-        }
 
-    }
     
     func userInfo() {
         #if DEBUG
