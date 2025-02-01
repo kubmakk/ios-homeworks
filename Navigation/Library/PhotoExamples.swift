@@ -9,7 +9,7 @@ final class Photos {
     
     static let shared = Photos()
     
-    let examples: [UIImage]
+    var examples: [UIImage]
     
     private init() {
         var photos = [UIImage]()
