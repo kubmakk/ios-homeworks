@@ -346,8 +346,8 @@
 			);
 			mainGroup = 3601A29B28490DDF000D261A;
 			packageReferences = (
-				4CB7EDFF2D274ACF00E2FAAE /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
 				4CD2ADF92D2D826C00B79E10 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				4C4044762D4EDD2700B60C25 /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3601A2A528490DDF000D261A /* Products */;
@@ -837,6 +837,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4C4044762D4EDD2700B60C25 /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TrueMax/iOSIntPackage";
+			requirement = {
+				branch = imagepublisher;
+				kind = branch;
+			};
+		};
 		4CB7EDFF2D274ACF00E2FAAE /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TrueMax/iOSIntPackage";

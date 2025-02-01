@@ -4,9 +4,15 @@
 //
 
 import UIKit
+import iOSIntPackage
 
-class PhotosViewController: UIViewController {
+class PhotosViewController: UIViewController, ImageLibrarySubscriber {
+    func receive(images: [UIImage]) {
+        Photos.shared.examples = images
+        photosCollectionView.reloadData()
+    }
     
+    let imagePublisherFacade = ImagePublisherFacade()
     let photoIdent = "photoCell"
 
     // MARK: Visual objects
@@ -37,6 +43,7 @@ class PhotosViewController: UIViewController {
         self.view.addSubview(photosCollectionView)
         self.photosCollectionView.dataSource = self
         self.photosCollectionView.delegate = self
+        imagePublisherFacade.subscribe(self)
         setupConstraints()
     }
     
