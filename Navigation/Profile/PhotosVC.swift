@@ -60,10 +60,19 @@ class PhotosViewController: UIViewController, ImageLibrarySubscriber {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 10)
+        
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = true
+        imagePublisherFacade.removeSubscription(for: self)
+    }
+    deinit{
+        print("removeSubscription")
     }
 }
 
