@@ -86,38 +86,30 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
         }
     }
     
-//    private func setupStatusButton() {
-//        setStatusButton.translatesAutoresizingMaskIntoConstraints = false
-//        setStatusButton.backgroundColor = .systemBlue
-//        setStatusButton.layer.cornerRadius = LayoutConstants.cornerRadius
-//        setStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
-//        setStatusButton.layer.shadowColor = UIColor.black.cgColor
-//        setStatusButton.layer.shadowRadius = 4
-//        setStatusButton.layer.shadowOpacity = 0.7
-//        setStatusButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-//        setStatusButton.setTitle("Show status", for: .normal)
-//        setStatusButton.setTitleColor(.white, for: .normal)
-//        setStatusButton.addTarget(self, action: #selector(statusButtonPressed), for: .touchUpInside)
-//        addSubview(setStatusButton)
-//        
-//        setStatusButton.snp.makeConstraints { make in
-//            make.top.equalTo(statusTextField.snp.bottom).offset(16)
-//            make.leading.equalTo(safeAreaLayoutGuide).offset(16)
-//            make.trailing.equalTo(safeAreaLayoutGuide).offset(-16)
-//            make.height.equalTo(48)
-//        }
-//    }
-    
     private func setupStatusButton(){
-        let button = CustomButton(
+        setStatusButton = CustomButton(
             title: "Show Status",
             titleColor: .black,
-            backroundColor: <#T##UIColor#>,
-            radius: <#T##CGFloat#>,
-            autoresizing: <#T##Bool#>,
-            target: <#T##AnyObject#>,
-            selector: <#T##Selector#>
+            backroundColor: .systemBlue,
+            radius: LayoutConstants.cornerRadius,
+            autoresizing: false,
+            target: self,
+            selector: #selector(statusButtonPressed)
         )
+        setStatusButton.setupLayer(
+            shadowOffset: CGSize(width: 4, height: 4),
+            shadowRadius: 4,
+            shadowOpacity: 0.7,
+            shadowColor: .black
+        )
+        addSubviews(setStatusButton)
+        
+        setStatusButton.snp.makeConstraints { make in
+            make.top.equalTo(statusTextField.snp.bottom).offset(16)
+            make.leading.equalTo(safeAreaLayoutGuide).offset(16)
+            make.trailing.equalTo(safeAreaLayoutGuide).offset(-16)
+            make.height.equalTo(48)
+        }
     }
     
     private func setupAvatarImage() {
