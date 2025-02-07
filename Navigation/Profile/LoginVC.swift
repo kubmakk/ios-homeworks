@@ -43,21 +43,23 @@ final class LoginViewController: UIViewController {
         return stack
     }()
     
-    var loginButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
+    
+    lazy var loginButton: CustomButton = {
+        var button = CustomButton(
+            title: "Login",
+            titleColor: .white,
+            backroundColor: .black,
+            radius: 9,
+            autoresizing: false,
+            target: self,
+            selector: #selector(touchLoginButton)
+        )
         if let pixel = UIImage(named: "blue_pixel") {
             button.setBackgroundImage(pixel.image(alpha: 1), for: .normal)
             button.setBackgroundImage(pixel.image(alpha: 0.8), for: .selected)
             button.setBackgroundImage(pixel.image(alpha: 0.6), for: .highlighted)
             button.setBackgroundImage(pixel.image(alpha: 0.4), for: .disabled)
         }
-
-        button.setTitle("Login", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.addTarget(nil, action: #selector(touchLoginButton), for: .touchUpInside)
-        button.layer.cornerRadius = LayoutConstants.cornerRadius
         button.clipsToBounds = true
         return button
     }()

@@ -61,29 +61,7 @@ final class FeedViewController: UIViewController {
         )
         view.addArrangedSubview(button)
     }
-//
-//    private func addPostButton(title: String, color: UIColor, to view: UIStackView, selector: Selector) {
-//        lazy var button = CustomButton(
-//            title: title,
-//            titleColor: .white,
-//            backroundColor: color,
-//            radius: LayoutConstants.cornerRadius,
-//            action: {selector}
-//        )
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        view.addArrangedSubview(button)
-//    }
-//    
-//    private func addPostButton(title: String, color: UIColor, to view: UIStackView, selector: Selector) {
-//        let button = UIButton()
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        button.setTitle(title, for: .normal)
-//        button.backgroundColor = color
-//        button.setTitleColor(.white, for: .normal)
-//        button.layer.cornerRadius = LayoutConstants.cornerRadius
-//        button.addTarget(self, action: selector, for: .touchUpInside)
-//        view.addArrangedSubview(button)
-//    }
+
     
     @objc func tapPostButton() {
         let post = postExamples[0]
