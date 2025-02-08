@@ -4,10 +4,13 @@
 //
 
 import UIKit
+import StorageService
+import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
     
     private var viewCounter = 0
+    private let imageProcessor = ImageProcessor()
 
     // MARK: Visual objects
     
@@ -96,7 +99,14 @@ class PostTableViewCell: UITableViewCell {
     func configPostArray(post: Post) {
         postAuthor.text = post.author
         postDescription.text = post.description
-        postImage.image = UIImage(named: post.image)
+        if let originalImage = UIImage(named: post.image) {
+            imageProcessor.processImage(
+                sourceImage: originalImage,
+                filter: .colorInvert
+            ) { filteredImage in
+                postImage.image = filteredImage
+            }
+        }
         postLikes.text = "Likes: \(post.likes)"
         viewCounter = post.views
         postViews.text = "Views: \(viewCounter)"
