@@ -4,6 +4,8 @@ import SnapKit
 final class FeedViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Constraint
     
+    var viewModel: FeedVM!
+    
     private let secretWordField: UITextField = {
         let textField = UITextField()
         let iconContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 24))
@@ -79,6 +81,9 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
         
         view.backgroundColor = .systemTeal
         createSubView()
+        let userModel = UserModel(fullName: "Some Name", status: "Some Status")
+        viewModel = FeedVM(user: userModel, initialStatus: userModel.status)
+        BildModel()
         NotificationCenter.default.addObserver(self, selector: #selector(tapToButn), name: .wordChecked, object: nil)
         
         // Добавляем наблюдатели за клавиатурой
@@ -100,12 +105,24 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - func
     
+    private func BildModel() {
+        viewModel.updatedIfNeed = { [weak self] newStatus in
+            guard let self = self else { return }
+            
+            print("Статус обновлен: \(newStatus)")
+            self.checkGuessButton.setTitle("Статус: \(newStatus)", for: .normal)
+        }
+        
+    }
+    
     @objc func tapPostButton() {
         let post = postExamples[0]
         
         let postVC = PostViewController()
         postVC.post = post
         navigationController?.pushViewController(postVC, animated: true)
+        
+        viewModel.updateStatus(newStatus: "Просмотрен пост")
     }
     
     @objc private func tapToButn(_ notification: Notification) {
