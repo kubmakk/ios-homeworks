@@ -8,11 +8,11 @@
 import UIKit
 
 
-class ProfileCoordinator: BaseCoordinator {
+class LoginCoordinator: BaseCoordinator {
     override func start() {
-        let profileVC = ProfileViewController()
-        profileVC.coordinator = self
-        navigationController.pushViewController(profileVC, animated: false)
+        let loginVC = LoginViewController()
+        loginVC.coordinator = self
+        navigationController.pushViewController(loginVC, animated: false)
     }
     
     func showPhotos() {

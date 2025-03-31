@@ -11,7 +11,8 @@ final class ProfileViewController: UIViewController {
     static let photoIdent = "photo"
     static let postIdent = "post"
     var user: User?
-    weak var coordinator: ProfileCoordinator?
+   // weak var coordinator: ProfileCoordinator?
+    
     static var postTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.translatesAutoresizingMaskIntoConstraints = false
