@@ -5,6 +5,7 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Constraint
     
     var viewModel: FeedVM!
+    weak var coordinator: FeedCoordinator?
     
     private let secretWordField: UITextField = {
         let textField = UITextField()
