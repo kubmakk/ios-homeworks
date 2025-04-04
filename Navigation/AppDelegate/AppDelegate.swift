@@ -7,7 +7,7 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+ 
     
     var window: UIWindow?
     var appCoordinator: TabBarCoordinator?
@@ -15,19 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        let loginFactory = MyLoginFactory()
-        let loginInspector = loginFactory.makeLoginInspector()
-        
-        let loginVC = LoginViewController()
-        loginVC.loginDelegate = loginInspector
-        
-        let navCoordinator = UINavigationController()
-        
-        appCoordinator = TabBarCoordinator(navigationController: navCoordinator)
+        let rootNavigationController = UINavigationController()
+
+        appCoordinator = TabBarCoordinator(navigationController: rootNavigationController)
         
         // activate main window
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = navCoordinator
+        window?.rootViewController = rootNavigationController
         window?.makeKeyAndVisible()
         
         appCoordinator?.start()

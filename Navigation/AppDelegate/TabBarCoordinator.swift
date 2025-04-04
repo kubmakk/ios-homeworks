@@ -9,21 +9,32 @@ import UIKit
 
 final class TabBarCoordinator: BaseCoordinator {
     let tabBarController = UITabBarController()
-    
+    let rootNavigationController: UINavigationController
+
+    override init(navigationController: UINavigationController) {
+        self.rootNavigationController = navigationController
+        super.init(navigationController: navigationController)
+    }
+
     override func start() {
-        let feedCoordinator = FeedCoordinator(navigationController: UINavigationController())
-        let loginCoordinator = LoginCoordinator(navigationController: UINavigationController())
-        
+        let feedNavigationController = UINavigationController()
+        let profileNavigationController = UINavigationController()
+
+        let feedCoordinator = FeedCoordinator(navigationController: feedNavigationController)
+        let loginCoordinator = LoginCoordinator(navigationController: profileNavigationController)
+
+        addChild(feedCoordinator)
+        addChild(loginCoordinator)
+
         feedCoordinator.start()
         loginCoordinator.start()
-        
-        tabBarController.viewControllers = [feedCoordinator.navigationController, loginCoordinator.navigationController]
-        
-        feedCoordinator.navigationController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "newspaper"), tag: 0)
-        loginCoordinator.navigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle"), tag: 1)
-        
-        navigationController.pushViewController(tabBarController, animated: false)
+
+        feedNavigationController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "newspaper"), tag: 0)
+        profileNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle"), tag: 1)
+
+        tabBarController.viewControllers = [feedNavigationController, profileNavigationController]
+
+        rootNavigationController.setViewControllers([tabBarController], animated: false)
+        rootNavigationController.isNavigationBarHidden = true 
     }
-    
-    
 }

@@ -11,6 +11,7 @@ final class ProfileViewController: UIViewController {
     static let photoIdent = "photo"
     static let postIdent = "post"
     var user: User?
+    weak var coordinator: LoginCoordinator?
    // weak var coordinator: ProfileCoordinator?
     
     static var postTableView: UITableView = {

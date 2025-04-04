@@ -19,4 +19,10 @@ class LoginCoordinator: BaseCoordinator {
         let photosVC = PhotosViewController()
         navigationController.pushViewController(photosVC, animated: true)
     }
+    
+    func showProfile() {
+        let profileVC = ProfileViewController()
+        profileVC.coordinator = self
+        navigationController.setViewControllers([profileVC], animated: true)
+    }
 }
