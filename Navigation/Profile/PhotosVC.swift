@@ -42,17 +42,39 @@ class PhotosViewController: UIViewController {
         self.title = "Photo Gallery"
         sourseImages = Photos.shared.examples
         processedImages = sourseImages
+        
+        //iPhone 16, MacBook Pro M1 Pro
+        
         runImageProcessor(filter: .chrome, qos: .userInitiated)
+        //1.27s
+        
+//        runImageProcessor(filter: .chrome, qos: .background)
+//        //8.63s
+        
+//        runImageProcessor(filter: .chrome, qos: .default)
+//        //1.40s
+        
+//        runImageProcessor(filter: .chrome, qos: .userInteractive)
+//        //1.32
+        
+//        runImageProcessor(filter: .chrome, qos: .utility)
+//        //1.51
         view.addSubview(photosCollectionView)
         setupConstraints()
     }
     
     private func runImageProcessor(filter: ColorFilter, qos: QualityOfService) {
+        print("Начало работы с фильтром \(filter) и QoS \(qos)")
+        let startTime = Date()
+        
         imageProcessor.processImagesOnThread(
             sourceImages: self.sourseImages,
             filter: filter,
             qos: qos){ [weak self] cgImagesResult in
-
+                let endTime = Date()
+                let elapsedTime = endTime.timeIntervalSince(startTime)
+                print("Время выполнения: \(elapsedTime) секунд")
+                print("Процесс завершен")
                 let resultUIImages = cgImagesResult.compactMap { $0 }.map { UIImage(cgImage: $0) }
 
                 DispatchQueue.main.async {
