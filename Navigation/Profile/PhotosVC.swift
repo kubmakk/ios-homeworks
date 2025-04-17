@@ -6,15 +6,13 @@
 import UIKit
 import iOSIntPackage
 
-class PhotosViewController: UIViewController, ImageLibrarySubscriber {
-    func receive(images: [UIImage]) {
-        Photos.shared.examples = images
-        photosCollectionView.reloadData()
-    }
-    
-    let imagePublisherFacade = ImagePublisherFacade()
-    let photoIdent = "photoCell"
+class PhotosViewController: UIViewController {
 
+    let photoIdent = "photoCell"
+    let imageProcessor = ImageProcessor()
+    var sourseImages: [UIImage] = []
+    var processedImages: [UIImage] = []
+    
     // MARK: Visual objects
     
     lazy var layout: UICollectionViewFlowLayout = {
@@ -25,12 +23,14 @@ class PhotosViewController: UIViewController, ImageLibrarySubscriber {
         layout.sectionInset = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
         return layout
     }()
-
+    
     lazy var photosCollectionView: UICollectionView = {
         let photos = UICollectionView(frame: .zero, collectionViewLayout: layout)
         photos.translatesAutoresizingMaskIntoConstraints = false
         photos.backgroundColor = .white
         photos.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: photoIdent)
+        photos.dataSource = self
+        photos.delegate = self
         return photos
     }()
     
@@ -40,13 +40,32 @@ class PhotosViewController: UIViewController, ImageLibrarySubscriber {
         super.viewDidLoad()
         
         self.title = "Photo Gallery"
-        self.view.addSubview(photosCollectionView)
-        self.photosCollectionView.dataSource = self
-        self.photosCollectionView.delegate = self
-        imagePublisherFacade.subscribe(self)
+        sourseImages = Photos.shared.examples
+        processedImages = sourseImages
+        runImageProcessor(filter: .chrome, qos: .userInitiated)
+        view.addSubview(photosCollectionView)
         setupConstraints()
     }
     
+    private func runImageProcessor(filter: ColorFilter, qos: QualityOfService) {
+        imageProcessor.processImagesOnThread(
+            sourceImages: self.sourseImages,
+            filter: filter,
+            qos: qos){ [weak self] cgImagesResult in
+
+                let resultUIImages = cgImagesResult.compactMap { $0 }.map { UIImage(cgImage: $0) }
+
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    
+
+                    self.processedImages = resultUIImages
+
+                    self.photosCollectionView.reloadData()
+                    print("Вернулся на главнй поток")
+                }
+            }
+    }
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             photosCollectionView.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -56,24 +75,6 @@ class PhotosViewController: UIViewController, ImageLibrarySubscriber {
         ])
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = false
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 10)
-        
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.navigationBar.isHidden = true
-        imagePublisherFacade.removeSubscription(for: self)
-    }
-    deinit{
-        print("removeSubscription")
-    }
 }
 
 // MARK: - Extensions
@@ -93,7 +94,7 @@ extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Photos.shared.examples.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: photoIdent, for: indexPath) as? PhotosCollectionViewCell else { return UICollectionViewCell()}
         cell.configCellCollection(photo: Photos.shared.examples[indexPath.item])
