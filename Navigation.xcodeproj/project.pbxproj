@@ -392,7 +392,7 @@
 			mainGroup = 3601A29B28490DDF000D261A;
 			packageReferences = (
 				4CD2ADF92D2D826C00B79E10 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				4C01A0F52DB04BF200460828 /* XCLocalSwiftPackageReference "../../../../../../../../Downloads/iOSIntPackage-3.2.3" */,
+				4C23B9742DBC0C5C0037E009 /* XCLocalSwiftPackageReference "iOSIntPackage-3.2.3" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3601A2A528490DDF000D261A /* Products */;
@@ -897,9 +897,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		4C01A0F52DB04BF200460828 /* XCLocalSwiftPackageReference "../../../../../../../../Downloads/iOSIntPackage-3.2.3" */ = {
+		4C23B9742DBC0C5C0037E009 /* XCLocalSwiftPackageReference "iOSIntPackage-3.2.3" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../../../../../../../Downloads/iOSIntPackage-3.2.3";
+			relativePath = "iOSIntPackage-3.2.3";
 		};
 /* End XCLocalSwiftPackageReference section */
 
