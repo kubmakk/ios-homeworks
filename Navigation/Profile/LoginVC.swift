@@ -11,6 +11,7 @@ final class LoginViewController: UIViewController {
     var loginDelegate: LoginViewControllerDelegate?
     var currentUserService: UserService?
     weak var coordinator: LoginCoordinator?
+    private let passwordCracker = PasswordCracker()
 
     
     var loginScrollView: UIScrollView = {
@@ -30,6 +31,12 @@ final class LoginViewController: UIViewController {
         imageView.image = UIImage(named: "vkLogo")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    }()
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.hidesWhenStopped = true
+        return indicator
     }()
     
     var loginStackView: UIStackView = {
@@ -62,6 +69,20 @@ final class LoginViewController: UIViewController {
             button.setBackgroundImage(pixel.image(alpha: 0.6), for: .highlighted)
             button.setBackgroundImage(pixel.image(alpha: 0.4), for: .disabled)
         }
+        button.clipsToBounds = true
+        return button
+    }()
+    
+    lazy var bruteButton: UIButton = {
+        var button = CustomButton(
+            title: "Подобрать",
+            titleColor: .white,
+            backroundColor: .black,
+            radius: 9,
+            autoresizing: false,
+            target: self,
+            selector: #selector(startBruteForce)
+        )
         button.clipsToBounds = true
         return button
     }()
@@ -127,7 +148,7 @@ final class LoginViewController: UIViewController {
         view.addSubview(loginScrollView)
         loginScrollView.addSubview(contentView)
         
-        contentView.addSubviews(vkLogo, loginStackView, loginButton)
+        contentView.addSubviews(vkLogo, loginStackView, loginButton, bruteButton)
         
         loginStackView.addArrangedSubview(loginField)
         loginStackView.addArrangedSubview(passwordField)
@@ -167,6 +188,12 @@ final class LoginViewController: UIViewController {
             loginButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstants.leadingMargin),
             loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: LayoutConstants.trailingMargin),
             loginButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            bruteButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: LayoutConstants.indent),
+            bruteButton.leadingAnchor.constraint(equalTo: loginButton.leadingAnchor),
+            bruteButton.trailingAnchor.constraint(equalTo: loginButton.trailingAnchor),
+            bruteButton.heightAnchor.constraint(equalToConstant: 50),
+            bruteButton.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -20),
         ])
     }
     
@@ -218,6 +245,10 @@ final class LoginViewController: UIViewController {
         loginScrollView.contentOffset = CGPoint(x: 0, y: 0)
     }
     
+    @objc private func startBruteForce() {
+        
+    }
+    
 }
 
 // MARK: - Extension
@@ -231,3 +262,4 @@ extension LoginViewController: UITextFieldDelegate {
     }
     
 }
+
