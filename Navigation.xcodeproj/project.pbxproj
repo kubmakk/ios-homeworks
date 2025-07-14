@@ -72,6 +72,8 @@
 		4CD2AE1D2D2D9FC900B79E10 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2AE1B2D2D9FC200B79E10 /* User.swift */; };
 		4CD2AE1F2D2DA65600B79E10 /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2AE1E2D2DA65100B79E10 /* CurrentUserService.swift */; };
 		4CD2AE202D2DA65600B79E10 /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2AE1E2D2DA65100B79E10 /* CurrentUserService.swift */; };
+		4CDFBDD12E255A2700066A3D /* PasswordGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDFBDD02E255A2700066A3D /* PasswordGen.swift */; };
+		4CDFBDD22E255A2700066A3D /* PasswordGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDFBDD02E255A2700066A3D /* PasswordGen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +153,7 @@
 		4CB61E662D1B70100059C457 /* Navigation copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Navigation copy-Info.plist"; path = "/Users/kubmakkk/Desktop/Coding/iOS/вебинар iOS/домашка/iosint/Navigation/iosui_project/Navigation copy-Info.plist"; sourceTree = "<absolute>"; };
 		4CD2AE1B2D2D9FC200B79E10 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4CD2AE1E2D2DA65100B79E10 /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
+		4CDFBDD02E255A2700066A3D /* PasswordGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -247,6 +250,7 @@
 				4CD2AE1B2D2D9FC200B79E10 /* User.swift */,
 				36528E36284F5E3800965BA4 /* LoginVC.swift */,
 				4C84BF8E2D35B5120017E2B4 /* Checker.swift */,
+				4CDFBDD02E255A2700066A3D /* PasswordGen.swift */,
 				3601A2BF28495339000D261A /* PostVC.swift */,
 				3601A2BD28494E4F000D261A /* ProfileVC.swift */,
 				3601A2C6284A776A000D261A /* ProfileHeaderView.swift */,
@@ -456,6 +460,7 @@
 				4C7CC9BC2D54037F0008B6A6 /* CustomButton.swift in Sources */,
 				4CD2AE1F2D2DA65600B79E10 /* CurrentUserService.swift in Sources */,
 				4C84BF8D2D31D8010017E2B4 /* TestUserService.swift in Sources */,
+				4CDFBDD12E255A2700066A3D /* PasswordGen.swift in Sources */,
 				36C5F0652850C9D1005EFC6C /* PostExamples.swift in Sources */,
 				36C5F0612850B723005EFC6C /* PhotosVC.swift in Sources */,
 				4C32C9232D909D3D00657557 /* FeedVM.swift in Sources */,
@@ -498,6 +503,7 @@
 				4C7CC9BB2D54037F0008B6A6 /* CustomButton.swift in Sources */,
 				4CD2AE202D2DA65600B79E10 /* CurrentUserService.swift in Sources */,
 				4C84BF8C2D31D8010017E2B4 /* TestUserService.swift in Sources */,
+				4CDFBDD22E255A2700066A3D /* PasswordGen.swift in Sources */,
 				4CB61E542D1B70100059C457 /* PostExamples.swift in Sources */,
 				4CB61E552D1B70100059C457 /* PhotosVC.swift in Sources */,
 				4C32C9242D909D3D00657557 /* FeedVM.swift in Sources */,
