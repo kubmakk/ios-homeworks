@@ -130,6 +130,7 @@ final class LoginViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         
         setupViews()
+        setupPasswordFieldAccessory()
         userInfo()
         
     }
