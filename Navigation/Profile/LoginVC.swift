@@ -134,6 +134,10 @@ final class LoginViewController: UIViewController {
         
     }
 
+    private func setupPasswordFieldAccessory() {
+            passwordField.rightView = activityIndicator
+            passwordField.rightViewMode = .always
+        }
     
     func userInfo() {
         #if DEBUG
@@ -245,11 +249,29 @@ final class LoginViewController: UIViewController {
         loginScrollView.contentOffset = CGPoint(x: 0, y: 0)
     }
     
-    @objc private func startBruteForce() {
-        
-    }
+    private func generateRandomPassword(length: Int) -> String {
+            let characters = String().printable
+            return String((0..<length).map{ _ in characters.randomElement()! })
+        }
     
-}
+    @objc private func startBruteForce() {
+        let randomPassword = generateRandomPassword(length: 4)
+        
+        print("Цель: \(randomPassword)")
+
+        self.activityIndicator.startAnimating()
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.passwordCracker.bruteForce(passwordToUnlock: randomPassword){ foundPassword in
+                DispatchQueue.main.async {
+                    print("Найден пароль \(foundPassword)")
+                    self.activityIndicator.stopAnimating()
+                }
+            }
+        }
+            
+        }
+    }
 
 // MARK: - Extension
 
