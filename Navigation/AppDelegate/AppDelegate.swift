@@ -30,11 +30,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         switch randomCase {
         case 0:
             appConfiguration = .people("https://swapi.dev/api/people/8»")
+            print("выбраны люди")
         case 1:
             appConfiguration = .planets("https://swapi.dev/api/planets/5»")
+            print("Выбраны планеты")
         default:
             appConfiguration = .starships("https://swapi.dev/api/starships/3»")
+            print("Выбраны корабли")
         }
+        
+        NetworkService.reqiuest(for: appConfiguration)
         
         appCoordinator?.start()
         
