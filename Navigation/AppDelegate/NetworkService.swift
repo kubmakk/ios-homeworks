@@ -23,12 +23,35 @@ struct NetworkService {
             print("Invalid URL")
             return
         }
-        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("Произошла ошибка: \(error.localizedDescription). Код ошибки \(error._code)")
+                    return
+                }
+                //код ошибки: -1003
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    print("------Получаем данные-----")
+                    print("Статус код: \(httpResponse.statusCode)")
+                    print("All Header Fields: \(httpResponse.allHeaderFields)")
+                }
+                
+                if let data = data, let dataString = String(data: data, encoding: .utf8) {
+                    print("------ Полученные данные ------")
+                    print(dataString)
+                    print("-----------------------------")
+                }
+                }
+                
+            }
+        task.resume()
+        }
        
     }
         
-    }
-
+    
 enum AppConfiguration{
     case people(String)
     case starships(String)
