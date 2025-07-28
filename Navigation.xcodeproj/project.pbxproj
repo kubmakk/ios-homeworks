@@ -29,6 +29,8 @@
 		4C32C9242D909D3D00657557 /* FeedVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C32C9222D909D3D00657557 /* FeedVM.swift */; };
 		4C32C9272D90A59F00657557 /* MVVMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C32C9262D90A59F00657557 /* MVVMProtocol.swift */; };
 		4C32C9282D90A59F00657557 /* MVVMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C32C9262D90A59F00657557 /* MVVMProtocol.swift */; };
+		4C48C1A42E380CCB00ADC322 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C48C1A32E380CBC00ADC322 /* NetworkService.swift */; };
+		4C48C1A52E380CCB00ADC322 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C48C1A32E380CBC00ADC322 /* NetworkService.swift */; };
 		4C7CC9BB2D54037F0008B6A6 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7CC9BA2D54037F0008B6A6 /* CustomButton.swift */; };
 		4C7CC9BC2D54037F0008B6A6 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7CC9BA2D54037F0008B6A6 /* CustomButton.swift */; };
 		4C7CC9BD2D54037F0008B6A6 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7CC9BA2D54037F0008B6A6 /* CustomButton.swift */; };
@@ -141,6 +143,7 @@
 		36C5F0642850C9D1005EFC6C /* PostExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostExamples.swift; sourceTree = "<group>"; };
 		4C32C9222D909D3D00657557 /* FeedVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVM.swift; sourceTree = "<group>"; };
 		4C32C9262D90A59F00657557 /* MVVMProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVVMProtocol.swift; sourceTree = "<group>"; };
+		4C48C1A32E380CBC00ADC322 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		4C7CC9BA2D54037F0008B6A6 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		4C7F8BE22D99D660000D751C /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		4C7F8BE82D9B2B06000D751C /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
@@ -289,6 +292,7 @@
 		4C7F8BE12D99D5B1000D751C /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				4C48C1A32E380CBC00ADC322 /* NetworkService.swift */,
 				3601A2A728490DDF000D261A /* AppDelegate.swift */,
 				4C7F8BE22D99D660000D751C /* BaseCoordinator.swift */,
 				4C7F8BE82D9B2B06000D751C /* TabBarCoordinator.swift */,
@@ -469,6 +473,7 @@
 				3601A2C42849E232000D261A /* InfoVC.swift in Sources */,
 				4C7F8BED2D9B2C75000D751C /* FeedCoordinator.swift in Sources */,
 				36C5F0632850B7B6005EFC6C /* PhotosCollectionViewCell.swift in Sources */,
+				4C48C1A42E380CCB00ADC322 /* NetworkService.swift in Sources */,
 				4C32C9272D90A59F00657557 /* MVVMProtocol.swift in Sources */,
 				36528E3C284F725E00965BA4 /* LayoutConstants.swift in Sources */,
 			);
@@ -512,6 +517,7 @@
 				4CB61E582D1B70100059C457 /* InfoVC.swift in Sources */,
 				4C7F8BEC2D9B2C75000D751C /* FeedCoordinator.swift in Sources */,
 				4CB61E592D1B70100059C457 /* PhotosCollectionViewCell.swift in Sources */,
+				4C48C1A52E380CCB00ADC322 /* NetworkService.swift in Sources */,
 				4C32C9282D90A59F00657557 /* MVVMProtocol.swift in Sources */,
 				4CB61E5A2D1B70100059C457 /* LayoutConstants.swift in Sources */,
 			);

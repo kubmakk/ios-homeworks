@@ -24,6 +24,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = rootNavigationController
         window?.makeKeyAndVisible()
         
+        let randomCase = Int.random(in: 0...2)
+        let appConfiguration: AppConfiguration
+        
+        switch randomCase {
+        case 0:
+            appConfiguration = .people("https://swapi.dev/api/people/8»")
+        case 1:
+            appConfiguration = .planets("https://swapi.dev/api/planets/5»")
+        default:
+            appConfiguration = .starships("https://swapi.dev/api/starships/3»")
+        }
+        
         appCoordinator?.start()
         
         return true
