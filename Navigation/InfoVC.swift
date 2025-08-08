@@ -4,18 +4,20 @@
 //
 
 import UIKit
+import SnapKit
 
 final class InfoViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        view.backgroundColor = .systemGray6
-        
-        createAlertButton()
-    }
     
-    private func createAlertButton() {
+    private var titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.text = "Загрузка"
+        return label
+    }()
+    
+    private lazy var alertButton: CustomButton = {
         let button = CustomButton(
             title: "Alert",
             titleColor: .white,
@@ -25,13 +27,33 @@ final class InfoViewController: UIViewController {
             target: self,
             selector: #selector(tapAlertButton)
         )
-        view.addSubview(button)
+        return button
+    }()
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
+        view.backgroundColor = .systemGray6
+        view.addSubview(titleLabel)
+        view.addSubview(alertButton)
+        setupConstraints()
+    }
+    
+    private func setupConstraints() {
+        // Констрейнты для кнопки (в центре)
         NSLayoutConstraint.activate([
-            button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            button.heightAnchor.constraint(equalToConstant: 50),
-            button.widthAnchor.constraint(equalToConstant: 100)
+            alertButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            alertButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            alertButton.heightAnchor.constraint(equalToConstant: 50),
+            alertButton.widthAnchor.constraint(equalToConstant: 150)
+        ])
+        
+        // Констрейнты для лейбла (над кнопкой)
+        NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            // Привязываем низ лейбла к верху кнопки с отступом в 20 поинтов
+            titleLabel.bottomAnchor.constraint(equalTo: alertButton.topAnchor, constant: -20),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
     }
     
