@@ -17,6 +17,15 @@ final class InfoViewController: UIViewController {
         return label
     }()
     
+    private var planetTitile: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.text = "Загрузка"
+        return label
+    }()
+    
     private lazy var alertButton: CustomButton = {
         let button = CustomButton(
             title: "Alert",
@@ -36,8 +45,10 @@ final class InfoViewController: UIViewController {
         view.backgroundColor = .systemGray6
         view.addSubview(titleLabel)
         view.addSubview(alertButton)
+        view.addSubview(planetTitile)
         setupConstraints()
         fetchData()
+        fetchPlanetData()
     }
 //MARK: - Functioins
     private func setupConstraints() {
@@ -56,6 +67,13 @@ final class InfoViewController: UIViewController {
             titleLabel.bottomAnchor.constraint(equalTo: alertButton.topAnchor, constant: -20),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
+        
+        NSLayoutConstraint.activate([
+            planetTitile.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            planetTitile.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -20),
+            planetTitile.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            planetTitile.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
     }
     
@@ -94,6 +112,37 @@ final class InfoViewController: UIViewController {
            task.resume()
        }
     
+    private func fetchPlanetData() {
+        guard let planetinfo = URL(string: "https://swapi.dev/api/planets/1/") else {
+            print("URL не тот")
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: planetinfo) { data, response, error in
+            if let error = error {
+                print("Ошибка при выполнении запроса: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let jsonData = data else {
+                print("Данные не были получены")
+                return
+            }
+            
+            do {
+                
+                let decoder = JSONDecoder()
+                
+                let planet = try decoder.decode(Planet.self, from: jsonData)
+                
+                DispatchQueue.main.async {
+                    self.planetTitile.text = "\(planet.orbitalPeriod)"
+                }
+            } catch {
+                print("Ошибка при декадировании JSON: \(error)")
+            }
+        }
+    }
     @objc func tapAlertButton() {
         let alert = UIAlertController(title: "Attention",
                                       message: "How are you feeling?",

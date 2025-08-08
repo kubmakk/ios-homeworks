@@ -7,7 +7,6 @@
 
 import Foundation
 
-// Модель данных, соответствующая протоколу Decodable
 struct Planet: Decodable {
     let name: String
     let orbitalPeriod: String
