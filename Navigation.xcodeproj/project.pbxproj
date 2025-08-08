@@ -31,6 +31,8 @@
 		4C32C9282D90A59F00657557 /* MVVMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C32C9262D90A59F00657557 /* MVVMProtocol.swift */; };
 		4C48C1A42E380CCB00ADC322 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C48C1A32E380CBC00ADC322 /* NetworkService.swift */; };
 		4C48C1A52E380CCB00ADC322 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C48C1A32E380CBC00ADC322 /* NetworkService.swift */; };
+		4C57AF1F2E4621330057011E /* PlanetInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57AF1E2E46212D0057011E /* PlanetInfo.swift */; };
+		4C57AF202E4621330057011E /* PlanetInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57AF1E2E46212D0057011E /* PlanetInfo.swift */; };
 		4C7CC9BB2D54037F0008B6A6 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7CC9BA2D54037F0008B6A6 /* CustomButton.swift */; };
 		4C7CC9BC2D54037F0008B6A6 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7CC9BA2D54037F0008B6A6 /* CustomButton.swift */; };
 		4C7CC9BD2D54037F0008B6A6 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7CC9BA2D54037F0008B6A6 /* CustomButton.swift */; };
@@ -144,6 +146,7 @@
 		4C32C9222D909D3D00657557 /* FeedVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVM.swift; sourceTree = "<group>"; };
 		4C32C9262D90A59F00657557 /* MVVMProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVVMProtocol.swift; sourceTree = "<group>"; };
 		4C48C1A32E380CBC00ADC322 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		4C57AF1E2E46212D0057011E /* PlanetInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetInfo.swift; sourceTree = "<group>"; };
 		4C7CC9BA2D54037F0008B6A6 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		4C7F8BE22D99D660000D751C /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		4C7F8BE82D9B2B06000D751C /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
@@ -237,7 +240,7 @@
 				36528E3A284F703400965BA4 /* Library */,
 				3601A2C5284A771D000D261A /* Profile */,
 				4C32C9252D909DA500657557 /* Feed */,
-				3601A2C32849E232000D261A /* InfoVC.swift */,
+				4C57AF212E4621390057011E /* Info */,
 				3601A2B028490DDF000D261A /* Assets.xcassets */,
 				3601A2B228490DDF000D261A /* LaunchScreen.storyboard */,
 				3601A2B528490DDF000D261A /* Info.plist */,
@@ -287,6 +290,15 @@
 				4C32C9262D90A59F00657557 /* MVVMProtocol.swift */,
 			);
 			path = Feed;
+			sourceTree = "<group>";
+		};
+		4C57AF212E4621390057011E /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				3601A2C32849E232000D261A /* InfoVC.swift */,
+				4C57AF1E2E46212D0057011E /* PlanetInfo.swift */,
+			);
+			path = Info;
 			sourceTree = "<group>";
 		};
 		4C7F8BE12D99D5B1000D751C /* AppDelegate */ = {
@@ -475,6 +487,7 @@
 				36C5F0632850B7B6005EFC6C /* PhotosCollectionViewCell.swift in Sources */,
 				4C48C1A42E380CCB00ADC322 /* NetworkService.swift in Sources */,
 				4C32C9272D90A59F00657557 /* MVVMProtocol.swift in Sources */,
+				4C57AF202E4621330057011E /* PlanetInfo.swift in Sources */,
 				36528E3C284F725E00965BA4 /* LayoutConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -519,6 +532,7 @@
 				4CB61E592D1B70100059C457 /* PhotosCollectionViewCell.swift in Sources */,
 				4C48C1A52E380CCB00ADC322 /* NetworkService.swift in Sources */,
 				4C32C9282D90A59F00657557 /* MVVMProtocol.swift in Sources */,
+				4C57AF1F2E4621330057011E /* PlanetInfo.swift in Sources */,
 				4CB61E5A2D1B70100059C457 /* LayoutConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
