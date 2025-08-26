@@ -6,39 +6,41 @@
 //
 
 import Foundation
+import FirebaseAuth
 
-class Checker {
-    static let shared = Checker()
+class CheckerService: CheckerServiceProtocol{
     
-    private let login = "111"
-    private let password = "111"
     
-    private init() {}
-    
-    func check(login: String, password: String) -> Bool {
-        login == self.login && password == self.password
-    }
-}
-
-protocol LoginViewControllerDelegate{
-    func check(login: String, password: String) -> Bool
-}
-
-struct LoginInspector: LoginViewControllerDelegate{
-    func check(login: String, password: String) -> Bool{
-        return Checker.shared.check(login: login, password: password)
-    }
-
-}
-
-protocol LoginFactory{
-    func makeLoginInspector() -> LoginViewControllerDelegate
-}
-
-struct MyLoginFactory: LoginFactory{
-    func makeLoginInspector() -> LoginViewControllerDelegate {
-        return LoginInspector()
+    func checkCredentials(email: String, password: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                
+                if let errCode = AuthErrorCode(rawValue: error._code){
+                    switch errCode {
+                    case .userNotFound:
+                        
+                        self.signUp(email: email, password: password, completion: completion)
+                    default:
+                        
+                        completion(.failure(error))
+                    }
+                } else {
+                    
+                }
+            }
+            
+        }
     }
     
-    
+    func signUp(email: String, password: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+            
+                completion(.failure(error))
+            } else {
+                
+                completion(.success(true))
+            }
+        }
+    }
 }

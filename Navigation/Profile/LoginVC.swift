@@ -8,7 +8,6 @@ import UIKit
 final class LoginViewController: UIViewController {
     
     // MARK: Visual content
-    var loginDelegate: LoginViewControllerDelegate?
     var currentUserService: UserService?
     weak var coordinator: LoginCoordinator?
     private let passwordCracker = PasswordCracker()
