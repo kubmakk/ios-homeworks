@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 final class LoginViewController: UIViewController {
     
@@ -11,6 +12,8 @@ final class LoginViewController: UIViewController {
     var currentUserService: UserService?
     weak var coordinator: LoginCoordinator?
     private let passwordCracker = PasswordCracker()
+    private var delegate: LoginViewControllerDelegate?
+
 
     
     var loginScrollView: UIScrollView = {
@@ -235,8 +238,57 @@ final class LoginViewController: UIViewController {
     
     
     @objc private func touchLoginButton() {
-        coordinator?.showProfile()
+        guard let email = loginField.text, !email.isEmpty,
+        let password = passwordField.text, !password.isEmpty else {
+            let alert = UIAlertController(title: "Ошибка", message: "Введите email и пароль", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "ОК", style: .default)
+            alert.addAction(ok)
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        delegate?.checkCredentials(email: email, password: password) { [weak self] result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success:
+                            print("Авторизация прошла успешно!")
+                        case .failure(let error):
+                            let errorMessage = self?.firebaseErrorMessage(error) ?? "Произошла неизвестная ошибка."
+                            self?.showAlert(message: errorMessage)
+                        }
+                    }
+            
+                }
+    
     }
+    
+    private func showAlert(title: String = "Ошибка", message: String) {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            alertController.addAction(okAction)
+            present(alertController, animated: true)
+        }
+
+        // Вспомогательная функция для парсинга ошибок Firebase
+        private func firebaseErrorMessage(_ error: Error) -> String {
+            if let errCode = AuthErrorCode(rawValue: error._code) {
+                switch errCode {
+                case .invalidEmail:
+                    return "Некорректный формат email."
+                case .wrongPassword:
+                    return "Введен неверный пароль."
+                case .userDisabled:
+                    return "Аккаунт этого пользователя был отключен."
+                case .emailAlreadyInUse:
+                    return "Этот email уже используется другим аккаунтом."
+                case .weakPassword:
+                    return "Пароль слишком слабый. Он должен содержать не менее 6 символов."
+                default:
+                    return "Произошла неизвестная ошибка. Попробуйте снова."
+                }
+            }
+            return error.localizedDescription
+        }
 
     @objc private func keyboardShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
