@@ -44,3 +44,22 @@ class CheckerService: CheckerServiceProtocol{
         }
     }
 }
+
+class LoginInspector: LoginViewControllerDelegate {
+    
+    private let checkerService: CheckerServiceProtocol
+    
+    init(checkerService: CheckerServiceProtocol) {
+        self.checkerService = checkerService
+    }
+    
+    func checkCredentials(email: String, password: String, completion: @escaping (Result<Bool, any Error>) -> Void) {
+        checkerService.checkCredentials(email: email, password: password, completion: completion)
+    }
+    
+    func signUp(email: String, password: String, completion: @escaping (Result<Bool, any Error>) -> Void) {
+        checkerService.signUp(email: email, password: password, completion: completion)
+    }
+    
+    
+}
