@@ -11,9 +11,8 @@ final class LoginViewController: UIViewController {
     // MARK: Visual content
     var currentUserService: UserService?
     weak var coordinator: LoginCoordinator?
+    var checkerService: CheckerServiceProtocol!
     private let passwordCracker = PasswordCracker()
-    private var delegate: LoginViewControllerDelegate?
-
 
     
     var loginScrollView: UIScrollView = {
@@ -130,7 +129,6 @@ final class LoginViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.isHidden = true
-        
         setupViews()
         setupPasswordFieldAccessory()
         userInfo()
@@ -238,29 +236,62 @@ final class LoginViewController: UIViewController {
     
     
     @objc private func touchLoginButton() {
-        guard let email = loginField.text, !email.isEmpty,
-        let password = passwordField.text, !password.isEmpty else {
-            let alert = UIAlertController(title: "Ошибка", message: "Введите email и пароль", preferredStyle: .alert)
-            let ok = UIAlertAction(title: "ОК", style: .default)
-            alert.addAction(ok)
-            self.present(alert, animated: true, completion: nil)
+        print("Login tapped")
+        let email = (loginField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        let password = (passwordField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+
+        guard !email.isEmpty, !password.isEmpty else {
+            showAlert(message: "Введите email и пароль")
             return
         }
-        
-        delegate?.checkCredentials(email: email, password: password) { [weak self] result in
-                    DispatchQueue.main.async {
-                        switch result {
-                        case .success:
-                            print("Авторизация прошла успешно!")
-                        case .failure(let error):
-                            let errorMessage = self?.firebaseErrorMessage(error) ?? "Произошла неизвестная ошибка."
-                            self?.showAlert(message: errorMessage)
-                        }
-                    }
-            
+        guard password.count >= 6 else {
+            showAlert(message: "Пароль должен быть не короче 6 символов")
+            return
+        }
+
+        print("Отправляю в Firebase -> Email: '\(email)', Длина пароля: \(password.count)")
+        activityIndicator.startAnimating()
+        loginButton.isEnabled = false
+
+        #if DEBUG
+        try? Auth.auth().signOut()
+        #endif
+
+        checkerService.checkCredentials(email: email, password: password) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.activityIndicator.stopAnimating()
+                self.loginButton.isEnabled = true
+                print("получил ответ")
+
+                switch result {
+                case .success:
+                    print("Авторизация прошла успешно!")
+                    self.openMain() // <-- ВАЖНО: реально перейти дальше
+                case .failure(let error):
+                    print("----- FIREBASE ERROR DETAILS -----")
+                    print("Error object: \(error)")
+                    print("Localized Description: \(error.localizedDescription)")
+                    let nsError = error as NSError
+                    print("Error Code: \(nsError.code)")
+                    print("Error Domain: \(nsError.domain)")
+                    print("User Info: \(nsError.userInfo)")
+                    print("---------------------------------")
+
+                    let errorMessage = self.firebaseErrorMessage(error)
+                    self.showAlert(message: errorMessage)
                 }
-    
+            }
+        }
     }
+
+    private func openMain() {
+        let vc = ProfileViewController()
+        navigationController?.setViewControllers([vc], animated: true)
+    }
+
+    
+    
     
     private func showAlert(title: String = "Ошибка", message: String) {
             let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -273,6 +304,8 @@ final class LoginViewController: UIViewController {
         private func firebaseErrorMessage(_ error: Error) -> String {
             if let errCode = AuthErrorCode(rawValue: error._code) {
                 switch errCode {
+                case .invalidCredential:
+                    return "Ошибка аутентификации. Возможно, неверно сконфигурирован проект."
                 case .invalidEmail:
                     return "Некорректный формат email."
                 case .wrongPassword:

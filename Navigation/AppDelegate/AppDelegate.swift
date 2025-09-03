@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let rootNavigationController = UINavigationController()
         
         FirebaseApp.configure()
-        
         appCoordinator = TabBarCoordinator(navigationController: rootNavigationController)
         
         // activate main window

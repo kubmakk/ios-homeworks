@@ -12,6 +12,7 @@ class LoginCoordinator: BaseCoordinator {
     override func start() {
         let loginVC = LoginViewController()
         loginVC.coordinator = self
+        loginVC.checkerService = CheckerService()
         navigationController.pushViewController(loginVC, animated: false)
     }
     
