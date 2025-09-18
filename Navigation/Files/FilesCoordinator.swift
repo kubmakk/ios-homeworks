@@ -10,7 +10,7 @@ import StorageService
 
 class FilesCoordinator: BaseCoordinator {
     override func start() {
-        let filesVC = filesViewController()
+        let filesVC = FilesViewController()
         filesVC.coordinator = self
         navigationController.pushViewController(filesVC, animated: false)
     }
