@@ -191,6 +191,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		4CA9E6882E7C844C003B18D8 /* Files */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Files;
+			sourceTree = "<group>";
+		};
 		4CB61E312D1B6BA30059C457 /* StorageService */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -259,6 +264,7 @@
 			children = (
 				4C7F8BE12D99D5B1000D751C /* AppDelegate */,
 				4C7CC9BA2D54037F0008B6A6 /* CustomButton.swift */,
+				4CA9E6882E7C844C003B18D8 /* Files */,
 				36528E3A284F703400965BA4 /* Library */,
 				3601A2C5284A771D000D261A /* Profile */,
 				4C32C9252D909DA500657557 /* Feed */,
@@ -388,6 +394,9 @@
 			dependencies = (
 				4CB61E372D1B6BA30059C457 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				4CA9E6882E7C844C003B18D8 /* Files */,
+			);
 			name = Navigation;
 			productName = Navigation;
 			productReference = 3601A2A428490DDF000D261A /* Navigation.app */;
@@ -429,6 +438,9 @@
 			);
 			dependencies = (
 				4CB61E482D1B70100059C457 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				4CA9E6882E7C844C003B18D8 /* Files */,
 			);
 			name = Release;
 			productName = Navigation;
@@ -517,9 +529,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Navigation/Pods-Navigation-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Navigation/Pods-Navigation-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
