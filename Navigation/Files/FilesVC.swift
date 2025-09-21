@@ -60,7 +60,25 @@ extension FilesViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fileURLs.count
     }
-
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt insexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
+        if editingStyle == .delete {
+            let fileToDelete = fileURLs[indexPath.row]
+            do {
+                try FileManager.default.removeItem(at: fileToDelete)
+                print("Файл \(fileToDelete.lastPathComponent) удален")
+                fileURLs.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            } catch {
+                print("Не получилось удалить")
+            }
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         let url = fileURLs[indexPath.row]
