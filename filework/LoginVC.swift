@@ -50,6 +50,14 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setupUI()
+        
+        if PasswordManager.shared.isPasswordSet {
+            currentState = .login
+        } else {
+            currentState = .CreatePass
+        }
+        updateUIfromState()
+        
         updateUIfromState()
     }
     
@@ -96,6 +104,31 @@ class LoginViewController: UIViewController {
             showAlert(title: "Ошибка", message: "Пароль должен содержать минимум 4 символа.")
             return
         }
+        
+        currentState = .confirmPass(firstPass: password)
+        updateUIfromState()
+    }
+    
+    private func confirmPass(firstPass: String, secondPass: String){
+        if firstPass == secondPass {
+            do {
+                try PasswordManager.shared.save(password: secondPass)
+            } catch{
+                showAlert(title: "Ошибка", message: "Пароль не сохранен")
+            }
+        } else {
+            showAlert(title: "Ошибка", message: "Пароли не совпадают")
+            currentState = .CreatePass
+            updateUIfromState()
+        }
+    }
+    
+    private func loginUser(password: String){
+        if PasswordManager.shared.check(password: password) {
+            success?()
+        } else {
+            showAlert(title: "Ошибка", message: "Пароль не верный")
+        }
     }
     
     private func showAlert(title: String, message: String) {
@@ -105,7 +138,16 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func buttonTapped() {
+        guard let password = passwordField.text, !password.isEmpty else { return }
         
+        switch currentState{
+        case .CreatePass:
+            handleInitialCreate(password: password)
+        case .confirmPass(firstPass: let firstPass):
+            confirmPass(firstPass: firstPass, secondPass: password)
+        case .login:
+            loginUser(password: password)
+        }
     }
 }
 
