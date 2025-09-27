@@ -35,6 +35,4 @@ class PasswordManager{
         try keychain.remove(passKey)
     }
     
-    
-    
 }
