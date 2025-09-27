@@ -11,7 +11,7 @@ import KeychainAccess
 class PasswordManager{
     static var shared = PasswordManager()
     
-    private let keychain = Keychain(service: "dasd")
+    private let keychain = Keychain(service: "dassssd")
     private let passKey = "user_password"
     
     private init() {}

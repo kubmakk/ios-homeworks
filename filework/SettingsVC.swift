@@ -67,11 +67,27 @@ class SettingsViewController: UITableViewController{
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         if indexPath.section == 1{
             tableView.deselectRow(at: indexPath, animated: true)
-            
+            changePass()
         }
     }
     
-    @objc func sortSwitchChanged(_ sender: UISwitch){}
+    private func changePass(){
+        let loginVC = LoginViewController()
+        loginVC.success = { [weak self] in
+            try? PasswordManager.shared.deletePassword()
+            let alert = UIAlertController(title: "Пароль изменен", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            loginVC.present(alert, animated: true)
+        }
+        present(UINavigationController(rootViewController: loginVC), animated: true)
+
+    }
+    
+    @objc func sortSwitchChanged(_ sender: UISwitch){
+        UserDefaults.standard.set(sender.isOn, forKey: SettingsKeys.sortAscending)
+        
+        NotificationCenter.default.post(name: .settingsChanged, object: nil)
+    }
 }
     
 
