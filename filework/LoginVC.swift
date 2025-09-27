@@ -15,6 +15,8 @@ class LoginViewController: UIViewController {
     }
     
     private var currentState: State = .login
+    var fileURLs: [URL] = []
+    var forceCreateMode = false
     
     var success: (() -> Void)?
     
@@ -51,13 +53,12 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setupUI()
         
-        if PasswordManager.shared.isPasswordSet {
+        if PasswordManager.shared.isPasswordSet && !forceCreateMode {
             currentState = .login
         } else {
+            try? PasswordManager.shared.deletePassword()
             currentState = .CreatePass
         }
-        updateUIfromState()
-        
         updateUIfromState()
     }
     
@@ -78,26 +79,26 @@ class LoginViewController: UIViewController {
     }
     
     private func setupUI() {
-            view.addSubview(infoLabel)
-            view.addSubview(passwordField)
-            view.addSubview(actionButton)
+        view.addSubview(infoLabel)
+        view.addSubview(passwordField)
+        view.addSubview(actionButton)
+        
+        NSLayoutConstraint.activate([
+            infoLabel.bottomAnchor.constraint(equalTo: passwordField.topAnchor, constant: -20),
+            infoLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            infoLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
-            NSLayoutConstraint.activate([
-                infoLabel.bottomAnchor.constraint(equalTo: passwordField.topAnchor, constant: -20),
-                infoLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-                infoLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-                
-                passwordField.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                passwordField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40),
-                passwordField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
-                passwordField.heightAnchor.constraint(equalToConstant: 44),
-                
-                actionButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 20),
-                actionButton.leadingAnchor.constraint(equalTo: passwordField.leadingAnchor),
-                actionButton.trailingAnchor.constraint(equalTo: passwordField.trailingAnchor),
-                actionButton.heightAnchor.constraint(equalToConstant: 44)
-            ])
-        }
+            passwordField.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            passwordField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40),
+            passwordField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
+            passwordField.heightAnchor.constraint(equalToConstant: 44),
+            
+            actionButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 20),
+            actionButton.leadingAnchor.constraint(equalTo: passwordField.leadingAnchor),
+            actionButton.trailingAnchor.constraint(equalTo: passwordField.trailingAnchor),
+            actionButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
+    }
     
     private func handleInitialCreate(password: String) {
         if password.count < 4 {
@@ -149,5 +150,5 @@ class LoginViewController: UIViewController {
             loginUser(password: password)
         }
     }
+    
 }
-

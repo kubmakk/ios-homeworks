@@ -21,6 +21,9 @@ class FilesViewController: UITableViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         loadFiles()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(settingsChanges), name: .settingsChanged, object: nil)
+
     }
 
     
@@ -32,14 +35,22 @@ class FilesViewController: UITableViewController {
     
     private func loadFiles(){
         do {
-            fileURLs = try FileManager.default.contentsOfDirectory(at: getDocumentsDirectory(), includingPropertiesForKeys: nil)
+            var contents = try FileManager.default.contentsOfDirectory(at: getDocumentsDirectory(), includingPropertiesForKeys: nil)
+            let sortAscending = UserDefaults.standard.object(forKey: SettingsKeys.sortAscending) as? Bool ?? true
+            
+            if sortAscending{
+                contents.sort { $0.lastPathComponent < $1.lastPathComponent }
+            } else {
+                contents.sort { $0.lastPathComponent > $1.lastPathComponent }
+            }
+            
+            self.fileURLs = contents
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-            
         } catch {
-            print("Ошибка загрузки директории: \(error.localizedDescription)")
+            
         }
     }
     
@@ -118,4 +129,10 @@ extension FilesViewController: UIImagePickerControllerDelegate, UINavigationCont
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
+    
+    
+    @objc private func settingsChanges(){
+        loadFiles()
+    }
+
 }

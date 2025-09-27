@@ -64,7 +64,7 @@ class SettingsViewController: UITableViewController{
     
     //MARK: - UITableDelegate
     
-    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1{
             tableView.deselectRow(at: indexPath, animated: true)
             changePass()
@@ -73,11 +73,12 @@ class SettingsViewController: UITableViewController{
     
     private func changePass(){
         let loginVC = LoginViewController()
-        loginVC.success = { [weak self] in
+        loginVC.forceCreateMode = true
+        loginVC.success = { [weak self, weak loginVC] in
             try? PasswordManager.shared.deletePassword()
             let alert = UIAlertController(title: "Пароль изменен", message: nil, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            loginVC.present(alert, animated: true)
+            self?.present(alert, animated: true)
         }
         present(UINavigationController(rootViewController: loginVC), animated: true)
 
