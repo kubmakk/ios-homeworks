@@ -1,5 +1,5 @@
 //
-//  AllQuotesViewController.swift
+//  QuotesForCategoryTableViewController.swift
 //  myRealmProj
 //
 //  Created by kubmakk on 1/10/25.
@@ -7,27 +7,19 @@
 
 import UIKit
 import RealmSwift
-import Realm
 
-class AllQuotesViewController: UITableViewController {
+class QuotesForCategoryViewController: UITableViewController {
+    var category: Category?
     private var quotes: Results<Quote>?
-    private var notificationToken: NotificationToken?
-    private lazy var realm = try! Realm()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Все цитаты"
+        title = category?.name
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "quoteCell")
         
-        quotes = realm.objects(Quote.self).sorted(byKeyPath: "date", ascending: false)
-        
-        notificationToken = quotes?.observe { [weak self] _ in
-            self?.tableView.reloadData()
+        if let category = category {
+            quotes = category.quotes.sorted(byKeyPath: "date", ascending: false)
         }
-    }
-
-    deinit {
-        notificationToken?.invalidate()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

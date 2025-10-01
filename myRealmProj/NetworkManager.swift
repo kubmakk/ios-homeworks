@@ -29,7 +29,7 @@ class NetworkManager {
             guard let data = data else {
                 completion(.failure(NSError(domain: "NetworkManager", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data received"])))
                 return
-            }
+            }	
 
             do {
                 let quoteData = try JSONDecoder().decode(QuoteData.self, from: data)
