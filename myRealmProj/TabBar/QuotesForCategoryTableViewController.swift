@@ -84,3 +84,7 @@ class QuotesForCategoryViewController: UITableViewController {
         return cell
     }
 }
+
+
+
+
