@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import StorageService
 
 final class ProfileViewController: UIViewController {
     
@@ -87,6 +88,7 @@ extension ProfileViewController: UITableViewDelegate {
         case 1:
             let cell = Self.postTableView.dequeueReusableCell(withIdentifier: Self.postIdent, for: indexPath) as! PostTableViewCell
             cell.configPostArray(post: postExamples[indexPath.row])
+            cell.delegate = self
             return cell
         default:
             assertionFailure("no registered section")
@@ -117,6 +119,20 @@ extension ProfileViewController: UITableViewDelegate {
             }
         default:
             assertionFailure("no registered section")
+        }
+    }
+}
+
+extension ProfileViewController: PostTableViewCellDelegate {
+    func postCellToggleFavorite(_ cell: PostTableViewCell, post: Post) {
+        if CoreDataManager.shared.isFavorite(post: post) {
+            CoreDataManager.shared.removeFavorite(for: post)
+        } else {
+            CoreDataManager.shared.saveFavorite(post: post)
+        }
+        if let indexPath = Self.postTableView.indexPath(for: cell),
+           let updatedCell = Self.postTableView.cellForRow(at: indexPath) as? PostTableViewCell {
+            updatedCell.configPostArray(post: post)
         }
     }
 }

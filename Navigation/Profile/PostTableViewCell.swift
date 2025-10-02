@@ -7,10 +7,22 @@ import UIKit
 import StorageService
 import iOSIntPackage
 
+protocol PostTableViewCellDelegate: AnyObject {
+    func postCellToggleFavorite(_ cell: PostTableViewCell, post: Post)
+}
+
 class PostTableViewCell: UITableViewCell {
     
     private var viewCounter = 0
     private let imageProcessor = ImageProcessor()
+    weak var delegate: PostTableViewCellDelegate?
+    private(set) var currentPost: Post?
+    private lazy var doubleTapRecognizer: UITapGestureRecognizer = {
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+        recognizer.numberOfTapsRequired = 2
+        recognizer.delaysTouchesBegan = false
+        return recognizer
+    }()
 
     // MARK: Visual objects
     
@@ -57,13 +69,26 @@ class PostTableViewCell: UITableViewCell {
         return label
     }()
 
+    private lazy var favoriteButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let normal = UIImage(systemName: "heart")
+        let selected = UIImage(systemName: "heart.fill")
+        button.setImage(normal, for: .normal)
+        button.setImage(selected, for: .selected)
+        button.tintColor = .systemRed
+        button.addTarget(self, action: #selector(handleFavoriteTap), for: .touchUpInside)
+        return button
+    }()
+
     // MARK: - Init section
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubviews(postAuthor, postImage, postDescription, postLikes, postViews)
+        contentView.addSubviews(postAuthor, postImage, postDescription, postLikes, postViews, favoriteButton)
         setupConstraints()
         self.selectionStyle = .default
+        contentView.addGestureRecognizer(doubleTapRecognizer)
     }
 
     required init?(coder: NSCoder) {
@@ -89,14 +114,20 @@ class PostTableViewCell: UITableViewCell {
             postLikes.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstants.indent),
 
             postViews.topAnchor.constraint(equalTo: postDescription.bottomAnchor, constant: LayoutConstants.indent),
-            postViews.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: LayoutConstants.trailingMargin),
-            postViews.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstants.indent)
+            postViews.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -LayoutConstants.indent),
+            postViews.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstants.indent),
+
+            favoriteButton.centerYAnchor.constraint(equalTo: postViews.centerYAnchor),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: LayoutConstants.trailingMargin),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 24),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 24)
         ])
     }
 
     // MARK: - Run loop
     
     func configPostArray(post: Post) {
+        self.currentPost = post
         postAuthor.text = post.author
         postDescription.text = post.description
         if let originalImage = UIImage(named: post.image) {
@@ -110,11 +141,23 @@ class PostTableViewCell: UITableViewCell {
         postLikes.text = "Likes: \(post.likes)"
         viewCounter = post.views
         postViews.text = "Views: \(viewCounter)"
+        favoriteButton.isSelected = CoreDataManager.shared.isFavorite(post: post)
     }
     
     func incrementPostViewsCounter() {
         viewCounter += 1
         postViews.text = "Views: \(viewCounter)"
+    }
+
+    // MARK: - Actions
+    @objc private func handleDoubleTap() {
+        guard let post = currentPost else { return }
+        delegate?.postCellToggleFavorite(self, post: post)
+    }
+
+    @objc private func handleFavoriteTap() {
+        guard let post = currentPost else { return }
+        delegate?.postCellToggleFavorite(self, post: post)
     }
 }
 
