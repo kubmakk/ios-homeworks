@@ -9,22 +9,24 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapViewController: UIViewController, MKMapViewDelegate {
+class MapViewController: UIViewController {
     
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
     
     private var routePlotted = false
-    private var isUserTrackingEnabled = true
+    
+    //MARK: - Setup
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupMapView()
         setupLocationManager()
+        configureMapApperance()
+        
         mapView.delegate = self
         
     }
-    
     private func setupMapView() {
         view.addSubview(mapView)
         
@@ -76,11 +78,68 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         let pin = MKPointAnnotation()
         pin.coordinate = userLocation
-        pin.title = "Мое местоположение"
-        pin.subtitle = "Мое текущее местоположение"
+        pin.title = "Казахстан🇰🇿🇰🇿🇰🇿🇰🇿🇰🇿🇰🇿🇰🇿🇰🇿🇰🇿🇰🇿🇰🇿🇰🇿"
+        pin.subtitle = "Тут казасхатан🇰🇿🇰🇿🇰🇿🇰🇿🇰🇿🇰🇿🇰🇿🇰🇿🇰🇿🇰🇿🇰🇿🇰🇿🇰🇿"
         mapView.addAnnotation(pin)
 }
+    private func plotRoute() {
+        guard let sourceCoordinate = locationManager.location?.coordinate else {
+            print("Не получилось получить местоположение")
+            return
+        }
+        
+        // 🔥 Отладочный print
+        print("Строим маршрут от: \(sourceCoordinate.latitude), \(sourceCoordinate.longitude)")
+        
+        
+        let destinationCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 52.5186, longitude: 13.3777)
+        
+        let sourcePlacemark = MKPlacemark(coordinate: sourceCoordinate)
+        let destinationPlacemark = MKPlacemark(coordinate: destinationCoordinate)
+        
+        let sourceItem = MKMapItem(placemark: sourcePlacemark)
+        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+        
+        let destinationAnnotation = MKPointAnnotation()
+        destinationAnnotation.title = "Точка назначения"
+        
+        destinationAnnotation.coordinate = destinationCoordinate
+        mapView.addAnnotation(destinationAnnotation)
+        
+        let request = MKDirections.Request()
+        request.source = sourceItem
+        request.destination = destinationMapItem
+        request.transportType = .walking
+        
+        
+        
+        let directions = MKDirections(request: request)
+        directions.calculate { [weak self] (response, error) in
+            guard let self = self, let response = response else {
+                if error != nil {
+                    print("Ошибка построении машрута \(error?.localizedDescription)")
+                }
+                return
+            }
+            
+            let route = response.routes[0]
+            
+            self.mapView.addOverlay(route.polyline, level: .aboveLabels)
+            
+            let rect = route.polyline.boundingMapRect
+            self.mapView.setVisibleMapRect(rect, edgePadding: UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50), animated: true)
+        }
+    }
     
+    private func configureMapApperance(){
+        mapView.mapType = .standard
+        mapView.showsBuildings = true
+        mapView.showsCompass = true
+        mapView.showsTraffic = true
+        mapView.isZoomEnabled = true
+        mapView.isScrollEnabled = true
+        mapView.showsPointsOfInterest = true
+    }
 }
 
 extension MapViewController: CLLocationManagerDelegate {
@@ -88,9 +147,14 @@ extension MapViewController: CLLocationManagerDelegate {
         if !routePlotted {
             centerViewOnUserLocation()
             addPinToUserLocation()
+            plotRoute()
             routePlotted = true
         }
         manager.stopUpdatingLocation()
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        checkLocationAuthorization()
     }
         
         func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -98,4 +162,15 @@ extension MapViewController: CLLocationManagerDelegate {
         }
     }
     
-
+extension MapViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let routePolyline = overlay as? MKPolyline {
+            let renderer = MKPolylineRenderer(polyline: routePolyline)
+            renderer.strokeColor = .systemBlue
+            renderer.lineWidth = 6
+            return renderer
+        }
+        return MKOverlayRenderer()
+    }
+}
