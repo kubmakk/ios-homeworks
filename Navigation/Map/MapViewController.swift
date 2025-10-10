@@ -15,7 +15,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     private let locationManager = CLLocationManager()
     
     private var routePlotted = false
-    
+    private var isUserTrackingEnabled = true
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,7 +41,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = 1
         checkLocationAuthorization()
+        
     }
     
     private func checkLocationAuthorization(){
@@ -67,16 +69,33 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             mapView.setRegion(region, animated: true)
         }
     }
+    
+    
+    private func addPinToUserLocation(){
+    guard let userLocation = locationManager.location?.coordinate else { return }
+        
+        let pin = MKPointAnnotation()
+        pin.coordinate = userLocation
+        pin.title = "Мое местоположение"
+        pin.subtitle = "Мое текущее местоположение"
+        mapView.addAnnotation(pin)
+}
+    
 }
 
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-            checkLocationAuthorization()
+        if !routePlotted {
+            centerViewOnUserLocation()
+            addPinToUserLocation()
+            routePlotted = true
         }
+        manager.stopUpdatingLocation()
+    }
         
         func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
             print("Ошибка получения геолокации: \(error.localizedDescription)")
         }
     }
-}
+    
+
