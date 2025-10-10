@@ -29,6 +29,10 @@
 		4C32C9242D909D3D00657557 /* FeedVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C32C9222D909D3D00657557 /* FeedVM.swift */; };
 		4C32C9272D90A59F00657557 /* MVVMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C32C9262D90A59F00657557 /* MVVMProtocol.swift */; };
 		4C32C9282D90A59F00657557 /* MVVMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C32C9262D90A59F00657557 /* MVVMProtocol.swift */; };
+		4C6C63A72E99597A008279FF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C63A62E99597A008279FF /* ViewController.swift */; };
+		4C6C63A82E99597A008279FF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C63A62E99597A008279FF /* ViewController.swift */; };
+		4C6C63AA2E995988008279FF /* MapCoord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C63A92E995980008279FF /* MapCoord.swift */; };
+		4C6C63AB2E995988008279FF /* MapCoord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C63A92E995980008279FF /* MapCoord.swift */; };
 		4C772AE42E8EF82400C2D87F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C772AE32E8EF82400C2D87F /* CoreDataManager.swift */; };
 		4C772AE52E8EF82400C2D87F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C772AE32E8EF82400C2D87F /* CoreDataManager.swift */; };
 		4C772AE82E8EF88500C2D87F /* FavoritesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C772AE72E8EF88500C2D87F /* FavoritesCoordinator.swift */; };
@@ -149,6 +153,8 @@
 		36C5F0642850C9D1005EFC6C /* PostExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostExamples.swift; sourceTree = "<group>"; };
 		4C32C9222D909D3D00657557 /* FeedVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVM.swift; sourceTree = "<group>"; };
 		4C32C9262D90A59F00657557 /* MVVMProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVVMProtocol.swift; sourceTree = "<group>"; };
+		4C6C63A62E99597A008279FF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4C6C63A92E995980008279FF /* MapCoord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoord.swift; sourceTree = "<group>"; };
 		4C772AE32E8EF82400C2D87F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		4C772AE72E8EF88500C2D87F /* FavoritesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCoordinator.swift; sourceTree = "<group>"; };
 		4C772AEA2E8EF89E00C2D87F /* FavortitesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavortitesVC.swift; sourceTree = "<group>"; };
@@ -241,6 +247,7 @@
 		3601A2A628490DDF000D261A /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				4C6C639F2E995944008279FF /* Map */,
 				4C772AE62E8EF86600C2D87F /* Favorites */,
 				4C772ADF2E8EF7EE00C2D87F /* CoreData */,
 				4C7F8BE12D99D5B1000D751C /* AppDelegate */,
@@ -298,6 +305,15 @@
 				4C32C9262D90A59F00657557 /* MVVMProtocol.swift */,
 			);
 			path = Feed;
+			sourceTree = "<group>";
+		};
+		4C6C639F2E995944008279FF /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				4C6C63A62E99597A008279FF /* ViewController.swift */,
+				4C6C63A92E995980008279FF /* MapCoord.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		4C772ADF2E8EF7EE00C2D87F /* CoreData */ = {
@@ -490,6 +506,7 @@
 				36528E41284FE38C00965BA4 /* ExtensionUIView.swift in Sources */,
 				4CD2AE1C2D2D9FC900B79E10 /* User.swift in Sources */,
 				36C5F05E2850B4A6005EFC6C /* PhotoExamples.swift in Sources */,
+				4C6C63A82E99597A008279FF /* ViewController.swift in Sources */,
 				3601A2C7284A776A000D261A /* ProfileHeaderView.swift in Sources */,
 				4C7CC9BC2D54037F0008B6A6 /* CustomButton.swift in Sources */,
 				4CD2AE1F2D2DA65600B79E10 /* CurrentUserService.swift in Sources */,
@@ -504,6 +521,7 @@
 				4C7F8BED2D9B2C75000D751C /* FeedCoordinator.swift in Sources */,
 				4C772AE42E8EF82400C2D87F /* CoreDataManager.swift in Sources */,
 				4C772AEE2E8EF8BE00C2D87F /* FavortitesPost.swift in Sources */,
+				4C6C63AB2E995988008279FF /* MapCoord.swift in Sources */,
 				36C5F0632850B7B6005EFC6C /* PhotosCollectionViewCell.swift in Sources */,
 				4C32C9272D90A59F00657557 /* MVVMProtocol.swift in Sources */,
 				36528E3C284F725E00965BA4 /* LayoutConstants.swift in Sources */,
@@ -537,6 +555,7 @@
 				4CB61E512D1B70100059C457 /* ExtensionUIView.swift in Sources */,
 				4CD2AE1D2D2D9FC900B79E10 /* User.swift in Sources */,
 				4CB61E522D1B70100059C457 /* PhotoExamples.swift in Sources */,
+				4C6C63A72E99597A008279FF /* ViewController.swift in Sources */,
 				4CB61E532D1B70100059C457 /* ProfileHeaderView.swift in Sources */,
 				4C7CC9BB2D54037F0008B6A6 /* CustomButton.swift in Sources */,
 				4CD2AE202D2DA65600B79E10 /* CurrentUserService.swift in Sources */,
@@ -551,6 +570,7 @@
 				4C7F8BEC2D9B2C75000D751C /* FeedCoordinator.swift in Sources */,
 				4C772AE52E8EF82400C2D87F /* CoreDataManager.swift in Sources */,
 				4C772AEF2E8EF8BE00C2D87F /* FavortitesPost.swift in Sources */,
+				4C6C63AA2E995988008279FF /* MapCoord.swift in Sources */,
 				4CB61E592D1B70100059C457 /* PhotosCollectionViewCell.swift in Sources */,
 				4C32C9282D90A59F00657557 /* MVVMProtocol.swift in Sources */,
 				4CB61E5A2D1B70100059C457 /* LayoutConstants.swift in Sources */,
