@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,7 +27,6 @@
 		9B9D228028505BBA00010D6C /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9D227F28505BBA00010D6C /* FeedViewModel.swift */; };
 		9BA0679B2926AD2800C36C61 /* Notification.name+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA0679A2926AD2800C36C61 /* Notification.name+extension.swift */; };
 		9BA0FEAA28A43B4700E6EE44 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA0FEA928A43B4700E6EE44 /* CustomAlert.swift */; };
-		9BA2F17D2819C08D0006E8C4 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 9BA2F17C2819C08D0006E8C4 /* iOSIntPackage */; };
 		9BA3742428970FF0002845C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9BA3742328970FF0002845C4 /* GoogleService-Info.plist */; };
 		9BA37B9D284E947600E4B41F /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA37B9C284E947600E4B41F /* AuthCoordinator.swift */; };
 		9BA37B9F284E991800E4B41F /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA37B9E284E991800E4B41F /* FeedCoordinator.swift */; };
@@ -169,7 +168,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BA2F17D2819C08D0006E8C4 /* iOSIntPackage in Frameworks */,
 				D18B0E06A412049F543F232B /* Pods_Netology_IB_Instruments.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -546,7 +544,6 @@
 			);
 			name = Netology_IB_Instruments;
 			packageProductDependencies = (
-				9BA2F17C2819C08D0006E8C4 /* iOSIntPackage */,
 			);
 			productName = Netology_IB_Instruments;
 			productReference = 845EB8E527B1AF87004ACF55 /* Netology_IB_Instruments.app */;
@@ -624,9 +621,10 @@
 			);
 			mainGroup = 845EB8DC27B1AF87004ACF55;
 			packageReferences = (
-				9BA2F17B2819C08D0006E8C4 /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
 				9BA3742528971452002845C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				9B6ED006296DE66800401029 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				4CFE340A2EAEBD4D00FFCC96 /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
+				4CEB0B9A2EAEC455007583C7 /* XCLocalSwiftPackageReference "../../../../../../../../Downloads/iOSIntPackage-3.2.3" */,
 			);
 			productRefGroup = 845EB8E627B1AF87004ACF55 /* Products */;
 			projectDirPath = "";
@@ -691,9 +689,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Netology_IB_Instruments/Pods-Netology_IB_Instruments-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Netology_IB_Instruments/Pods-Netology_IB_Instruments-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1130,21 +1132,28 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		4CEB0B9A2EAEC455007583C7 /* XCLocalSwiftPackageReference "../../../../../../../../Downloads/iOSIntPackage-3.2.3" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../../../../../../../Downloads/iOSIntPackage-3.2.3";
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
+		4CFE340A2EAEBD4D00FFCC96 /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TrueMax/iOSIntPackage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
 		9B6ED006296DE66800401029 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 10.33.0;
-			};
-		};
-		9BA2F17B2819C08D0006E8C4 /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/TrueMax/iOSIntPackage.git";
-			requirement = {
-				kind = exactVersion;
-				version = 3.2.3;
 			};
 		};
 		9BA3742528971452002845C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
@@ -1156,14 +1165,6 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		9BA2F17C2819C08D0006E8C4 /* iOSIntPackage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9BA2F17B2819C08D0006E8C4 /* XCRemoteSwiftPackageReference "iOSIntPackage" */;
-			productName = iOSIntPackage;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		9BE27978292428A200BBF595 /* DatabaseModel.xcdatamodeld */ = {
