@@ -8,7 +8,6 @@
 import XCTest
 @testable import Navigation
 
-// Mock для LoginViewControllerDelegate
 class LoginDelegateMock: LoginViewControllerDelegate {
     var fakeResult: Bool = false
     var checkCallCount: Int = 0
@@ -40,9 +39,8 @@ final class LoginViewModelTests: XCTestCase {
         super.tearDown()
     }
     
-    // Тест 1: Проверка успешного логина
+    //Проверка успешного логина
     func testCheck_SuccessfulLogin() throws {
-        // Given
         mockDelegate.fakeResult = true
         let expectation = self.expectation(description: "onLoginResult should be called with true")
         var receivedResult: Bool?
@@ -52,10 +50,8 @@ final class LoginViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        // When
         viewModel.check(login: "111", password: "111")
         
-        // Then
         wait(for: [expectation], timeout: 1.0)
         XCTAssertEqual(mockDelegate.checkCallCount, 1, "check должен быть вызван один раз")
         XCTAssertEqual(mockDelegate.lastLogin, "111", "Логин должен быть передан корректно")
@@ -63,9 +59,8 @@ final class LoginViewModelTests: XCTestCase {
         XCTAssertEqual(receivedResult, true, "Результат должен быть true")
     }
     
-    // Тест 2: Проверка неуспешного логина
+    //Проверка неуспешного логина
     func testCheck_FailedLogin() throws {
-        // Given
         mockDelegate.fakeResult = false
         let expectation = self.expectation(description: "onLoginResult should be called with false")
         var receivedResult: Bool?
@@ -75,10 +70,8 @@ final class LoginViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        // When
         viewModel.check(login: "wrong", password: "wrong")
         
-        // Then
         wait(for: [expectation], timeout: 1.0)
         XCTAssertEqual(mockDelegate.checkCallCount, 1, "check должен быть вызван один раз")
         XCTAssertEqual(mockDelegate.lastLogin, "wrong", "Логин должен быть передан корректно")
@@ -86,9 +79,8 @@ final class LoginViewModelTests: XCTestCase {
         XCTAssertEqual(receivedResult, false, "Результат должен быть false")
     }
     
-    // Тест 3: Проверка с пустыми значениями
+    //Проверка с пустыми значениями
     func testCheck_EmptyCredentials() throws {
-        // Given
         mockDelegate.fakeResult = false
         let expectation = self.expectation(description: "onLoginResult should be called")
         var receivedResult: Bool?
@@ -97,11 +89,8 @@ final class LoginViewModelTests: XCTestCase {
             receivedResult = result
             expectation.fulfill()
         }
-        
-        // When
         viewModel.check(login: "", password: "")
         
-        // Then
         wait(for: [expectation], timeout: 1.0)
         XCTAssertEqual(mockDelegate.checkCallCount, 1, "check должен быть вызван один раз")
         XCTAssertEqual(mockDelegate.lastLogin, "", "Логин должен быть пустой строкой")

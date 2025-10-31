@@ -25,21 +25,17 @@ final class FeedViewModelTests: XCTestCase {
         super.tearDown()
     }
     
-    // Тест 1: Проверка, что updateStatus обновляет statusUser
+    //Проверка, что updateStatus обновляет statusUser
     func testUpdateStatus_UpdatesStatusUser() throws {
         // Given
         let newStatus = "New Status"
         
-        // When
         viewModel.updateStatus(newStatus: newStatus)
         
-        // Then
         XCTAssertEqual(viewModel.statusUser, newStatus, "statusUser должен быть обновлен")
     }
     
-    // Тест 2: Проверка, что updateStatus вызывает closure updatedIfNeed
     func testUpdateStatus_CallsUpdatedIfNeedClosure() throws {
-        // Given
         let newStatus = "Updated Status"
         let expectation = self.expectation(description: "updatedIfNeed closure should be called")
         var receivedStatus: String?
@@ -49,17 +45,15 @@ final class FeedViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        // When
+
         viewModel.updateStatus(newStatus: newStatus)
         
-        // Then
         wait(for: [expectation], timeout: 1.0)
         XCTAssertEqual(receivedStatus, newStatus, "Closure должен получить новый статус")
     }
     
-    // Тест 3: Проверка, что updateStatus работает с пустой строкой
+    //Проверка, что updateStatus работает с пустой строкой
     func testUpdateStatus_HandlesEmptyString() throws {
-        // Given
         let emptyStatus = ""
         let expectation = self.expectation(description: "updatedIfNeed closure should be called")
         var receivedStatus: String?
@@ -69,10 +63,8 @@ final class FeedViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        // When
         viewModel.updateStatus(newStatus: emptyStatus)
         
-        // Then
         wait(for: [expectation], timeout: 1.0)
         XCTAssertEqual(viewModel.statusUser, emptyStatus, "statusUser должен быть обновлен на пустую строку")
         XCTAssertEqual(receivedStatus, emptyStatus, "Closure должен получить пустую строку")

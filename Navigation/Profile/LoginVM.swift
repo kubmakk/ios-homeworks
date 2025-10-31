@@ -1,5 +1,5 @@
 //
-//  LoginViewModel.swift
+//  LoginVM.swift
 //  Navigation
 //
 //  Created by kubmakk on 31.10.2025.
