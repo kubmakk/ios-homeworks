@@ -27,5 +27,28 @@ class LocalNotificationService {
         
     }
     private func scheduleDailyNotification(){
+        let content = UNMutableNotificationContent()
+        content.title = "VK"
+        content.body = "Посмотрите последние обнолвения"
+        content.sound = .default
+        content.badge = 1
+        
+        var dateComponents = DateComponents()
+        dateComponents.hour = 19
+        dateComponents.minute = 0
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        
+        let identifier = "dailyLatestUpdates"
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        
+        center.add(request) { error in
+            if let error = error {
+                print("Уведомление не добавилось причина \(error.localizedDescription)")
+            } else {
+                print("Уведомление будет в указанное время")
+            }
+            
+        }
     }
 }
