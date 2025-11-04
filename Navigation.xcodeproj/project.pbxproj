@@ -31,6 +31,8 @@
 		4C32C9282D90A59F00657557 /* MVVMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C32C9262D90A59F00657557 /* MVVMProtocol.swift */; };
 		4C38185A2EB5066A001D374C /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3818592EB5066A001D374C /* LoginVM.swift */; };
 		4C38185B2EB5066A001D374C /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3818592EB5066A001D374C /* LoginVM.swift */; };
+		4C68BF0C2EBA295500E26A7A /* LocalNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C68BF0B2EBA295500E26A7A /* LocalNotificationService.swift */; };
+		4C68BF0D2EBA295500E26A7A /* LocalNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C68BF0B2EBA295500E26A7A /* LocalNotificationService.swift */; };
 		4C6C63A72E99597A008279FF /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C63A62E99597A008279FF /* MapViewController.swift */; };
 		4C6C63A82E99597A008279FF /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C63A62E99597A008279FF /* MapViewController.swift */; };
 		4C6C63AA2E995988008279FF /* MapCoord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C63A92E995980008279FF /* MapCoord.swift */; };
@@ -164,6 +166,7 @@
 		4C32C9222D909D3D00657557 /* FeedVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVM.swift; sourceTree = "<group>"; };
 		4C32C9262D90A59F00657557 /* MVVMProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVVMProtocol.swift; sourceTree = "<group>"; };
 		4C3818592EB5066A001D374C /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
+		4C68BF0B2EBA295500E26A7A /* LocalNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationService.swift; sourceTree = "<group>"; };
 		4C6C63A62E99597A008279FF /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4C6C63A92E995980008279FF /* MapCoord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoord.swift; sourceTree = "<group>"; };
 		4C6C63AD2E9962B2008279FF /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -378,6 +381,7 @@
 				3601A2A728490DDF000D261A /* AppDelegate.swift */,
 				4C7F8BE22D99D660000D751C /* BaseCoordinator.swift */,
 				4C7F8BE82D9B2B06000D751C /* TabBarCoordinator.swift */,
+				4C68BF0B2EBA295500E26A7A /* LocalNotificationService.swift */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -592,6 +596,7 @@
 				36528E39284F700900965BA4 /* ExtensionUIImage.swift in Sources */,
 				36C5F05C2850B1B1005EFC6C /* PhotosTableViewCell.swift in Sources */,
 				3601A2C42849E232000D261A /* InfoVC.swift in Sources */,
+				4C68BF0D2EBA295500E26A7A /* LocalNotificationService.swift in Sources */,
 				4C7F8BED2D9B2C75000D751C /* FeedCoordinator.swift in Sources */,
 				4C772AE42E8EF82400C2D87F /* CoreDataManager.swift in Sources */,
 				4C772AEE2E8EF8BE00C2D87F /* FavortitesPost.swift in Sources */,
@@ -649,6 +654,7 @@
 				4CB61E562D1B70100059C457 /* ExtensionUIImage.swift in Sources */,
 				4CB61E572D1B70100059C457 /* PhotosTableViewCell.swift in Sources */,
 				4CB61E582D1B70100059C457 /* InfoVC.swift in Sources */,
+				4C68BF0C2EBA295500E26A7A /* LocalNotificationService.swift in Sources */,
 				4C7F8BEC2D9B2C75000D751C /* FeedCoordinator.swift in Sources */,
 				4C772AE52E8EF82400C2D87F /* CoreDataManager.swift in Sources */,
 				4C772AEF2E8EF8BE00C2D87F /* FavortitesPost.swift in Sources */,

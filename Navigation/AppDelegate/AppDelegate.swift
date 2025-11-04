@@ -11,6 +11,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var appCoordinator: TabBarCoordinator?
+    let localNotificationService = LocalNotificationService()
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -25,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         appCoordinator?.start()
+        
+        localNotificationService.registerForLatestUptadatesIfPossible()
         
         return true
     }
