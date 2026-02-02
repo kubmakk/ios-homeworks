@@ -15,7 +15,7 @@ class CustomButton: UIButton {
     
     convenience init(title: String, titleColor: UIColor, backroundColor: UIColor, radius: CGFloat, autoresizing: Bool, action: @escaping () -> Void){
         self.init(type: .custom)
-        self.action = {[weak self] in action()}
+        self.action = {[] in action()}
         setupButton(title: title, titleColor: titleColor, backroundColor: backroundColor, radius: radius, autoresizing: autoresizing)
     }
     

@@ -12,8 +12,7 @@ extension String {
     var uppercase:   String { return "ABCDEFGHIJKLMNOPQRSTUVWXYZ" }
     var punctuation: String { return "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~" }
     var letters:     String { return lowercase + uppercase }
-    // В задаче сказано "цифры, строчные и заглавные буквы", так что punctuation можно убрать для ускорения.
-    var printable:   String { return digits + letters } // Оставляем только нужные символы
+    var printable:   String { return digits + letters }
 
     mutating func replace(at index: Int, with character: Character) {
         var stringArray = Array(self)

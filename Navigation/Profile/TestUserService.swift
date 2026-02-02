@@ -12,7 +12,7 @@ class TestUserService: UserService {
     
     init() {
         let avatar = UIImage(named: "teo")!
-        self.testUser = User(login: "Varvara", fullName: "Leonard Test", avatar: avatar, status: "In work")
+        self.testUser = User(login: "Gemini", fullName: "Leonard Test", avatar: avatar, status: "In work")
     }
     
     func getUser(by login: String) -> User? {
