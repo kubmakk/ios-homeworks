@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 import StorageService
 
-final class CoreDataManager {
+final class CoreDataManager: CoreDataServiceProtocol {
     static let shared = CoreDataManager()
 
     private init() {}

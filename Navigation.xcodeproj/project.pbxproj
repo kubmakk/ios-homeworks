@@ -91,6 +91,16 @@
 		4CD2AE202D2DA65600B79E10 /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2AE1E2D2DA65100B79E10 /* CurrentUserService.swift */; };
 		4CDFBDD12E255A2700066A3D /* PasswordGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDFBDD02E255A2700066A3D /* PasswordGen.swift */; };
 		4CDFBDD22E255A2700066A3D /* PasswordGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDFBDD02E255A2700066A3D /* PasswordGen.swift */; };
+		4CE3A9CE2F30F66000B28202 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3A9CD2F30F65C00B28202 /* FeedModel.swift */; };
+		4CE3A9CF2F30F66000B28202 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3A9CD2F30F65C00B28202 /* FeedModel.swift */; };
+		4CE3A9D12F30F6A900B28202 /* CoreDataServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3A9D02F30F6A300B28202 /* CoreDataServiceProtocol.swift */; };
+		4CE3A9D22F30F6A900B28202 /* CoreDataServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3A9D02F30F6A300B28202 /* CoreDataServiceProtocol.swift */; };
+		4CE3A9D42F30F75400B28202 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3A9D32F30F74F00B28202 /* UserService.swift */; };
+		4CE3A9D52F30F75400B28202 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3A9D32F30F74F00B28202 /* UserService.swift */; };
+		4CE3A9DB2F30F78E00B28202 /* AppStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3A9DA2F30F78900B28202 /* AppStyles.swift */; };
+		4CE3A9DC2F30F78E00B28202 /* AppStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3A9DA2F30F78900B28202 /* AppStyles.swift */; };
+		4CE3A9DE2F30F7A400B28202 /* AppFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3A9DD2F30F7A100B28202 /* AppFonts.swift */; };
+		4CE3A9DF2F30F7A400B28202 /* AppFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3A9DD2F30F7A100B28202 /* AppFonts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -188,6 +198,11 @@
 		4CD2AE1B2D2D9FC200B79E10 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4CD2AE1E2D2DA65100B79E10 /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
 		4CDFBDD02E255A2700066A3D /* PasswordGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGen.swift; sourceTree = "<group>"; };
+		4CE3A9CD2F30F65C00B28202 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
+		4CE3A9D02F30F6A300B28202 /* CoreDataServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataServiceProtocol.swift; sourceTree = "<group>"; };
+		4CE3A9D32F30F74F00B28202 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		4CE3A9DA2F30F78900B28202 /* AppStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStyles.swift; sourceTree = "<group>"; };
+		4CE3A9DD2F30F7A100B28202 /* AppFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFonts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -279,6 +294,7 @@
 		3601A2A628490DDF000D261A /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				4CE3A9D92F30F77D00B28202 /* Styles */,
 				4C6C639F2E995944008279FF /* Map */,
 				4C772AE62E8EF86600C2D87F /* Favorites */,
 				4C772ADF2E8EF7EE00C2D87F /* CoreData */,
@@ -298,6 +314,7 @@
 		3601A2C5284A771D000D261A /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				4CE3A9D32F30F74F00B28202 /* UserService.swift */,
 				4C84BF8B2D31D7FE0017E2B4 /* TestUserService.swift */,
 				4CD2AE1E2D2DA65100B79E10 /* CurrentUserService.swift */,
 				4CD2AE1B2D2D9FC200B79E10 /* User.swift */,
@@ -332,6 +349,7 @@
 		4C32C9252D909DA500657557 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				4CE3A9CD2F30F65C00B28202 /* FeedModel.swift */,
 				4C7F8BEB2D9B2C6F000D751C /* FeedCoordinator.swift */,
 				3601A2BB28494D5D000D261A /* FeedVC.swift */,
 				4C32C9222D909D3D00657557 /* FeedVM.swift */,
@@ -360,6 +378,7 @@
 		4C772ADF2E8EF7EE00C2D87F /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				4CE3A9D02F30F6A300B28202 /* CoreDataServiceProtocol.swift */,
 				4C772AE32E8EF82400C2D87F /* CoreDataManager.swift */,
 			);
 			path = CoreData;
@@ -384,6 +403,15 @@
 				4C68BF0B2EBA295500E26A7A /* LocalNotificationService.swift */,
 			);
 			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		4CE3A9D92F30F77D00B28202 /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				4CE3A9DD2F30F7A100B28202 /* AppFonts.swift */,
+				4CE3A9DA2F30F78900B28202 /* AppStyles.swift */,
+			);
+			path = Styles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -582,6 +610,8 @@
 				4C7F8BF42D9B2E8B000D751C /* ProfileCoord.swift in Sources */,
 				36528E41284FE38C00965BA4 /* ExtensionUIView.swift in Sources */,
 				4CD2AE1C2D2D9FC900B79E10 /* User.swift in Sources */,
+				4CE3A9DE2F30F7A400B28202 /* AppFonts.swift in Sources */,
+				4CE3A9D22F30F6A900B28202 /* CoreDataServiceProtocol.swift in Sources */,
 				4C38185A2EB5066A001D374C /* LoginVM.swift in Sources */,
 				36C5F05E2850B4A6005EFC6C /* PhotoExamples.swift in Sources */,
 				4C6C63A82E99597A008279FF /* MapViewController.swift in Sources */,
@@ -594,8 +624,11 @@
 				36C5F0612850B723005EFC6C /* PhotosVC.swift in Sources */,
 				4C32C9232D909D3D00657557 /* FeedVM.swift in Sources */,
 				36528E39284F700900965BA4 /* ExtensionUIImage.swift in Sources */,
+				4CE3A9D52F30F75400B28202 /* UserService.swift in Sources */,
 				36C5F05C2850B1B1005EFC6C /* PhotosTableViewCell.swift in Sources */,
 				3601A2C42849E232000D261A /* InfoVC.swift in Sources */,
+				4CE3A9CE2F30F66000B28202 /* FeedModel.swift in Sources */,
+				4CE3A9DB2F30F78E00B28202 /* AppStyles.swift in Sources */,
 				4C68BF0D2EBA295500E26A7A /* LocalNotificationService.swift in Sources */,
 				4C7F8BED2D9B2C75000D751C /* FeedCoordinator.swift in Sources */,
 				4C772AE42E8EF82400C2D87F /* CoreDataManager.swift in Sources */,
@@ -640,6 +673,8 @@
 				4C7F8BF32D9B2E8B000D751C /* ProfileCoord.swift in Sources */,
 				4CB61E512D1B70100059C457 /* ExtensionUIView.swift in Sources */,
 				4CD2AE1D2D2D9FC900B79E10 /* User.swift in Sources */,
+				4CE3A9DF2F30F7A400B28202 /* AppFonts.swift in Sources */,
+				4CE3A9D12F30F6A900B28202 /* CoreDataServiceProtocol.swift in Sources */,
 				4C38185B2EB5066A001D374C /* LoginVM.swift in Sources */,
 				4CB61E522D1B70100059C457 /* PhotoExamples.swift in Sources */,
 				4C6C63A72E99597A008279FF /* MapViewController.swift in Sources */,
@@ -652,8 +687,11 @@
 				4CB61E552D1B70100059C457 /* PhotosVC.swift in Sources */,
 				4C32C9242D909D3D00657557 /* FeedVM.swift in Sources */,
 				4CB61E562D1B70100059C457 /* ExtensionUIImage.swift in Sources */,
+				4CE3A9D42F30F75400B28202 /* UserService.swift in Sources */,
 				4CB61E572D1B70100059C457 /* PhotosTableViewCell.swift in Sources */,
 				4CB61E582D1B70100059C457 /* InfoVC.swift in Sources */,
+				4CE3A9CF2F30F66000B28202 /* FeedModel.swift in Sources */,
+				4CE3A9DC2F30F78E00B28202 /* AppStyles.swift in Sources */,
 				4C68BF0C2EBA295500E26A7A /* LocalNotificationService.swift in Sources */,
 				4C7F8BEC2D9B2C75000D751C /* FeedCoordinator.swift in Sources */,
 				4C772AE52E8EF82400C2D87F /* CoreDataManager.swift in Sources */,

@@ -20,9 +20,9 @@ final class ProfileViewController: UIViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         table.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: headerIdent)
         table.register(PhotosTableViewCell.self, forCellReuseIdentifier: photoIdent)
-        table.register(PostTableViewCell.self, forCellReuseIdentifier: postIdent) 
+        table.register(PostTableViewCell.self, forCellReuseIdentifier: postIdent)
         #if DEBUG
-        table.backgroundColor = .red
+        table.backgroundColor = .gray
         #else
         table.backgroundColor = .gray
         #endif

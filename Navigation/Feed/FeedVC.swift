@@ -187,27 +187,7 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
         )
     }
 
-
-    // Очистка наблюдателей (опционально)
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-}
-
-class FeedModel {
-    private let secretWord: String
-    
-    init(secretWord: String) {
-        self.secretWord = secretWord
-    }
-    
-    func check(word: String) {
-        let isCorrect = word == self.secretWord
-        NotificationCenter.default.post(name: .wordChecked, object: nil, userInfo: ["result": isCorrect])
-    }
-}
-
-// MARK: - Extension
-extension Notification.Name {
-    static let wordChecked = Notification.Name("wordChecked")
 }

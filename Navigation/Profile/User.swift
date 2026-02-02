@@ -20,7 +20,3 @@ class User {
         self.status = status
     }
 }
-
-protocol UserService {
-    func getUser(by login: String) -> User?
-}
