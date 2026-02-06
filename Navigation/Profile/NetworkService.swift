@@ -12,6 +12,7 @@ struct ApiPost: Decodable {
     let id: Int
     let url: String
     let thumbnaiUrl: String
+    let title: String
 }
 
 enum NetworkError: Error{

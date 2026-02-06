@@ -80,7 +80,8 @@ class PostTableViewCell: UITableViewCell {
         button.addTarget(self, action: #selector(handleFavoriteTap), for: .touchUpInside)
         return button
     }()
-
+    
+    
     // MARK: - Init section
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -126,28 +127,41 @@ class PostTableViewCell: UITableViewCell {
 
     // MARK: - Run loop
     
-    func configPostArray(post: Post) {
-        self.currentPost = post
-        postAuthor.text = post.author
-        postDescription.text = post.description
-        if let originalImage = UIImage(named: post.image) {
-            imageProcessor.processImage(
-                sourceImage: originalImage,
-                filter: .colorInvert
-            ) { filteredImage in
-                postImage.image = filteredImage
-            }
-        }
-        postLikes.text = "Likes: \(post.likes)"
-        viewCounter = post.views
-        postViews.text = "Views: \(viewCounter)"
-        favoriteButton.isSelected = CoreDataManager.shared.isFavorite(post: post)
+    func configure(with apiPost: ApiPost){
+        postAuthor.text = "User iD: \(apiPost.id)"
+        postDescription.text = apiPost.title
+        
+        postLikes.text = "Likes \(Int.random(in: 10...999))"
+        postViews.text = "Views \(Int.random(in: 10...50000))"
+        
+        postImage.image = UIImage(systemName: "photo")
+        postImage.load(from: apiPost.url)
+        
+        favoriteButton.isSelected = false
     }
     
-    func incrementPostViewsCounter() {
-        viewCounter += 1
-        postViews.text = "Views: \(viewCounter)"
-    }
+//    func configPostArray(post: Post) {
+//        self.currentPost = post
+//        postAuthor.text = post.author
+//        postDescription.text = post.description
+//        if let originalImage = UIImage(named: post.image) {
+//            imageProcessor.processImage(
+//                sourceImage: originalImage,
+//                filter: .colorInvert
+//            ) { filteredImage in
+//                postImage.image = filteredImage
+//            }
+//        }
+//        postLikes.text = "Likes: \(post.likes)"
+//        viewCounter = post.views
+//        postViews.text = "Views: \(viewCounter)"
+//        favoriteButton.isSelected = CoreDataManager.shared.isFavorite(post: post)
+//    }
+//    
+//    func incrementPostViewsCounter() {
+//        viewCounter += 1
+//        postViews.text = "Views: \(viewCounter)"
+//    }
 
     // MARK: - Actions
     @objc private func handleDoubleTap() {
@@ -158,6 +172,22 @@ class PostTableViewCell: UITableViewCell {
     @objc private func handleFavoriteTap() {
         guard let post = currentPost else { return }
         delegate?.postCellToggleFavorite(self, post: post)
+    }
+}
+
+// MARK: - extensions
+extension UIImageView {
+    func load(from urlString: String){
+        guard let url = URL(string: urlString) else { return }
+        
+        DispatchQueue.global().async {
+            [weak self] in
+            if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    self?.image = image
+                }
+            }
+        }
     }
 }
 
