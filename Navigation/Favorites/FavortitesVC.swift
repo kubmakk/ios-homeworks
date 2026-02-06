@@ -2,8 +2,6 @@
 //  FavortitesVC.swift
 //  Navigation
 //
-//  Created by kubmakk on 2/10/25.
-//
 
 import UIKit
 import StorageService
@@ -17,6 +15,7 @@ final class FavoritesViewController: UIViewController {
         let table = UITableView(frame: .zero, style: .grouped)
         table.translatesAutoresizingMaskIntoConstraints = false
         table.register(PostTableViewCell.self, forCellReuseIdentifier: Self.postIdent)
+        // Теперь это сработает, так как мы раскомментировали Extension ниже
         table.dataSource = self
         table.delegate = self
         return table
@@ -63,15 +62,17 @@ final class FavoritesViewController: UIViewController {
 
 extension FavoritesViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int { 1 }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { posts.count }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: Self.postIdent, for: indexPath) as! PostTableViewCell
+            // Используем старый метод конфигурации для локальных постов
             cell.configPostArray(post: posts[indexPath.row])
             cell.delegate = self
             return cell
         }
 }
-
 
 extension FavoritesViewController: PostTableViewCellDelegate {
     func postCellToggleFavorite(_ cell: PostTableViewCell, post: Post) {
@@ -84,5 +85,3 @@ extension FavoritesViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-
-

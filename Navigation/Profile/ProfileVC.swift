@@ -8,12 +8,13 @@ import StorageService
 
 final class ProfileViewController: UIViewController {
     
+    private var apiPosts: [ApiPost] = []
+    
     static let headerIdent = "header"
     static let photoIdent = "photo"
     static let postIdent = "post"
     var user: User?
     weak var coordinator: LoginCoordinator?
-   // weak var coordinator: ProfileCoordinator?
     
     static var postTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -22,9 +23,9 @@ final class ProfileViewController: UIViewController {
         table.register(PhotosTableViewCell.self, forCellReuseIdentifier: photoIdent)
         table.register(PostTableViewCell.self, forCellReuseIdentifier: postIdent)
         #if DEBUG
-        table.backgroundColor = .gray
+        table.backgroundColor = .systemGray6
         #else
-        table.backgroundColor = .gray
+        table.backgroundColor = .systemGray6
         #endif
         return table
     }()
@@ -42,6 +43,31 @@ final class ProfileViewController: UIViewController {
         Self.postTableView.delegate = self
         Self.postTableView.refreshControl = UIRefreshControl()
         Self.postTableView.refreshControl?.addTarget(self, action: #selector(reloadTableView), for: .valueChanged)
+        
+        fetchPosts()
+    }
+    
+    private func fetchPosts() {
+        NetworkService.shared.fetchPosts { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let posts):
+                    self?.apiPosts = posts
+                    Self.postTableView.reloadData()
+                    Self.postTableView.refreshControl?.endRefreshing()
+                case .failure(let error):
+                    print("Ошибка загрузки постов: \(error.localizedDescription)")
+                    self?.showErrorAlert()
+                    Self.postTableView.refreshControl?.endRefreshing()
+                }
+            }
+        }
+    }
+    
+    private func showErrorAlert() {
+        let alert = UIAlertController(title: "Ошибка", message: "Не удалось загрузить новости", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
     
     private func setupConstraints() {
@@ -54,8 +80,7 @@ final class ProfileViewController: UIViewController {
     }
 
     @objc func reloadTableView() {
-        Self.postTableView.reloadData()
-        Self.postTableView.refreshControl?.endRefreshing()
+        fetchPosts()
     }
 }
 
@@ -66,10 +91,11 @@ extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
-        case 1: return postExamples.count
+        case 1:
+            return apiPosts.count
         default:
             assertionFailure("no registered section")
-            return 1
+            return 0
         }
     }
 
@@ -87,8 +113,10 @@ extension ProfileViewController: UITableViewDelegate {
             return cell
         case 1:
             let cell = Self.postTableView.dequeueReusableCell(withIdentifier: Self.postIdent, for: indexPath) as! PostTableViewCell
-            cell.configPostArray(post: postExamples[indexPath.row])
-            cell.delegate = self
+            
+            let post = apiPosts[indexPath.row]
+            cell.configure(with: post)
+            
             return cell
         default:
             assertionFailure("no registered section")
@@ -99,7 +127,6 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section == 0 else { return nil }
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Self.headerIdent) as! ProfileHeaderView
-
         return headerView
     }
 
@@ -113,16 +140,17 @@ extension ProfileViewController: UITableViewDelegate {
             tableView.deselectRow(at: indexPath, animated: false)
             navigationController?.pushViewController(PhotosViewController(), animated: true)
         case 1:
-            guard let cell = tableView.cellForRow(at: indexPath) else { return }
-            if let post = cell as? PostTableViewCell {
-                post.incrementPostViewsCounter()
-            }
+            guard let cell = tableView.cellForRow(at: indexPath) as? PostTableViewCell else { return }
+            cell.incrementPostViewsCounter()
+            tableView.deselectRow(at: indexPath, animated: true)
         default:
             assertionFailure("no registered section")
         }
     }
 }
 
+// MARK: - PostTableViewCellDelegate
+/*
 extension ProfileViewController: PostTableViewCellDelegate {
     func postCellToggleFavorite(_ cell: PostTableViewCell, post: Post) {
         if CoreDataManager.shared.isFavorite(post: post) {
@@ -136,5 +164,4 @@ extension ProfileViewController: PostTableViewCellDelegate {
         }
     }
 }
-
-
+*/

@@ -17,6 +17,7 @@ class PostTableViewCell: UITableViewCell {
     private let imageProcessor = ImageProcessor()
     weak var delegate: PostTableViewCellDelegate?
     private(set) var currentPost: Post?
+    
     private lazy var doubleTapRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
         recognizer.numberOfTapsRequired = 2
@@ -40,6 +41,7 @@ class PostTableViewCell: UITableViewCell {
         image.translatesAutoresizingMaskIntoConstraints = false
         image.backgroundColor = .black
         image.contentMode = .scaleAspectFill
+        image.clipsToBounds = true
         return image
     }()
 
@@ -80,8 +82,7 @@ class PostTableViewCell: UITableViewCell {
         button.addTarget(self, action: #selector(handleFavoriteTap), for: .touchUpInside)
         return button
     }()
-    
-    
+
     // MARK: - Init section
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -94,6 +95,12 @@ class PostTableViewCell: UITableViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("lol")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        postImage.image = nil
+        favoriteButton.isSelected = false
     }
     
     private func setupConstraints() {
@@ -125,14 +132,30 @@ class PostTableViewCell: UITableViewCell {
         ])
     }
 
-    // MARK: - Run loop
+    // MARK: - Configuration Methods
     
-    func configure(with apiPost: ApiPost){
-        postAuthor.text = "User iD: \(apiPost.id)"
+    func configPostArray(post: Post) {
+        self.currentPost = post
+        postAuthor.text = post.author
+        postDescription.text = post.description
+        if let originalImage = UIImage(named: post.image) {
+            postImage.image = originalImage
+        }
+        postLikes.text = "Likes: \(post.likes)"
+        viewCounter = post.views
+        postViews.text = "Views: \(viewCounter)"
+        favoriteButton.isSelected = CoreDataManager.shared.isFavorite(post: post)
+    }
+    
+    func configure(with apiPost: ApiPost) {
+        self.currentPost = nil
+        
+        postAuthor.text = "ID: \(apiPost.id)"
         postDescription.text = apiPost.title
         
-        postLikes.text = "Likes \(Int.random(in: 10...999))"
-        postViews.text = "Views \(Int.random(in: 10...50000))"
+        postLikes.text = "Likes: \(Int.random(in: 0...100))"
+        viewCounter = Int.random(in: 100...5000)
+        postViews.text = "Views: \(viewCounter)"
         
         postImage.image = UIImage(systemName: "photo")
         postImage.load(from: apiPost.url)
@@ -140,28 +163,10 @@ class PostTableViewCell: UITableViewCell {
         favoriteButton.isSelected = false
     }
     
-//    func configPostArray(post: Post) {
-//        self.currentPost = post
-//        postAuthor.text = post.author
-//        postDescription.text = post.description
-//        if let originalImage = UIImage(named: post.image) {
-//            imageProcessor.processImage(
-//                sourceImage: originalImage,
-//                filter: .colorInvert
-//            ) { filteredImage in
-//                postImage.image = filteredImage
-//            }
-//        }
-//        postLikes.text = "Likes: \(post.likes)"
-//        viewCounter = post.views
-//        postViews.text = "Views: \(viewCounter)"
-//        favoriteButton.isSelected = CoreDataManager.shared.isFavorite(post: post)
-//    }
-//    
-//    func incrementPostViewsCounter() {
-//        viewCounter += 1
-//        postViews.text = "Views: \(viewCounter)"
-//    }
+    func incrementPostViewsCounter() {
+        viewCounter += 1
+        postViews.text = "Views: \(viewCounter)"
+    }
 
     // MARK: - Actions
     @objc private func handleDoubleTap() {
@@ -175,13 +180,12 @@ class PostTableViewCell: UITableViewCell {
     }
 }
 
-// MARK: - extensions
+// MARK: - Extension for Image Loading
 extension UIImageView {
-    func load(from urlString: String){
+    func load(from urlString: String) {
         guard let url = URL(string: urlString) else { return }
         
-        DispatchQueue.global().async {
-            [weak self] in
+        DispatchQueue.global().async { [weak self] in
             if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
                 DispatchQueue.main.async {
                     self?.image = image
@@ -190,4 +194,3 @@ extension UIImageView {
         }
     }
 }
-

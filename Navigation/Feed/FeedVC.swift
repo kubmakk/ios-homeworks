@@ -7,6 +7,19 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
     var viewModel: FeedVM!
     weak var coordinator: FeedCoordinator?
     
+    private var posts: [ApiPost] = []
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "PostCell")
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
+        return tableView
+    }()
+    
     private let secretWordField: UITextField = {
         let textField = UITextField()
         let iconContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 24))
@@ -47,6 +60,7 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
         
         view.addSubview(secretWordField)
         view.addSubview(checkGuessButton)
+        view.addSubview(tableView)
         
         secretWordField.snp.makeConstraints { make in
             make.top.equalTo(stackView.snp.bottom).offset(10)
@@ -58,6 +72,12 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
             make.top.equalTo(secretWordField.snp.bottom).offset(10)
             make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)
+        }
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(checkGuessButton.snp.bottom).offset(10)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
     
@@ -82,6 +102,7 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
         
         view.backgroundColor = .systemTeal
         createSubView()
+        tableView.reloadData()
         let userModel = UserModel(fullName: "Some Name", status: "Some Status")
         viewModel = FeedVM(user: userModel, initialStatus: userModel.status)
         BildModel()
@@ -191,3 +212,20 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.removeObserver(self)
     }
 }
+
+extension FeedViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return posts.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostTableViewCell else {
+            return UITableViewCell()
+        }
+        let post = posts[indexPath.row]
+        cell.configure(with: post)
+        return cell
+    }
+}
+
+extension FeedViewController: UITableViewDelegate {}
