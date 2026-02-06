@@ -101,6 +101,8 @@
 		4CE3A9DC2F30F78E00B28202 /* AppStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3A9DA2F30F78900B28202 /* AppStyles.swift */; };
 		4CE3A9DE2F30F7A400B28202 /* AppFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3A9DD2F30F7A100B28202 /* AppFonts.swift */; };
 		4CE3A9DF2F30F7A400B28202 /* AppFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3A9DD2F30F7A100B28202 /* AppFonts.swift */; };
+		4CFACD482F362DB400C6C97B /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFACD472F362DAA00C6C97B /* NetworkService.swift */; };
+		4CFACD492F362DB400C6C97B /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFACD472F362DAA00C6C97B /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,6 +205,7 @@
 		4CE3A9D32F30F74F00B28202 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		4CE3A9DA2F30F78900B28202 /* AppStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStyles.swift; sourceTree = "<group>"; };
 		4CE3A9DD2F30F7A100B28202 /* AppFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFonts.swift; sourceTree = "<group>"; };
+		4CFACD472F362DAA00C6C97B /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -314,6 +317,7 @@
 		3601A2C5284A771D000D261A /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				4CFACD472F362DAA00C6C97B /* NetworkService.swift */,
 				4CE3A9D32F30F74F00B28202 /* UserService.swift */,
 				4C84BF8B2D31D7FE0017E2B4 /* TestUserService.swift */,
 				4CD2AE1E2D2DA65100B79E10 /* CurrentUserService.swift */,
@@ -630,6 +634,7 @@
 				4CE3A9CE2F30F66000B28202 /* FeedModel.swift in Sources */,
 				4CE3A9DB2F30F78E00B28202 /* AppStyles.swift in Sources */,
 				4C68BF0D2EBA295500E26A7A /* LocalNotificationService.swift in Sources */,
+				4CFACD492F362DB400C6C97B /* NetworkService.swift in Sources */,
 				4C7F8BED2D9B2C75000D751C /* FeedCoordinator.swift in Sources */,
 				4C772AE42E8EF82400C2D87F /* CoreDataManager.swift in Sources */,
 				4C772AEE2E8EF8BE00C2D87F /* FavortitesPost.swift in Sources */,
@@ -693,6 +698,7 @@
 				4CE3A9CF2F30F66000B28202 /* FeedModel.swift in Sources */,
 				4CE3A9DC2F30F78E00B28202 /* AppStyles.swift in Sources */,
 				4C68BF0C2EBA295500E26A7A /* LocalNotificationService.swift in Sources */,
+				4CFACD482F362DB400C6C97B /* NetworkService.swift in Sources */,
 				4C7F8BEC2D9B2C75000D751C /* FeedCoordinator.swift in Sources */,
 				4C772AE52E8EF82400C2D87F /* CoreDataManager.swift in Sources */,
 				4C772AEF2E8EF8BE00C2D87F /* FavortitesPost.swift in Sources */,

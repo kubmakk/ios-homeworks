@@ -15,7 +15,7 @@ final class TabBarCoordinator: BaseCoordinator {
         self.rootNavigationController = navigationController
         super.init(navigationController: navigationController)
     }
-
+    
     override func start() {
         let feedNavigationController = UINavigationController()
         let profileNavigationController = UINavigationController()
