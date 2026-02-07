@@ -150,15 +150,15 @@ class PostTableViewCell: UITableViewCell {
     func configure(with apiPost: ApiPost) {
         self.currentPost = nil
         
-        postAuthor.text = "ID: \(apiPost.id)"
-        postDescription.text = apiPost.title
+        postAuthor.text = apiPost.title
+        postDescription.text = apiPost.description
         
         postLikes.text = "Likes: \(Int.random(in: 0...100))"
         viewCounter = Int.random(in: 100...5000)
         postViews.text = "Views: \(viewCounter)"
         
         postImage.image = UIImage(systemName: "photo")
-        postImage.load(from: apiPost.url)
+        postImage.load(from: apiPost.thumbnail)
         
         favoriteButton.isSelected = false
     }

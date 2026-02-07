@@ -7,11 +7,15 @@
 
 import Foundation
 
+struct ProductResponse: Codable {
+    let products: [ApiPost]
+}
+
 struct ApiPost: Codable {
     let id: Int
     let title: String
-    let url: String
-    let thumbnailUrl: String
+    let description: String
+    let thumbnail: String // Прямая ссылка на картинку
 }
 
 enum NetworkError: Error{
@@ -27,7 +31,7 @@ final class NetworkService {
     private init() {}
     
     func fetchPosts(completion: @escaping (Result<[ApiPost], Error>) -> Void) {
-        guard let url = URL(string: "https://jsonplaceholder.typicode.com/photos") else { return }
+        guard let url = URL(string: "https://dummyjson.com/products") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -38,10 +42,12 @@ final class NetworkService {
             guard let data = data else { return }
             
             do {
-                let posts = try JSONDecoder().decode([ApiPost].self, from: data)
-                let firstPosts = Array(posts.prefix(10))
-                completion(.success(firstPosts))
+                let decoder = JSONDecoder()
+                let result = try decoder.decode(ProductResponse.self, from: data)
+                
+                completion(.success(result.products))
             } catch {
+                print("Decoding error: \(error)") 
                 completion(.failure(error))
             }
         }
