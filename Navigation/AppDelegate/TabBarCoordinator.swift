@@ -37,12 +37,12 @@ final class TabBarCoordinator: BaseCoordinator {
         favoritesCoordinator.start()
         mapCoordinator.start()
 
-        feedNavigationController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "newspaper"), tag: 0)
+        feedNavigationController.tabBarItem = UITabBarItem(title: "Game", image: UIImage(systemName: "gamecontroller"), tag: 0)
         profileNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle"), tag: 1)
         favoritesNavigationController.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "heart"), tag: 2)
         mapNavigationController.tabBarItem = UITabBarItem(title: "Map", image: UIImage(systemName: "map"), tag: 3)
 
-        tabBarController.viewControllers = [feedNavigationController, profileNavigationController, favoritesNavigationController, mapNavigationController]
+        tabBarController.viewControllers = [profileNavigationController, feedNavigationController, favoritesNavigationController, mapNavigationController]
 
         rootNavigationController.setViewControllers([tabBarController], animated: false)
         rootNavigationController.isNavigationBarHidden = true 

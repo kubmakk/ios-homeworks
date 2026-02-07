@@ -9,19 +9,16 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
     
 
     private var model = FeedModel(secretWord: "like")
-    
-    private var posts: [ApiPost] = []
-    
+        
     // MARK: - UI Elements
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "PostCell")
-        tableView.dataSource = self
-        tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
+        tableView.backgroundColor = .clear 
         return tableView
     }()
     
@@ -206,22 +203,3 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
         )
     }
 }
-
-// MARK: - Extensions
-
-extension FeedViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostTableViewCell else {
-            return UITableViewCell()
-        }
-        let post = posts[indexPath.row]
-        cell.configure(with: post)
-        return cell
-    }
-}
-
-extension FeedViewController: UITableViewDelegate {}

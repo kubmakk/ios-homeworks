@@ -140,7 +140,6 @@ class MapViewController: UIViewController {
         mapView.showsTraffic = true
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
-        mapView.showsPointsOfInterest = true
     }
 }
 
