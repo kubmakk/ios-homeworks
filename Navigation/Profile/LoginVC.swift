@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 final class LoginViewController: UIViewController {
     
@@ -216,25 +217,36 @@ final class LoginViewController: UIViewController {
     }
     
     // MARK: - Event handlers
-//    @objc private func touchLoginButton() {
-//        guard let login = loginField.text,
-//                let password = passwordField.text else {return}
-//        
-//        if loginDelegate?.check(login: login, password: password) == true {
-//            let profileVC = ProfileViewController()
-//            navigationController?.setViewControllers([profileVC], animated: true)
-//        } else{
-//            let alert = UIAlertController(title: "Ошибка", message: "Введены не верные данные", preferredStyle: .alert)
-//            let ok = UIAlertAction(title: "ОК", style: .default)
-//            alert.addAction(ok)
-//            self.present(alert, animated: true, completion: nil)
-//        }
-//    }
-    
-    
     @objc private func touchLoginButton() {
-        coordinator?.showProfile()
-    }
+
+        guard let email = loginField.text, !email.isEmpty,
+                let password = passwordField.text, !password.isEmpty else {
+                showErrorAlert(message: "Пожалуйста, заполните логин и пароль")
+                return
+            }
+
+            Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+                guard let self = self else { return }
+                if let error = error {
+                    print("Ошибка входа Firebase: \(error.localizedDescription)")
+                    self.showErrorAlert(message: "Неверный логин или пароль")
+                } else {
+                    print("Успешная авторизация: \(authResult?.user.email ?? "no email")")
+                    self.coordinator?.showProfile()
+                }
+            }
+        }
+    
+    private func showErrorAlert(message: String) {
+            let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "ОК", style: .default)
+            alert.addAction(okAction)
+            present(alert, animated: true)
+        }
+    
+//    @objc private func touchLoginButton() {
+//        coordinator?.showProfile()
+//    }
 
     @objc private func keyboardShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {

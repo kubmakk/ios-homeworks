@@ -5,7 +5,6 @@
 
 import UIKit
 import SnapKit
-
 final class ProfileHeaderView: UITableViewHeaderFooterView {
     
     // MARK: Visual objects
@@ -155,13 +154,11 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
             make.trailing.equalTo(safeAreaInsets).offset(-16)
         }
     }
-    func configure(with user: User) {
-        self.user = user
-        avatarImageView.image = user.avatar
-        statusLabel.text = user.status
-        fullNameLabel.text = user.fullName
-        
-    }
+    func configure(email: String) {
+            fullNameLabel.text = email
+            avatarImageView.image = UIImage(named: "teo")
+            statusLabel.text = "Pick a mythical creature as a pet"
+        }
     // MARK: - Event handlers
     
     @objc private func statusTextChanged(_ textField: UITextField) {

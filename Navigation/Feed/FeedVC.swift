@@ -2,12 +2,17 @@ import UIKit
 import SnapKit
 
 final class FeedViewController: UIViewController, UITextFieldDelegate {
-    // MARK: - Constraint
     
-    var viewModel: FeedVM!
+    // MARK: - Properties
+    
     weak var coordinator: FeedCoordinator?
     
+
+    private var model = FeedModel(secretWord: "like")
+    
     private var posts: [ApiPost] = []
+    
+    // MARK: - UI Elements
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -29,7 +34,7 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
         textField.layer.cornerRadius = 8
         textField.leftView = iconContainerView
         textField.leftViewMode = .always
-        textField.returnKeyType = .done // Устанавливаем тип клавиши "Done"
+        textField.returnKeyType = .done
         return textField
     }()
     
@@ -42,6 +47,31 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
         action: { self.checkGuess() }
     )
     
+    // MARK: - Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .systemTeal
+        createSubView()
+        tableView.reloadData()
+        
+ 
+        NotificationCenter.default.addObserver(self, selector: #selector(tapToButn), name: .wordChecked, object: nil)
+        
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        secretWordField.delegate = self
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: - Setup UI
+    
     private func createSubView() {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,12 +79,14 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
         stackView.spacing = 10
         stackView.distribution = .fillEqually
         view.addSubview(stackView)
+        
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             stackView.heightAnchor.constraint(equalToConstant: 200),
             stackView.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor, constant: -32)
         ])
+        
         addPostButton(title: "Post number One", color: .systemPurple, to: stackView, selector: #selector(tapPostButton))
         addPostButton(title: "Post number Two", color: .systemIndigo, to: stackView, selector: #selector(tapPostButton))
         
@@ -68,11 +100,13 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
             make.right.equalTo(-16)
             make.height.equalTo(30)
         }
+        
         checkGuessButton.snp.makeConstraints { make in
             make.top.equalTo(secretWordField.snp.bottom).offset(10)
             make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)
         }
+        
         tableView.snp.makeConstraints { make in
             make.top.equalTo(checkGuessButton.snp.bottom).offset(10)
             make.left.equalToSuperview()
@@ -94,57 +128,19 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
         view.addArrangedSubview(button)
     }
     
-    private var model = FeedModel(secretWord: "like")
-    
-    // MARK: - lifestyle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = .systemTeal
-        createSubView()
-        tableView.reloadData()
-        let userModel = UserModel(fullName: "Some Name", status: "Some Status")
-        viewModel = FeedVM(user: userModel, initialStatus: userModel.status)
-        BildModel()
-        NotificationCenter.default.addObserver(self, selector: #selector(tapToButn), name: .wordChecked, object: nil)
-        
-        // Добавляем наблюдатели за клавиатурой
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillShow),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
-        
-        secretWordField.delegate = self
-    }
-    
-    // MARK: - func
-    
-    private func BildModel() {
-        viewModel.updatedIfNeed = { [weak self] newStatus in
-            guard let self = self else { return }
-            
-            print("Статус обновлен: \(newStatus)")
-            self.checkGuessButton.setTitle("Статус: \(newStatus)", for: .normal)
-        }
-        
-    }
+    // MARK: - Actions
     
     @objc func tapPostButton() {
+
         let post = postExamples[0]
-        
         let postVC = PostViewController()
         postVC.post = post
         navigationController?.pushViewController(postVC, animated: true)
         
-        viewModel.updateStatus(newStatus: "Просмотрен пост")
+
+        let newStatus = "Просмотрен пост"
+        print("Статус обновлен: \(newStatus)")
+        checkGuessButton.setTitle("Статус: \(newStatus)", for: .normal)
     }
     
     @objc private func tapToButn(_ notification: Notification) {
@@ -156,6 +152,7 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
     
     @objc private func checkGuess() {
         guard let userInput = secretWordField.text, !userInput.isEmpty else { return }
+
         model.check(word: userInput)
     }
     
@@ -165,6 +162,7 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
     @objc private func keyboardWillShow(notification: NSNotification) {
         guard
             let userInfo = notification.userInfo,
@@ -207,11 +205,9 @@ final class FeedViewController: UIViewController, UITextFieldDelegate {
             }
         )
     }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
 }
+
+// MARK: - Extensions
 
 extension FeedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

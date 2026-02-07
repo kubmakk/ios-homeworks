@@ -5,6 +5,7 @@
 
 import UIKit
 import StorageService
+import FirebaseAuth
 
 final class ProfileViewController: UIViewController {
     
@@ -126,7 +127,16 @@ extension ProfileViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section == 0 else { return nil }
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Self.headerIdent) as! ProfileHeaderView
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Self.headerIdent) as? ProfileHeaderView else {
+            return nil
+        }
+
+        if let currentUser = Auth.auth().currentUser, let email = currentUser.email {
+            headerView.configure(email: email)
+
+        } else {
+            headerView.configure(email: "Гость")
+        }
         return headerView
     }
 
