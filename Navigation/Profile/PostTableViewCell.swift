@@ -138,8 +138,14 @@ class PostTableViewCell: UITableViewCell {
         self.currentPost = post
         postAuthor.text = post.author
         postDescription.text = post.description
+        
         if let originalImage = UIImage(named: post.image) {
             postImage.image = originalImage
+        } else {
+            postImage.image = UIImage(systemName: "photo")
+            postImage.tintColor = .gray
+            
+            postImage.load(from: post.image)
         }
         postLikes.text = "Likes: \(post.likes)"
         viewCounter = post.views
@@ -148,19 +154,32 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func configure(with apiPost: ApiPost) {
-        self.currentPost = nil
+        
+        let randomLikes = Int.random(in: 0...100)
+        let randomViews = Int.random(in: 100...5000)
+        
+        let convertedPost = Post(
+                author: apiPost.title,
+                description: apiPost.description,
+                image: apiPost.thumbnail,
+                likes: randomLikes,
+                views: randomViews
+            )
+        
+        self.currentPost = convertedPost
         
         postAuthor.text = apiPost.title
         postDescription.text = apiPost.description
         
-        postLikes.text = "Likes: \(Int.random(in: 0...100))"
-        viewCounter = Int.random(in: 100...5000)
-        postViews.text = "Views: \(viewCounter)"
+        
+        postLikes.text = "Likes: \(convertedPost.likes)"
+        viewCounter = convertedPost.views
+        postViews.text = "Views: \(convertedPost.views)"
         
         postImage.image = UIImage(systemName: "photo")
-        postImage.load(from: apiPost.thumbnail)
+        postImage.load(from: convertedPost.image)
         
-        favoriteButton.isSelected = false
+        favoriteButton.isSelected = CoreDataManager.shared.isFavorite(post: convertedPost)
     }
     
     func incrementPostViewsCounter() {

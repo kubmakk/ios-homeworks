@@ -114,10 +114,9 @@ extension ProfileViewController: UITableViewDelegate {
             return cell
         case 1:
             let cell = Self.postTableView.dequeueReusableCell(withIdentifier: Self.postIdent, for: indexPath) as! PostTableViewCell
-            
             let post = apiPosts[indexPath.row]
             cell.configure(with: post)
-            
+            cell.delegate = self
             return cell
         default:
             assertionFailure("no registered section")
@@ -160,7 +159,7 @@ extension ProfileViewController: UITableViewDelegate {
 }
 
 // MARK: - PostTableViewCellDelegate
-/*
+
 extension ProfileViewController: PostTableViewCellDelegate {
     func postCellToggleFavorite(_ cell: PostTableViewCell, post: Post) {
         if CoreDataManager.shared.isFavorite(post: post) {
@@ -174,4 +173,4 @@ extension ProfileViewController: PostTableViewCellDelegate {
         }
     }
 }
-*/
+

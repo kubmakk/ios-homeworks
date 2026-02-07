@@ -15,7 +15,6 @@ final class FavoritesViewController: UIViewController {
         let table = UITableView(frame: .zero, style: .grouped)
         table.translatesAutoresizingMaskIntoConstraints = false
         table.register(PostTableViewCell.self, forCellReuseIdentifier: Self.postIdent)
-        // Теперь это сработает, так как мы раскомментировали Extension ниже
         table.dataSource = self
         table.delegate = self
         return table
@@ -67,7 +66,6 @@ extension FavoritesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: Self.postIdent, for: indexPath) as! PostTableViewCell
-            // Используем старый метод конфигурации для локальных постов
             cell.configPostArray(post: posts[indexPath.row])
             cell.delegate = self
             return cell
