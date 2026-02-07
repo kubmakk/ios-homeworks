@@ -34,3 +34,5 @@
 | Вход | Аккаунт | Подобор слова | Избранное | Карта |
 | --- | --- | --- | --- | --- |
 | ![image](https://github.com/kubmakk/ios-homeworks/blob/fios_1/Screens/ipadprofileLogin.png?raw=true) | ![image](https://github.com/kubmakk/ios-homeworks/blob/fios_1/Screens/ipadProfile.png?raw=true) | ![image](https://github.com/kubmakk/ios-homeworks/blob/fios_1/Screens/ipadGame.png?raw=true) | ![image](https://github.com/kubmakk/ios-homeworks/blob/fios_1/Screens/ipadFavorites.png?raw=true) | ![image](https://github.com/kubmakk/ios-homeworks/blob/fios_1/Screens/ipadMap.png?raw=true) |
+
+
