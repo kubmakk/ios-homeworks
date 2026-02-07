@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-Release/Pods-Release-frameworks.sh
+${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework
+${BUILT_PRODUCTS_DIR}/FirebaseCoreInternal/FirebaseCoreInternal.framework
+${BUILT_PRODUCTS_DIR}/GoogleUtilities-Environment-Logger-NSData+zlib-Privacy/GoogleUtilities.framework
