@@ -23,13 +23,14 @@
 3. Добавить свой `GoogleService-Info.plist` (так как он в .gitignore).
 4. Запустить проект в Xcode.
 
-## Тестовый доступ
-Для проверки функционала используйте следующие учетные данные:
-
-Login: nik@nik.co
-
-Password: nikitoskuz
-
-
-
 ## Скриншоты
+
+### iPhone
+| Вход | Аккаунт | Подобор слова | Избранное | Карта |
+| --- | --- | --- | --- | --- |
+| ![image](https://github.com/kubmakk/ios-homeworks/blob/fios_1/Screens/ProfileLogin.png?raw=true) | ![image](https://github.com/kubmakk/ios-homeworks/blob/fios_1/Screens/profile.png?raw=true) | ![image](https://github.com/kubmakk/ios-homeworks/blob/fios_1/Screens/Game.png?raw=true) | ![image](https://github.com/kubmakk/ios-homeworks/blob/fios_1/Screens/Faorites.png?raw=true) | ![image](https://github.com/kubmakk/ios-homeworks/blob/fios_1/Screens/map.png?raw=true) |
+
+### iPad
+| Вход | Аккаунт | Подобор слова | Избранное | Карта |
+| --- | --- | --- | --- | --- |
+| ![image](https://github.com/kubmakk/ios-homeworks/blob/fios_1/Screens/ipadprofileLogin.png?raw=true) | ![image](https://github.com/kubmakk/ios-homeworks/blob/fios_1/Screens/ipadProfile.png?raw=true) | ![image](https://github.com/kubmakk/ios-homeworks/blob/fios_1/Screens/ipadGame.png?raw=true) | ![image](https://github.com/kubmakk/ios-homeworks/blob/fios_1/Screens/ipadFavorites.png?raw=true) | ![image](https://github.com/kubmakk/ios-homeworks/blob/fios_1/Screens/ipadMap.png?raw=true) |
