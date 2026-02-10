@@ -1,0 +1,3 @@
+[submodule "SnapKit/SnapKit"]
+	path = SnapKit/SnapKit
+	url = https://github.com/SnapKit/SnapKit.git
